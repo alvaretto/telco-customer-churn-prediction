@@ -21,8 +21,10 @@
 - [Metodología](#-metodología)
 - [Resultados](#-resultados)
 - [Conclusiones](#-conclusiones)
-- [Autor](#-autor)
+- [Autores](#-autores)
 - [Licencia](#-licencia)
+- [Agradecimientos](#-agradecimientos)
+- [Referencias](#-referencias)
 
 ---
 
@@ -126,11 +128,13 @@ conda activate churn-env
 
 ### 3. Instalar dependencias
 
+**Con pip:**
+
 ```bash
 pip install numpy pandas matplotlib seaborn scikit-learn xgboost imbalanced-learn jupyter
 ```
 
-O con conda:
+**Con conda:**
 
 ```bash
 conda install numpy pandas matplotlib seaborn scikit-learn xgboost imbalanced-learn jupyter -c conda-forge
@@ -142,26 +146,27 @@ conda install numpy pandas matplotlib seaborn scikit-learn xgboost imbalanced-le
 
 ### Ejecutar el Notebook
 
-1. Iniciar Jupyter Notebook:
+1. **Iniciar Jupyter Notebook:**
    ```bash
    jupyter notebook
    ```
 
-2. Abrir `Telco-Customer-Churn.ipynb`
+2. **Abrir el notebook:** `Telco-Customer-Churn.ipynb`
 
-3. Ejecutar todas las celdas secuencialmente:
+3. **Ejecutar todas las celdas secuencialmente:**
    - Menú: `Cell` → `Run All`
    - O ejecutar celda por celda con `Shift + Enter`
 
-### Tiempo de Ejecución
+### ⏱️ Tiempo de Ejecución Estimado
 
-- **Análisis Exploratorio**: ~2-3 minutos
-- **Modelado Baseline**: ~3-5 minutos
-- **SMOTE y Reentrenamiento**: ~2-3 minutos
-- **Optimización de Hiperparámetros**: ~5-10 minutos
-- **Evaluación Final**: ~1-2 minutos
-
-**Total**: Aproximadamente 15-25 minutos
+| Fase | Duración |
+|------|----------|
+| Análisis Exploratorio | ~2-3 minutos |
+| Modelado Baseline | ~3-5 minutos |
+| SMOTE y Reentrenamiento | ~2-3 minutos |
+| Optimización de Hiperparámetros | ~5-10 minutos |
+| Evaluación Final | ~1-2 minutos |
+| **Total** | **~15-25 minutos** |
 
 ---
 
