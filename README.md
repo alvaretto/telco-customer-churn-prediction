@@ -86,7 +86,7 @@ telco-customer-churn-prediction/
 │
 ├── Telco-Customer-Churn.ipynb           # Notebook principal optimizado
 ├── WA_Fn-UseC_-Telco-Customer-Churn.csv # Dataset (7,043 registros)
-├── INSTRUCCIONES.md                     # Guía de ejecución y defensa
+├── INSTRUCCIONES.md                     # Guía de ejecución
 ├── README.md                            # Este archivo
 ├── LICENSE                              # Licencia MIT
 └── .gitignore                           # Archivos excluidos de Git
