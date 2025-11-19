@@ -120,7 +120,7 @@ El notebook está organizado en 10 secciones principales:
 
 ### Técnicos:
 
-1. **¿Por qué usaste SMOTE en lugar de otras técnicas?**
+1. **¿Por qué se usó SMOTE en lugar de otras técnicas?**
    - SMOTE crea ejemplos sintéticos inteligentes
    - Mejor que simple oversampling
    - Evita overfitting del undersampling
@@ -136,7 +136,7 @@ El notebook está organizado en 10 secciones principales:
    - Excelente capacidad discriminativa
    - Mejor que clasificador aleatorio (0.5)
 
-4. **¿Por qué dividiste 80/20 y no 70/30?**
+4. **¿Por qué se dividió 80/20 y no 70/30?**
    - Balance entre datos de entrenamiento y validación
    - Suficientes datos para test (~1,400 registros)
    - Estándar en la industria
@@ -148,12 +148,12 @@ El notebook está organizado en 10 secciones principales:
    - Tipo de contrato (mes a mes)
    - Servicios adicionales (tech support)
 
-2. **¿Qué recomendaciones darías a la empresa?**
+2. **¿Qué recomendaciones se darían a la empresa?**
    - Programas de retención para clientes nuevos
    - Incentivos para contratos largos
    - Promoción de servicios de soporte
 
-3. **¿Cómo implementarías esto en producción?**
+3. **¿Cómo se implementaría esto en producción?**
    - API para scoring en tiempo real
    - Dashboard de monitoreo
    - Actualización periódica del modelo
