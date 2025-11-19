@@ -187,7 +187,7 @@ conda install numpy pandas matplotlib seaborn scikit-learn xgboost imbalanced-le
 
 ### 3. Feature Engineering
 
-Creación de 6 nuevas características derivadas:
+Creación de 6 características derivadas:
 
 | Feature | Descripción |
 |---------|-------------|
