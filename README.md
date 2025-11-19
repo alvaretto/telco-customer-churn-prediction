@@ -82,10 +82,11 @@ Este proyecto presenta un **análisis completo de predicción de abandono de cli
 ```
 telco-customer-churn-prediction/
 │
-├── Telco-Customer-Churn.ipynb          # Notebook principal optimizado
+├── Telco-Customer-Churn.ipynb           # Notebook principal optimizado
 ├── WA_Fn-UseC_-Telco-Customer-Churn.csv # Dataset (7,043 registros)
 ├── MEJORAS_REALIZADAS.md                # Documentación de mejoras
 ├── INSTRUCCIONES.md                     # Guía de ejecución y defensa
+├── CONFIGURACION_GITHUB.md              # Guía de configuración y seguridad
 ├── README.md                            # Este archivo
 ├── LICENSE                              # Licencia MIT
 └── .gitignore                           # Archivos excluidos de Git
@@ -187,7 +188,7 @@ Creación de 6 nuevas características derivadas:
 |---------|-------------|
 | `ChargeRatio` | Ratio entre MonthlyCharges y TotalCharges |
 | `AvgMonthlyCharges` | Promedio de cargos mensuales según tenure |
-| `TenureGroup` | Categorización de tenure (0-12, 13-24, 25-48, 49-72) |
+| `TenureGroup` | Categorización de tenure (0-12, 13-24, 25-48, 49-72 meses) |
 | `TotalServices` | Número total de servicios contratados |
 | `SeniorWithDependents` | Combinación de SeniorCitizen y Dependents |
 | `HighValueContract` | Identificación de contratos de alto valor |
@@ -320,12 +321,17 @@ Comparación de 7 algoritmos de Machine Learning:
 
 ---
 
-## 👨‍💻 Autor
+## 👥 Autores
 
-**Álvaro Ángel Molina**
+Este proyecto fue desarrollado por:
 
-- GitHub: [@alvaretto](https://github.com/alvaretto)
-- Email: alvaretto@users.noreply.github.com
+- **Anderson Tabima**
+- **Antony Tabima**
+- **Yhabeidy Alejandra Agudelo**
+- **Carlos Mario Londoño**
+- **Nataly Bedoya**
+- **Sebastian Cano**
+- **Álvaro Ángel Molina** - [@alvaretto](https://github.com/alvaretto)
 
 ---
 
@@ -338,8 +344,8 @@ Este proyecto está bajo la Licencia MIT. Ver el archivo [LICENSE](LICENSE) para
 ## 🙏 Agradecimientos
 
 - Dataset proporcionado por [Kaggle - Telco Customer Churn](https://www.kaggle.com/blastchar/telco-customer-churn)
-- Comunidad de scikit-learn y XGBoost por sus excelentes herramientas
-- Proyecto desarrollado como parte de formación en Inteligencia Artificial
+- Comunidad de scikit-learn, XGBoost e imbalanced-learn por sus excelentes herramientas
+- Proyecto desarrollado como parte del BootCamp de Inteligencia Artificial
 
 ---
 
