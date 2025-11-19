@@ -83,9 +83,9 @@ El notebook está organizado en 10 secciones principales:
 9. **Evaluación Detallada**
 10. **Conclusiones y Recomendaciones**
 
-## Puntos Clave para la Defensa
+## Puntos Clave
 
-### Conceptos Fundamentales a Dominar:
+### Conceptos Fundamentales:
 
 1. **Desbalanceo de Clases**:
 
