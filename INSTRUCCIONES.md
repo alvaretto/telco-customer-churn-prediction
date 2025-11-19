@@ -116,9 +116,9 @@ El notebook está organizado en 10 secciones principales:
    - Insights de negocio
    - Recomendaciones accionables
 
-## Posibles Preguntas del Profesor
+## Posibles Cuestionamientos
 
-### Técnicas:
+### Técnicos:
 
 1. **¿Por qué usaste SMOTE en lugar de otras técnicas?**
    - SMOTE crea ejemplos sintéticos inteligentes
