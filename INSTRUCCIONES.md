@@ -88,25 +88,30 @@ El notebook está organizado en 10 secciones principales:
 ### Conceptos Fundamentales a Dominar:
 
 1. **Desbalanceo de Clases**:
+
    - Por qué es un problema (73% vs 27%)
    - Cómo SMOTE ayuda a balancear
    - Impacto en las métricas
 
 2. **Métricas de Evaluación**:
+
    - Accuracy vs Precision vs Recall
    - Por qué ROC-AUC es importante
    - Interpretación de la matriz de confusión
 
 3. **Feature Engineering**:
+
    - Justificación de cada feature creada
    - Impacto en el rendimiento del modelo
 
 4. **Optimización**:
+
    - Por qué usar RandomizedSearchCV
    - Importancia de la validación cruzada
    - Trade-offs en hiperparámetros
 
 5. **Interpretabilidad**:
+
    - Feature importance
    - Insights de negocio
    - Recomendaciones accionables
@@ -183,11 +188,11 @@ pip install xgboost
 ## Contacto y Soporte
 
 Si encuentras algún problema o tienes preguntas:
+
 1. Revisa la documentación de las librerías
 2. Verifica que todas las dependencias estén instaladas
 3. Asegúrate de ejecutar las celdas en orden
 
 ---
 
-**¡Buena suerte en tu defensa!** 🚀
 
