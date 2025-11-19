@@ -1,4 +1,4 @@
-# Instrucciones para Ejecutar el Notebook Optimizado
+# Instrucciones para Ejecutar el Notebook
 
 ## Requisitos Previos
 
