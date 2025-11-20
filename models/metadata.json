@@ -39,5 +39,11 @@
   "n_samples_train": 5634,
   "model_size_mb": 64.09,
   "preprocessor_size_mb": 0.01,
-  "save_location": "/content/drive/MyDrive/Colab_Models/Telco_Churn"
+  "save_location": "/content/drive/MyDrive/Colab_Models/Telco_Churn",
+  "library_versions": {
+    "sklearn": "1.5.2",
+    "pandas": "2.1.4",
+    "numpy": "1.26.2",
+    "joblib": "1.4.2"
+  }
 }
