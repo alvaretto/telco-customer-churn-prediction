@@ -1,0 +1,191 @@
+"""
+Risk Analysis Page - Individual customer churn prediction
+"""
+
+import streamlit as st
+import pandas as pd
+import joblib
+import os
+import plotly.graph_objects as go
+
+st.set_page_config(page_title="Risk Analysis", page_icon="🎯", layout="wide")
+
+st.title("🎯 Customer Churn Risk Analysis")
+st.markdown("Enter customer information to predict churn risk")
+st.markdown("---")
+
+# Load model
+MODEL_PATH = os.path.join(os.path.dirname(__file__), '..', '..', 'models', 'churn_model.pkl')
+PREPROCESSOR_PATH = os.path.join(os.path.dirname(__file__), '..', '..', 'models', 'preprocessor.pkl')
+
+try:
+    model = joblib.load(MODEL_PATH)
+    preprocessor = joblib.load(PREPROCESSOR_PATH)
+    model_loaded = True
+except Exception as e:
+    st.error(f"Error loading model: {e}")
+    model_loaded = False
+
+# Input form
+st.subheader("📝 Customer Information")
+
+col1, col2, col3 = st.columns(3)
+
+with col1:
+    st.markdown("**Demographics**")
+    gender = st.selectbox("Gender", ["Male", "Female"])
+    senior_citizen = st.selectbox("Senior Citizen", ["No", "Yes"])
+    partner = st.selectbox("Partner", ["No", "Yes"])
+    dependents = st.selectbox("Dependents", ["No", "Yes"])
+
+with col2:
+    st.markdown("**Services**")
+    phone_service = st.selectbox("Phone Service", ["No", "Yes"])
+    multiple_lines = st.selectbox("Multiple Lines", ["No", "Yes", "No phone service"])
+    internet_service = st.selectbox("Internet Service", ["No", "DSL", "Fiber optic"])
+    online_security = st.selectbox("Online Security", ["No", "Yes", "No internet service"])
+    online_backup = st.selectbox("Online Backup", ["No", "Yes", "No internet service"])
+    device_protection = st.selectbox("Device Protection", ["No", "Yes", "No internet service"])
+    tech_support = st.selectbox("Tech Support", ["No", "Yes", "No internet service"])
+    streaming_tv = st.selectbox("Streaming TV", ["No", "Yes", "No internet service"])
+    streaming_movies = st.selectbox("Streaming Movies", ["No", "Yes", "No internet service"])
+
+with col3:
+    st.markdown("**Account**")
+    tenure = st.slider("Tenure (months)", 0, 72, 12)
+    contract = st.selectbox("Contract", ["Month-to-month", "One year", "Two year"])
+    paperless_billing = st.selectbox("Paperless Billing", ["No", "Yes"])
+    payment_method = st.selectbox("Payment Method", [
+        "Electronic check",
+        "Mailed check",
+        "Bank transfer (automatic)",
+        "Credit card (automatic)"
+    ])
+    monthly_charges = st.number_input("Monthly Charges ($)", 0.0, 200.0, 70.0, 0.01)
+    total_charges = st.number_input("Total Charges ($)", 0.0, 10000.0, 840.0, 0.01)
+
+# Calculate derived features
+charge_ratio = total_charges / (monthly_charges * tenure) if tenure > 0 and monthly_charges > 0 else 0
+avg_monthly_charges = total_charges / tenure if tenure > 0 else monthly_charges
+
+if tenure <= 12:
+    tenure_group = "0-12"
+elif tenure <= 24:
+    tenure_group = "13-24"
+elif tenure <= 48:
+    tenure_group = "25-48"
+else:
+    tenure_group = "49+"
+
+# Count total services
+services = [phone_service, internet_service, online_security, online_backup, 
+            device_protection, tech_support, streaming_tv, streaming_movies]
+total_services = sum(1 for s in services if s == "Yes")
+
+senior_with_dependents = 1 if senior_citizen == "Yes" and dependents == "Yes" else 0
+high_value_contract = 1 if contract in ["One year", "Two year"] and monthly_charges > 70 else 0
+
+st.markdown("---")
+
+# Predict button
+if st.button("🔮 Predict Churn Risk", type="primary", use_container_width=True):
+    if not model_loaded:
+        st.error("Model not loaded. Cannot make prediction.")
+    else:
+        # Prepare data
+        customer_data = {
+            'gender': gender,
+            'SeniorCitizen': 1 if senior_citizen == "Yes" else 0,
+            'Partner': partner,
+            'Dependents': dependents,
+            'tenure': tenure,
+            'PhoneService': phone_service,
+            'MultipleLines': multiple_lines,
+            'InternetService': internet_service,
+            'OnlineSecurity': online_security,
+            'OnlineBackup': online_backup,
+            'DeviceProtection': device_protection,
+            'TechSupport': tech_support,
+            'StreamingTV': streaming_tv,
+            'StreamingMovies': streaming_movies,
+            'Contract': contract,
+            'PaperlessBilling': paperless_billing,
+            'PaymentMethod': payment_method,
+            'MonthlyCharges': monthly_charges,
+            'TotalCharges': total_charges,
+            'ChargeRatio': charge_ratio,
+            'AvgMonthlyCharges': avg_monthly_charges,
+            'TenureGroup': tenure_group,
+            'TotalServices': total_services,
+            'SeniorWithDependents': senior_with_dependents,
+            'HighValueContract': high_value_contract
+        }
+        
+        df = pd.DataFrame([customer_data])
+        
+        # Make prediction
+        try:
+            prediction = model.predict(df)[0]
+            probability = model.predict_proba(df)[0]
+            
+            churn_prob = probability[1]
+            
+            # Display results
+            st.markdown("---")
+            st.subheader("📊 Prediction Results")
+            
+            col1, col2, col3 = st.columns(3)
+            
+            with col1:
+                if prediction == 1:
+                    st.error("### ⚠️ HIGH RISK")
+                    st.markdown("**Customer likely to churn**")
+                else:
+                    st.success("### ✅ LOW RISK")
+                    st.markdown("**Customer likely to stay**")
+            
+            with col2:
+                st.metric("Churn Probability", f"{churn_prob*100:.1f}%")
+                st.metric("Retention Probability", f"{(1-churn_prob)*100:.1f}%")
+            
+            with col3:
+                if churn_prob < 0.3:
+                    risk_level = "🟢 Low"
+                elif churn_prob < 0.5:
+                    risk_level = "🟡 Medium"
+                elif churn_prob < 0.7:
+                    risk_level = "🟠 High"
+                else:
+                    risk_level = "🔴 Critical"
+                
+                st.metric("Risk Level", risk_level)
+            
+            # Probability gauge
+            fig = go.Figure(go.Indicator(
+                mode = "gauge+number+delta",
+                value = churn_prob * 100,
+                domain = {'x': [0, 1], 'y': [0, 1]},
+                title = {'text': "Churn Probability (%)"},
+                delta = {'reference': 50},
+                gauge = {
+                    'axis': {'range': [None, 100]},
+                    'bar': {'color': "darkred" if churn_prob > 0.5 else "darkgreen"},
+                    'steps': [
+                        {'range': [0, 30], 'color': "lightgreen"},
+                        {'range': [30, 50], 'color': "yellow"},
+                        {'range': [50, 70], 'color': "orange"},
+                        {'range': [70, 100], 'color': "red"}
+                    ],
+                    'threshold': {
+                        'line': {'color': "red", 'width': 4},
+                        'thickness': 0.75,
+                        'value': 50
+                    }
+                }
+            ))
+            
+            st.plotly_chart(fig, use_container_width=True)
+            
+        except Exception as e:
+            st.error(f"Error making prediction: {e}")
+

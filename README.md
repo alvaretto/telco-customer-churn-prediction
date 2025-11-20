@@ -404,6 +404,91 @@ Comparación de 7 algoritmos de Machine Learning:
 - Alertas automáticas para equipo de retención
 - Actualización trimestral del modelo con nuevos datos
 
+---
+
+## 🚀 Deployment
+
+El proyecto incluye una implementación completa de deployment con:
+
+### 🔧 API REST (Flask)
+
+API Flask para predicciones en tiempo real con 4 endpoints:
+- `GET /health` - Health check
+- `GET /model_info` - Información del modelo
+- `POST /predict` - Predicción individual
+- `POST /predict_batch` - Predicciones en lote
+
+**Deployment en Render:**
+```bash
+cd api
+pip install -r requirements.txt
+gunicorn --bind 0.0.0.0:$PORT app:app
+```
+
+Ver [API Usage Guide](docs/API_USAGE.md) para detalles completos.
+
+### 📊 Dashboard Interactivo (Streamlit)
+
+Dashboard con 5 módulos:
+- **📊 Overview**: Estadísticas generales y tendencias
+- **🎯 Risk Analysis**: Predicción de riesgo individual
+- **📈 Model Metrics**: Métricas de rendimiento del modelo
+- **💰 ROI Simulator**: Calculadora de ROI para campañas de retención
+- **🔍 Model Monitoring**: Monitoreo de performance en tiempo real
+
+**Deployment en Streamlit Cloud:**
+```bash
+cd dashboard
+streamlit run app.py
+```
+
+Ver [Dashboard Guide](docs/DASHBOARD_GUIDE.md) para guía de usuario completa.
+
+### 📁 Estructura de Deployment
+
+```
+Defensa-Proyecto/
+├── models/                    # Modelos serializados (Git LFS)
+│   ├── churn_model.pkl       # 65 MB - Random Forest
+│   ├── preprocessor.pkl      # Preprocessor
+│   └── metadata.json         # Metadata del modelo
+├── api/                       # API Flask
+│   ├── app.py
+│   ├── requirements.txt
+│   ├── Dockerfile
+│   └── README.md
+├── dashboard/                 # Dashboard Streamlit
+│   ├── app.py
+│   ├── pages/                # 5 páginas multi-página
+│   ├── requirements.txt
+│   └── README.md
+├── tests/                     # Tests automatizados
+│   ├── test_api.py
+│   └── test_model.py
+└── docs/                      # Documentación completa
+    ├── API_USAGE.md
+    ├── DASHBOARD_GUIDE.md
+    └── DEPLOYMENT.md
+```
+
+### 🧪 Testing
+
+```bash
+# Tests de la API
+pytest tests/test_api.py -v
+
+# Tests del modelo
+pytest tests/test_model.py -v
+```
+
+### 📚 Documentación Completa
+
+- **[API Usage Guide](docs/API_USAGE.md)** - Guía de uso de la API REST
+- **[Dashboard Guide](docs/DASHBOARD_GUIDE.md)** - Guía de usuario del dashboard
+- **[Deployment Guide](docs/DEPLOYMENT.md)** - Guía de deployment en Render/Streamlit Cloud
+
+---
+
 ### Próximos Pasos
 
 1. 🚀 **Implementación en Producción**: API REST para scoring en tiempo real
