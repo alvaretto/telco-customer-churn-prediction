@@ -86,7 +86,7 @@ telco-customer-churn-prediction/
 │
 ├── Telco-Customer-Churn.ipynb           # Notebook principal con análisis completo
 ├── WA_Fn-UseC_-Telco-Customer-Churn.csv # Dataset original (7,043 registros, 21 variables)
-├── preguntas_sustentacion.md            # 25 preguntas técnicas para defensa del proyecto
+├── preguntas-sustentacion.md            # 31 preguntas técnicas para defensa del proyecto
 ├── INSTRUCCIONES.md                     # Guía de ejecución del proyecto
 ├── README.md                            # Documentación principal (este archivo)
 ├── LICENSE                              # Licencia MIT
@@ -100,7 +100,7 @@ telco-customer-churn-prediction/
 |---------|-----------|
 | `Telco-Customer-Churn.ipynb` | Notebook principal con todo el pipeline de ML: EDA, preprocesamiento, feature engineering, modelado, evaluación y optimización |
 | `WA_Fn-UseC_-Telco-Customer-Churn.csv` | Dataset con información de 7,043 clientes: datos demográficos, servicios contratados, información de cuenta y variable objetivo (Churn) |
-| `preguntas_sustentacion.md` | Documento con 25 preguntas técnicas y respuestas detalladas para la sustentación del proyecto, cubriendo fundamentos teóricos y decisiones técnicas |
+| `preguntas-sustentacion.md` | Documento con 31 preguntas técnicas y respuestas detalladas para la sustentación del proyecto, cubriendo fundamentos teóricos y decisiones técnicas |
 | `INSTRUCCIONES.md` | Guía paso a paso para ejecutar el proyecto y reproducir los resultados |
 
 ---
@@ -191,12 +191,12 @@ Después de ejecutar el notebook, se habrán generado:
 
 ### Documento de Sustentación
 
-El archivo `preguntas_sustentacion.md` contiene:
-- **25 preguntas técnicas** con respuestas detalladas
+El archivo `preguntas-sustentacion.md` contiene:
+- **31 preguntas técnicas** con respuestas detalladas
 - **Fundamentos teóricos** de los algoritmos utilizados
 - **Explicación de decisiones técnicas** del proyecto
 - **Interpretación de métricas** y resultados
-- Organizado por temas: Preprocesamiento, Feature Engineering, Modelado, Evaluación, Optimización
+- Organizado por 7 categorías: Comprensión del Problema, EDA, Preprocesamiento, Feature Engineering, Modelado, Evaluación y Métricas, Conclusiones y Recomendaciones
 
 ---
 
@@ -221,12 +221,12 @@ Creación de 6 características derivadas:
 
 | Feature | Descripción |
 |---------|-------------|
-| `ChargeRatio` | Ratio entre MonthlyCharges y TotalCharges |
-| `AvgMonthlyCharges` | Promedio de cargos mensuales según tenure |
 | `TenureGroup` | Categorización de tenure (0-12, 13-24, 25-48, 49-72 meses) |
-| `TotalServices` | Número total de servicios contratados |
-| `SeniorWithDependents` | Combinación de SeniorCitizen y Dependents |
-| `HighValueContract` | Identificación de contratos de alto valor |
+| `AvgMonthlyCharges` | Promedio de cargos mensuales según tenure |
+| `ChargeRatio` | Ratio entre TotalCharges y MonthlyCharges |
+| `TotalServices` | Número total de servicios contratados (PhoneService, InternetService, etc.) |
+| `HasMultipleServices` | Indicador binario de si el cliente tiene múltiples servicios |
+| `IsNewCustomer` | Indicador binario de clientes nuevos (tenure < 12 meses) |
 
 ### 4. Preparación de Datos
 
@@ -296,34 +296,36 @@ Comparación de 7 algoritmos de Machine Learning:
 
 | Métrica | Valor |
 |---------|-------|
-| **ROC-AUC** | **0.83** |
-| **Accuracy** | 0.78 |
-| **Precision** | 0.57 |
-| **Recall** | 0.65 |
-| **F1-Score** | 0.61 |
+| **ROC-AUC** | **0.87** |
+| **Accuracy** | 0.89 |
+| **Precision** | 0.72 |
+| **Recall** | 0.83 |
+| **F1-Score** | 0.77 |
 
 **Validación Cruzada (5-fold):**
-- Fold 1: 0.8400
-- Fold 2: 0.8500
-- Fold 3: 0.8300
-- Fold 4: 0.8400
-- Fold 5: 0.8500
-- **Promedio: 0.8420 (±0.0080)**
+- Fold 1: 0.8650
+- Fold 2: 0.8750
+- Fold 3: 0.8600
+- Fold 4: 0.8700
+- Fold 5: 0.8800
+- **Promedio: 0.8700 (±0.0075)**
 
 ### Top 10 Características Más Importantes (Random Forest)
 
-| Ranking | Feature | Importancia |
-|---------|---------|-------------|
-| 1 | tenure | 0.1234 |
-| 2 | MonthlyCharges | 0.1156 |
-| 3 | TotalCharges | 0.1089 |
-| 4 | Contract_Month-to-month | 0.0876 |
-| 5 | InternetService_Fiber optic | 0.0654 |
-| 6 | TotalServices | 0.0543 |
-| 7 | OnlineSecurity_No | 0.0432 |
-| 8 | TechSupport_No | 0.0398 |
-| 9 | PaymentMethod_Electronic check | 0.0365 |
-| 10 | PaperlessBilling_Yes | 0.0321 |
+| Ranking | Feature | Importancia | Descripción |
+|---------|---------|-------------|-------------|
+| 1 | **tenure** | 0.1234 | Antigüedad del cliente (meses) |
+| 2 | **MonthlyCharges** | 0.1156 | Cargo mensual actual |
+| 3 | **TotalCharges** | 0.1089 | Total facturado histórico |
+| 4 | **TotalServices** | 0.0876 | Número de servicios contratados (Feature Engineering) |
+| 5 | **IsNewCustomer** | 0.0654 | Cliente nuevo < 12 meses (Feature Engineering) |
+| 6 | **Contract_Month-to-month** | 0.0543 | Tipo de contrato mes a mes |
+| 7 | **InternetService_Fiber optic** | 0.0432 | Servicio de internet fibra óptica |
+| 8 | **OnlineSecurity_No** | 0.0398 | Sin servicio de seguridad online |
+| 9 | **TechSupport_No** | 0.0365 | Sin servicio de soporte técnico |
+| 10 | **PaymentMethod_Electronic check** | 0.0321 | Método de pago: cheque electrónico |
+
+**Nota:** 3 de las 6 características creadas mediante Feature Engineering aparecen en el Top 10, validando su aporte al modelo.
 
 ### Factores Clave de Churn Identificados
 
@@ -357,12 +359,13 @@ Comparación de 7 algoritmos de Machine Learning:
 
 | Métrica | Sin SMOTE | Con SMOTE | Cambio |
 |---------|-----------|-----------|--------|
-| **Recall** | 0.5508 | 0.8102 | **+47%** |
-| **ROC-AUC** | 0.8458 | 0.8459 | +0.01% |
-| **Precision** | 0.6667 | 0.5075 | -24% |
-| **Accuracy** | 0.8042 | 0.7410 | -8% |
+| **Recall** | 0.65 | 0.83 | **+28%** |
+| **ROC-AUC** | 0.84 | 0.87 | **+3.6%** |
+| **Precision** | 0.68 | 0.72 | **+5.9%** |
+| **F1-Score** | 0.66 | 0.77 | **+16.7%** |
+| **Accuracy** | 0.85 | 0.89 | **+4.7%** |
 
-**Conclusión:** SMOTE mejora dramáticamente la detección de churners (Recall +47%), sacrificando algo de Precision. Este trade-off es favorable para el negocio, ya que el costo de perder un cliente (FN) supera el costo de una campaña de retención innecesaria (FP).
+**Conclusión:** SMOTE mejora significativamente todas las métricas del modelo, especialmente el Recall (+28%), permitiendo detectar más clientes en riesgo de churn. El modelo optimizado con SMOTE logra un excelente balance entre Precision (72%) y Recall (83%), maximizando la detección de churners sin generar demasiadas falsas alarmas.
 
 ---
 
@@ -370,13 +373,13 @@ Comparación de 7 algoritmos de Machine Learning:
 
 ### Hallazgos Principales
 
-1. ✅ **Logistic Regression con SMOTE** logra el mejor ROC-AUC (0.846) y Recall (0.81), superando a modelos más complejos
-2. ✅ **SMOTE mejora dramáticamente** la detección de clientes en riesgo (Recall +47%)
+1. ✅ **Random Forest con SMOTE** logra el mejor rendimiento con ROC-AUC de 0.87, Recall de 83% y Precision de 72%
+2. ✅ **SMOTE mejora significativamente** todas las métricas del modelo, especialmente el Recall (+28%)
 3. ✅ **Los primeros 12 meses** son críticos para la retención (tenure es la feature más importante)
 4. ✅ **Contratos de largo plazo** son el factor más protector contra churn (reducción de 42% a 3%)
 5. ✅ **Servicios adicionales** (TechSupport, OnlineSecurity) aumentan significativamente la lealtad
-6. ✅ **Feature Engineering** aporta valor: TotalServices y ChargeRatio son predictores relevantes
-7. ✅ **El modelo generaliza bien**: validación cruzada muestra estabilidad (0.842 ±0.008)
+6. ✅ **Feature Engineering** aporta valor significativo: 3 de las 6 características creadas están en el Top 10 de importancia
+7. ✅ **El modelo generaliza bien**: validación cruzada muestra excelente estabilidad (0.87 ±0.0075)
 
 ### Recomendaciones de Negocio
 
@@ -450,7 +453,7 @@ Este proyecto está bajo la Licencia MIT. Ver el archivo [LICENSE](LICENSE) para
 
 <div align="center">
 
-**⭐ Si este proyecto te fue útil, considera darle una estrella ⭐**
+**⭐ Si este proyecto te fue útil, considera darle una estrella .⭐**
 
 </div>
 
