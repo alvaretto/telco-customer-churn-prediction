@@ -4,8 +4,8 @@
 *.bak
 bu/
 
-# Scripts de sincronización
-*.sh
+# Scripts de sincronización (solo sync scripts)
+sync-*.sh
 
 # Archivos HTML generados
 *.html
