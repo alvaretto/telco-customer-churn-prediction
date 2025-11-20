@@ -11,7 +11,7 @@ services:
     branch: main
     rootDir: api
     buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn --bind 0.0.0.0:$PORT --workers 2 --threads 2 --timeout 60 --access-logfile - --error-logfile - app:app
+    startCommand: gunicorn --bind 0.0.0.0:${PORT:-10000} --workers 2 --threads 2 --timeout 60 --access-logfile - --error-logfile - app:app
     envVars:
       - key: PYTHON_VERSION
         value: 3.10.13
