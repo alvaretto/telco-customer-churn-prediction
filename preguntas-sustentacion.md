@@ -1549,7 +1549,172 @@ Cuanto más "arriba a la izquierda" esté la curva, mejor el modelo.
 
 ---
 
-### Pregunta 25: ¿Qué es la curva Precision-Recall y cuándo es más útil que ROC?
+### Pregunta 25: ¿Por qué no se utilizan métricas como R² (R-squared) en este proyecto?
+
+**Respuesta:**
+
+Esta es una pregunta excelente que ayuda a entender la diferencia fundamental 
+entre dos tipos de problemas en Machine Learning.
+
+**La razón principal: Este es un proyecto de CLASIFICACIÓN, no de REGRESIÓN**
+
+**1. Diferencia entre Clasificación y Regresión:**
+
+| Aspecto | Clasificación | Regresión |
+|---------|---------------|-----------|
+| **Objetivo** | Predecir categorías/clases | Predecir valores numéricos continuos |
+| **Salida** | Etiquetas discretas (Sí/No, A/B/C) | Números continuos (1.5, 23.7, 100.2) |
+| **Ejemplo** | ¿El cliente hará churn? (Sí/No) | ¿Cuánto gastará el cliente? ($50.25) |
+| **Métricas** | Accuracy, Precision, Recall, F1, ROC-AUC | R², MSE, RMSE, MAE |
+
+**Analogía cotidiana:**
+
+**Clasificación (nuestro proyecto):**
+
+- Como un examen de opción múltiple: A, B, C o D
+- O como un semáforo: Rojo, Amarillo o Verde
+- **Nuestro caso:** ¿El cliente se va? → Sí o No
+
+**Regresión:**
+
+- Como predecir la temperatura exacta de mañana: 23.5°C
+- O estimar cuánto dinero gastarás en el supermercado: $47.83
+- **Ejemplo:** ¿Cuánto facturará el cliente el próximo mes? → $234.56
+
+---
+
+**2. ¿Qué es R² y por qué NO aplica aquí?**
+
+**R² (R-squared o Coeficiente de Determinación):**
+
+- Es una métrica **exclusiva para problemas de REGRESIÓN**
+- Mide qué tan bien el modelo explica la variabilidad de los datos
+- Va de 0 a 1 (o puede ser negativo si el modelo es muy malo)
+- R² = 0.85 significa: "El modelo explica el 85% de la variabilidad en los datos"
+
+**Analogía:**
+
+Imagina que quieres predecir la altura de las personas basándote en su edad:
+
+- Si R² = 0.90 → Tu modelo explica muy bien la relación edad-altura
+- Si R² = 0.30 → Tu modelo no explica bien la relación (hay mucha variabilidad no explicada)
+
+**¿Por qué NO usamos R² en nuestro proyecto?**
+
+Porque NO estamos prediciendo un valor numérico continuo. Solo predecimos dos 
+categorías:
+
+- Churn = 1 (el cliente se va)
+- No Churn = 0 (el cliente se queda)
+
+No tiene sentido medir "variabilidad explicada" cuando solo hay dos opciones discretas.
+
+---
+
+**3. Ejemplos de cuándo SÍ usar R²:**
+
+✅ **Predecir el precio de una casa:**
+
+- Variables: tamaño, ubicación, número de habitaciones
+- Salida: $250,000 (valor continuo)
+- Métrica: R² = 0.88 (el modelo explica bien los precios)
+
+✅ **Predecir ventas mensuales:**
+
+- Variables: publicidad, temporada, promociones
+- Salida: 1,234 unidades vendidas
+- Métrica: R² = 0.75
+
+✅ **Predecir consumo de energía:**
+
+- Variables: temperatura, hora del día, día de la semana
+- Salida: 345.7 kWh
+- Métrica: R² = 0.82
+
+---
+
+**4. Métricas que SÍ usamos en nuestro proyecto (Clasificación):**
+
+En lugar de R², usamos métricas diseñadas específicamente para clasificación:
+
+| Métrica | Qué mide | Nuestro valor |
+|---------|----------|---------------|
+| **Accuracy** | % de predicciones correctas en total | 89% |
+| **Precision** | De los que predijimos "churn", ¿cuántos realmente se fueron? | 72% |
+| **Recall** | De los que se fueron, ¿cuántos detectamos? | 83% |
+| **F1-Score** | Balance entre Precision y Recall | 77% |
+| **ROC-AUC** | Capacidad del modelo para distinguir entre clases | 0.87 |
+
+**Estas métricas responden preguntas como:**
+
+- ¿Qué tan bien clasificamos a los clientes?
+- ¿Cuántos clientes en riesgo detectamos?
+- ¿Cuántas falsas alarmas generamos?
+
+**R² respondería (si fuera aplicable):**
+
+- ¿Qué tan bien explicamos la variabilidad en un valor numérico?
+- (Pero no tenemos un valor numérico que predecir)
+
+---
+
+**5. Tabla comparativa completa:**
+
+| Característica | Nuestro Proyecto (Clasificación) | Proyecto de Regresión |
+|----------------|----------------------------------|----------------------|
+| **Tipo de problema** | Clasificación Binaria | Regresión |
+| **Variable objetivo** | Churn (Sí/No) | Valor numérico (ej: precio) |
+| **Valores posibles** | 0 o 1 (discretos) | Cualquier número (continuo) |
+| **Métricas principales** | Accuracy, Precision, Recall, F1, ROC-AUC | R², MSE, RMSE, MAE |
+| **Pregunta que responde** | ¿A qué categoría pertenece? | ¿Cuál es el valor exacto? |
+| **Ejemplo de predicción** | Cliente #123 → Churn = Sí | Cliente #123 → Gastará $234.56 |
+
+---
+
+**6. Resumen visual:**
+
+```
+CLASIFICACIÓN (Nuestro proyecto)
+Input: Datos del cliente
+   ↓
+Modelo de ML
+   ↓
+Output: Categoría (Churn: Sí/No)
+   ↓
+Métricas: Accuracy, Precision, Recall, F1, ROC-AUC
+```
+
+```
+REGRESIÓN (NO es nuestro caso)
+Input: Datos del cliente
+   ↓
+Modelo de ML
+   ↓
+Output: Valor numérico (Gasto: $234.56)
+   ↓
+Métricas: R², MSE, RMSE, MAE
+```
+
+---
+
+**Conclusión:**
+
+No usamos R² en este proyecto porque:
+
+1. ✅ Es un proyecto de **clasificación binaria** (predecir Sí/No)
+2. ✅ R² es una métrica de **regresión** (para valores numéricos continuos)
+3. ✅ Usamos métricas apropiadas para clasificación: Accuracy, Precision, Recall, F1-Score y ROC-AUC
+4. ✅ Estas métricas nos dan información más relevante para nuestro objetivo: detectar clientes en riesgo de churn
+
+**Analogía final:**
+
+Es como usar un termómetro para medir la temperatura (regresión → R²) vs. usar un 
+semáforo para indicar si puedes pasar o no (clasificación → Accuracy, Precision, 
+Recall). Son herramientas diferentes para propósitos diferentes.
+
+---
+
+### Pregunta 26: ¿Qué es la curva Precision-Recall y cuándo es más útil que ROC?
 
 **Respuesta:**
 
@@ -1635,7 +1800,7 @@ Usamos AMBAS curvas para tener una evaluación completa:
 
 ---
 
-### Pregunta 26: ¿Qué es el análisis de importancia de características y qué descubriste?
+### Pregunta 27: ¿Qué es el análisis de importancia de características y qué descubriste?
 
 **Respuesta:**
 
@@ -1735,7 +1900,7 @@ Estos resultados coinciden con nuestro EDA, lo que confirma que el modelo aprend
 
 ## 7. Conclusiones y Recomendaciones
 
-### Pregunta 27: ¿Cuáles son las principales conclusiones del proyecto?
+### Pregunta 28: ¿Cuáles son las principales conclusiones del proyecto?
 
 **Respuesta:**
 
@@ -1822,7 +1987,7 @@ Si logramos retener el 30% de los detectados:
 
 ---
 
-### Pregunta 28: ¿Qué recomendaciones de negocio harías basándote en los resultados?
+### Pregunta 29: ¿Qué recomendaciones de negocio harías basándote en los resultados?
 
 **Respuesta:**
 
@@ -1989,7 +2154,7 @@ Paquete Premium:    Seguro + Streaming + Backup (25% desc.)
 
 ---
 
-### Pregunta 29: ¿Cómo implementarías este modelo en producción?
+### Pregunta 30: ¿Cómo implementarías este modelo en producción?
 
 **Respuesta:**
 
@@ -2270,7 +2435,7 @@ def ab_test_threshold():
 
 ---
 
-### Pregunta 30: ¿Qué limitaciones tiene el proyecto y qué mejoras futuras propondrías?
+### Pregunta 31: ¿Qué limitaciones tiene el proyecto y qué mejoras futuras propondrías?
 
 **Respuesta:**
 
@@ -2538,7 +2703,7 @@ mejorando versión tras versión.
 
 ## Fin del Documento
 
-**Total de preguntas:** 30
+**Total de preguntas:** 31
 **Categorías cubiertas:** 7
 
 - Comprensión del Problema de Negocio (4 preguntas)
@@ -2546,7 +2711,7 @@ mejorando versión tras versión.
 - Preprocesamiento y Limpieza de Datos (5 preguntas)
 - Feature Engineering (3 preguntas)
 - Modelado y Entrenamiento (4 preguntas)
-- Evaluación y Métricas (6 preguntas)
+- Evaluación y Métricas (7 preguntas)
 - Conclusiones y Recomendaciones (3 preguntas)
 
 **Características del documento:**
