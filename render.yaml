@@ -15,8 +15,6 @@ services:
     envVars:
       - key: PYTHON_VERSION
         value: 3.10.13
-      - key: PORT
-        generateValue: true
       - key: FLASK_ENV
         value: production
     healthCheckPath: /health
