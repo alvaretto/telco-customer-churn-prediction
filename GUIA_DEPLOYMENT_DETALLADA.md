@@ -1,8 +1,8 @@
 # 🚀 GUÍA DETALLADA DE DEPLOYMENT - PASO A PASO
 
-**Proyecto**: Telco Customer Churn Prediction  
-**Fecha**: 2025-11-20  
-**Tiempo estimado**: 30-40 minutos  
+**Proyecto**: Telco Customer Churn Prediction
+**Fecha**: 2025-11-20
+**Tiempo estimado**: 30-40 minutos
 **Prerequisitos**: ✅ Todos verificados
 
 ---
@@ -52,6 +52,7 @@
 2. **Selecciona "Web Service"**
 
 3. **Conectar repositorio**:
+
    - Si es la primera vez, click en **"Connect a repository"**
    - Verás una lista de tus repositorios de GitHub
    - Si NO ves `telco-customer-churn-prediction`:
@@ -233,6 +234,7 @@
 2. **Configurar la app**:
 
    **Repository**:
+
    - Selecciona `alvaretto/telco-customer-churn-prediction`
    - Si no lo ves, click en "Paste GitHub URL" y pega:
      ```
@@ -240,13 +242,16 @@
      ```
 
    **Branch**:
+
    - Selecciona `main`
 
    **Main file path**:
+
    - Escribe exactamente: `dashboard/app.py`
    - ⚠️ MUY IMPORTANTE: Debe ser exactamente `dashboard/app.py`
 
    **App URL** (opcional):
+
    - Puedes personalizar la URL
    - Ejemplo: `telco-churn-dashboard`
    - O dejar el default que Streamlit genera
@@ -313,6 +318,7 @@
    - Sin errores en la barra lateral
 
 3. **Navega a cada página** (usa la barra lateral):
+
    - 📊 **Overview** - Debe cargar estadísticas
    - 🎯 **Risk Analysis** - Debe mostrar formulario de predicción
    - 📈 **Model Metrics** - Debe mostrar matriz de confusión y ROC curve
@@ -409,6 +415,7 @@ git push origin main
 ### 📊 Resumen Final
 
 **URLs de Producción**:
+
 - 🚀 **API**: https://telco-churn-api.onrender.com
 - 📊 **Dashboard**: https://telco-churn-dashboard.streamlit.app
 - 📦 **GitHub**: https://github.com/alvaretto/telco-customer-churn-prediction
@@ -416,6 +423,7 @@ git push origin main
 **Tiempo total**: ~40 minutos
 
 **Estado**:
+
 - ✅ API deployada y funcionando
 - ✅ Dashboard deployado y funcionando
 - ✅ Documentación actualizada
