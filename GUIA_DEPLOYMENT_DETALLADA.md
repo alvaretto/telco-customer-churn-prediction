@@ -1,8 +1,8 @@
 # 🚀 GUÍA DETALLADA DE DEPLOYMENT - PASO A PASO
 
-**Proyecto**: Telco Customer Churn Prediction
-**Fecha**: 2025-11-20
-**Tiempo estimado**: 30-40 minutos
+**Proyecto**: Telco Customer Churn Prediction\
+**Fecha**: 2025-11-20\
+**Tiempo estimado**: 30-40 minutos\
 **Prerequisitos**: ✅ Todos verificados
 
 ---
@@ -86,6 +86,7 @@
 
 5. **Runtime**: Debe detectar automáticamente **Python 3**
    - Si no, selecciona "Python 3" del dropdown
+   - ⚠️ **IMPORTANTE**: Aunque existe un Dockerfile en la carpeta `api/`, NO selecciones "Docker". Este proyecto usa Python nativo en Render
 
 6. **Build Command**:
    ```

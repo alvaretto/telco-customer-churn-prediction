@@ -560,7 +560,7 @@ Tener un proyecto completo de deployment de ML con:
 **Estado**: [🔄] EN PROGRESO - Preparación completada
 **Fecha de inicio**: 2025-11-20
 **Tiempo estimado**: 30-40 minutos
-**Última actualización**: 2025-11-20 - Guía de deployment formateada
+**Última actualización**: 2025-11-20 - Aclaración sobre Runtime Python vs Docker
 
 ### 📋 Checklist de Deployment
 
@@ -575,6 +575,7 @@ Tener un proyecto completo de deployment de ML con:
 - [x] Tener cuenta de GitHub lista ✅
 - [x] Formatear documentación de deployment ✅ (bu/deploy/03-deploy.md - 9 correcciones)
 - [x] Formatear guía de deployment ✅ (GUIA_DEPLOYMENT_DETALLADA.md - 8 correcciones)
+- [x] Aclarar Runtime Python vs Docker ✅ (GUIA_DEPLOYMENT_DETALLADA.md - Paso 3)
 
 #### Deployment API en Render.com (20-25 min)
 - [ ] Crear cuenta en https://render.com con GitHub
@@ -684,6 +685,6 @@ code EMPEZAR_AQUI.md
 ---
 
 *Estructura completa creada el 2025-11-20. Proyecto listo para deployment.*
-*Última actualización: 2025-11-20 - Guía de deployment formateada (GUIA_DEPLOYMENT_DETALLADA.md).*
+*Última actualización: 2025-11-20 - Aclaración Runtime Python vs Docker (GUIA_DEPLOYMENT_DETALLADA.md).*
 *Estado actual: ✅ 100% LISTO PARA DEPLOYMENT - Esperando deployment a cloud.*
 
