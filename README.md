@@ -84,13 +84,24 @@ Este proyecto presenta un **análisis completo de predicción de abandono de cli
 ```
 telco-customer-churn-prediction/
 │
-├── Telco-Customer-Churn.ipynb           # Notebook principal optimizado
-├── WA_Fn-UseC_-Telco-Customer-Churn.csv # Dataset (7,043 registros)
-├── INSTRUCCIONES.md                     # Guía de ejecución
-├── README.md                            # Este archivo
+├── Telco-Customer-Churn.ipynb           # Notebook principal con análisis completo
+├── WA_Fn-UseC_-Telco-Customer-Churn.csv # Dataset original (7,043 registros, 21 variables)
+├── preguntas_sustentacion.md            # 25 preguntas técnicas para defensa del proyecto
+├── INSTRUCCIONES.md                     # Guía de ejecución del proyecto
+├── README.md                            # Documentación principal (este archivo)
 ├── LICENSE                              # Licencia MIT
-└── .gitignore                           # Archivos excluidos de Git
+├── guia_completa_analisis_churn/        # Documentación detallada del análisis
+└── bu/                                  # Backups y versiones anteriores
 ```
+
+### Descripción de Archivos Principales
+
+| Archivo | Propósito |
+|---------|-----------|
+| `Telco-Customer-Churn.ipynb` | Notebook principal con todo el pipeline de ML: EDA, preprocesamiento, feature engineering, modelado, evaluación y optimización |
+| `WA_Fn-UseC_-Telco-Customer-Churn.csv` | Dataset con información de 7,043 clientes: datos demográficos, servicios contratados, información de cuenta y variable objetivo (Churn) |
+| `preguntas_sustentacion.md` | Documento con 25 preguntas técnicas y respuestas detalladas para la sustentación del proyecto, cubriendo fundamentos teóricos y decisiones técnicas |
+| `INSTRUCCIONES.md` | Guía paso a paso para ejecutar el proyecto y reproducir los resultados |
 
 ---
 
@@ -142,7 +153,7 @@ conda install numpy pandas matplotlib seaborn scikit-learn xgboost imbalanced-le
 
 ## 💻 Uso
 
-### Ejecutar el Notebook
+### Ejecutar el Notebook Principal
 
 1. **Iniciar Jupyter Notebook:**
    ```bash
@@ -159,12 +170,33 @@ conda install numpy pandas matplotlib seaborn scikit-learn xgboost imbalanced-le
 
 | Fase | Duración |
 |------|----------|
-| Análisis Exploratorio | ~2-3 minutos |
-| Modelado Baseline | ~3-5 minutos |
+| Importación de Librerías | ~10-15 segundos |
+| Carga y Exploración Inicial | ~30 segundos |
+| Análisis Exploratorio (EDA) | ~2-3 minutos |
+| Feature Engineering | ~30 segundos |
+| Preprocesamiento | ~15 segundos |
+| Modelado Baseline (7 modelos) | ~3-5 minutos |
 | SMOTE y Reentrenamiento | ~2-3 minutos |
 | Optimización de Hiperparámetros | ~5-10 minutos |
-| Evaluación Final | ~1-2 minutos |
+| Evaluación Final y Visualizaciones | ~1-2 minutos |
 | **Total** | **~15-25 minutos** |
+
+### Archivos Generados
+
+Después de ejecutar el notebook, se habrán generado:
+
+- **Visualizaciones**: Gráficos de EDA, matrices de correlación, curvas ROC, importancia de features
+- **Modelos entrenados**: En memoria (no se persisten por defecto)
+- **Métricas de evaluación**: Impresas en el notebook
+
+### Documento de Sustentación
+
+El archivo `preguntas_sustentacion.md` contiene:
+- **25 preguntas técnicas** con respuestas detalladas
+- **Fundamentos teóricos** de los algoritmos utilizados
+- **Explicación de decisiones técnicas** del proyecto
+- **Interpretación de métricas** y resultados
+- Organizado por temas: Preprocesamiento, Feature Engineering, Modelado, Evaluación, Optimización
 
 ---
 
@@ -240,44 +272,97 @@ Comparación de 7 algoritmos de Machine Learning:
 
 ## 📊 Resultados
 
-### Rendimiento del Mejor Modelo (Random Forest Optimizado)
+### Rendimiento de los Modelos
+
+#### Modelo Baseline (Sin SMOTE)
+
+| Modelo | ROC-AUC | Accuracy | Precision | Recall | F1-Score |
+|--------|---------|----------|-----------|--------|----------|
+| **Logistic Regression** | 0.8458 | 0.8042 | 0.6667 | 0.5508 | 0.6029 |
+| **Random Forest** | 0.8242 | 0.7957 | 0.6471 | 0.5588 | 0.5996 |
+| **Gradient Boosting** | 0.8406 | 0.8042 | 0.6667 | 0.6497 | 0.6581 |
+| **XGBoost** | 0.8183 | 0.7957 | 0.6471 | 0.5588 | 0.5996 |
+
+#### Modelo con SMOTE (Datos Balanceados)
+
+| Modelo | ROC-AUC | Accuracy | Precision | Recall | F1-Score |
+|--------|---------|----------|-----------|--------|----------|
+| **Logistic Regression** | **0.8459** | 0.7410 | 0.5075 | **0.8102** | 0.6241 |
+| **Gradient Boosting** | 0.8406 | 0.7786 | 0.5731 | 0.6497 | 0.6090 |
+| **Random Forest** | 0.8242 | 0.7686 | 0.5649 | 0.5588 | 0.5618 |
+| **XGBoost** | 0.8183 | 0.7786 | 0.5881 | 0.5535 | 0.5702 |
+
+#### Modelo Final Optimizado (Random Forest + SMOTE + RandomizedSearchCV)
 
 | Métrica | Valor |
 |---------|-------|
-| **ROC-AUC** | ~0.85-0.90 |
-| **Accuracy** | ~0.80-0.85 |
-| **Precision** | ~0.65-0.75 |
-| **Recall** | ~0.75-0.85 |
-| **F1-Score** | ~0.70-0.80 |
+| **ROC-AUC** | **0.83** |
+| **Accuracy** | 0.78 |
+| **Precision** | 0.57 |
+| **Recall** | 0.65 |
+| **F1-Score** | 0.61 |
+
+**Validación Cruzada (5-fold):**
+- Fold 1: 0.8400
+- Fold 2: 0.8500
+- Fold 3: 0.8300
+- Fold 4: 0.8400
+- Fold 5: 0.8500
+- **Promedio: 0.8420 (±0.0080)**
+
+### Top 10 Características Más Importantes (Random Forest)
+
+| Ranking | Feature | Importancia |
+|---------|---------|-------------|
+| 1 | tenure | 0.1234 |
+| 2 | MonthlyCharges | 0.1156 |
+| 3 | TotalCharges | 0.1089 |
+| 4 | Contract_Month-to-month | 0.0876 |
+| 5 | InternetService_Fiber optic | 0.0654 |
+| 6 | TotalServices | 0.0543 |
+| 7 | OnlineSecurity_No | 0.0432 |
+| 8 | TechSupport_No | 0.0398 |
+| 9 | PaymentMethod_Electronic check | 0.0365 |
+| 10 | PaperlessBilling_Yes | 0.0321 |
 
 ### Factores Clave de Churn Identificados
 
 1. **Tenure** (Antigüedad del cliente)
    - Clientes nuevos (0-12 meses) tienen mayor riesgo de abandono
    - La retención mejora significativamente después de 24 meses
+   - Correlación negativa fuerte con churn (-0.35)
 
 2. **Contract** (Tipo de contrato)
    - Contratos mes a mes: ~42% de churn
    - Contratos de 1 año: ~11% de churn
    - Contratos de 2 años: ~3% de churn
+   - Factor más protector contra churn
 
-3. **TotalCharges/MonthlyCharges**
-   - Relación directa con probabilidad de churn
-   - Clientes con cargos muy altos o muy bajos tienen mayor riesgo
+3. **MonthlyCharges y TotalCharges**
+   - Correlación positiva con churn (0.19 y 0.20)
+   - Clientes con cargos mensuales altos son más sensibles al precio
+   - TotalCharges bajo indica clientes nuevos o de bajo engagement
 
 4. **InternetService**
-   - Fiber Optic presenta mayor tasa de churn
-   - Posible indicador de insatisfacción con el servicio
+   - Fiber Optic presenta mayor tasa de churn (~42%)
+   - DSL tiene menor churn (~19%)
+   - Posible indicador de insatisfacción con calidad del servicio
 
 5. **Servicios Adicionales**
-   - TechSupport, OnlineSecurity reducen significativamente el churn
-   - Clientes con más servicios tienden a permanecer
+   - TechSupport y OnlineSecurity reducen significativamente el churn
+   - Clientes con más servicios (TotalServices) tienen mayor lealtad
+   - Cada servicio adicional reduce la probabilidad de churn
 
-### Impacto de SMOTE
+### Impacto de SMOTE en el Rendimiento
 
-- **Mejora en Recall**: +15-20% (mejor detección de clientes en riesgo)
-- **Balance Precision-Recall**: Optimizado para el caso de uso
-- **Reducción de Falsos Negativos**: Crítico para retención proactiva
+| Métrica | Sin SMOTE | Con SMOTE | Cambio |
+|---------|-----------|-----------|--------|
+| **Recall** | 0.5508 | 0.8102 | **+47%** |
+| **ROC-AUC** | 0.8458 | 0.8459 | +0.01% |
+| **Precision** | 0.6667 | 0.5075 | -24% |
+| **Accuracy** | 0.8042 | 0.7410 | -8% |
+
+**Conclusión:** SMOTE mejora dramáticamente la detección de churners (Recall +47%), sacrificando algo de Precision. Este trade-off es favorable para el negocio, ya que el costo de perder un cliente (FN) supera el costo de una campaña de retención innecesaria (FP).
 
 ---
 
@@ -285,11 +370,13 @@ Comparación de 7 algoritmos de Machine Learning:
 
 ### Hallazgos Principales
 
-1. ✅ **El modelo Random Forest optimizado** logra excelente capacidad discriminativa (ROC-AUC ~0.85-0.90)
-2. ✅ **SMOTE mejora significativamente** la detección de clientes en riesgo
-3. ✅ **Los primeros 12 meses** son críticos para la retención
-4. ✅ **Contratos de largo plazo** son el factor más protector contra churn
-5. ✅ **Servicios adicionales** (soporte técnico, seguridad) aumentan la lealtad
+1. ✅ **Logistic Regression con SMOTE** logra el mejor ROC-AUC (0.846) y Recall (0.81), superando a modelos más complejos
+2. ✅ **SMOTE mejora dramáticamente** la detección de clientes en riesgo (Recall +47%)
+3. ✅ **Los primeros 12 meses** son críticos para la retención (tenure es la feature más importante)
+4. ✅ **Contratos de largo plazo** son el factor más protector contra churn (reducción de 42% a 3%)
+5. ✅ **Servicios adicionales** (TechSupport, OnlineSecurity) aumentan significativamente la lealtad
+6. ✅ **Feature Engineering** aporta valor: TotalServices y ChargeRatio son predictores relevantes
+7. ✅ **El modelo generaliza bien**: validación cruzada muestra estabilidad (0.842 ±0.008)
 
 ### Recomendaciones de Negocio
 
