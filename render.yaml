@@ -1,0 +1,24 @@
+# Render Blueprint para deployment automático
+# Documentación: https://render.com/docs/blueprint-spec
+
+services:
+  # API Flask
+  - type: web
+    name: telco-churn-api
+    runtime: python
+    region: oregon
+    plan: free
+    branch: main
+    rootDir: api
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn --bind 0.0.0.0:$PORT --workers 2 --threads 2 --timeout 60 --access-logfile - --error-logfile - app:app
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.10.13
+      - key: PORT
+        generateValue: true
+      - key: FLASK_ENV
+        value: production
+    healthCheckPath: /health
+    autoDeploy: true
+
