@@ -2,7 +2,11 @@
 
 ## 📋 Descripción General
 
-Este bloque es como **equilibrar una balanza desnivelada**. Recordemos que tenemos 73% de clientes que NO hacen churn y solo 27% que SÍ lo hacen. Este desbalanceo puede hacer que los modelos sean "perezosos" y simplemente predigan siempre la clase mayoritaria. Aquí aplicamos técnicas para balancear las clases y mejorar la detección de churn.
+Este bloque es como **equilibrar una balanza desnivelada**. Recordemos que tenemos 
+73% de clientes que NO hacen churn y solo 27% que SÍ lo hacen. Este desbalanceo 
+puede hacer que los modelos sean "perezosos" y simplemente predigan siempre la 
+clase mayoritaria. Aquí aplicamos técnicas para balancear las clases y mejorar 
+la detección de churn.
 
 ---
 
@@ -17,7 +21,9 @@ Los objetivos principales de este bloque son:
 
 ### ¿Por qué es importante?
 
-**Analogía de la enfermedad rara**: Imagina un test médico para una enfermedad que solo afecta al 3% de la población:
+**Analogía de la enfermedad rara**: Imagina un test médico para una enfermedad 
+que solo afecta al 3% de la población:
+
 - Un modelo "tonto" que siempre dice "NO tienes la enfermedad" tendría 97% de accuracy
 - Pero sería inútil porque nunca detectaría a los enfermos
 
@@ -30,12 +36,14 @@ Lo mismo pasa con el churn: necesitamos detectar específicamente a los que SÍ 
 ### 1. **El Problema del Desbalanceo**
 
 **Distribución original**:
+
 - **No Churn**: ~5,163 clientes (73%)
 - **Churn**: ~1,869 clientes (27%)
 
 **Ratio**: ~2.76:1 (casi 3 veces más "No" que "Yes")
 
 **Consecuencias**:
+
 - Los modelos aprenden mejor la clase mayoritaria
 - Baja sensibilidad para detectar churn
 - Métricas engañosas (alta accuracy pero bajo recall)
@@ -66,11 +74,13 @@ Sintético: A -- X -- B
 Donde X es un nuevo ejemplo creado "entre" A y B.
 
 **Ventajas de SMOTE**:
+
 - ✅ Crea ejemplos realistas (no duplicados)
 - ✅ Aumenta la diversidad de la clase minoritaria
 - ✅ Mejora el aprendizaje del modelo
 
 **Diferencia con otras técnicas**:
+
 - **RandomOverSampler**: Simplemente duplica ejemplos existentes (puede causar overfitting)
 - **RandomUnderSampler**: Elimina ejemplos de la clase mayoritaria (pierde información)
 - **SMOTE**: Crea nuevos ejemplos sintéticos (balance sin pérdida de información)
@@ -85,6 +95,7 @@ X_train_balanced, y_train_balanced = smote.fit_resample(X_train, y_train)
 ```
 
 **Resultado**:
+
 - **Antes**: 5,163 No Churn, 1,869 Churn
 - **Después**: 5,163 No Churn, 5,163 Churn (balanceado 50/50)
 
@@ -93,6 +104,7 @@ X_train_balanced, y_train_balanced = smote.fit_resample(X_train, y_train)
 **¿Por qué?**
 
 **Analogía del examen**: 
+
 - Puedes estudiar con material adicional (SMOTE en train)
 - Pero el examen debe ser con preguntas reales (test sin modificar)
 
@@ -136,14 +148,17 @@ El bloque reentrena los mejores modelos (identificados en el bloque anterior) co
 ### **Interpretación de los Cambios**
 
 #### **Accuracy baja ligeramente** (84% → 82%)
+
 - **¿Por qué?** Ahora el modelo comete más "falsos positivos" (predice churn cuando no lo hay)
 - **¿Es malo?** No necesariamente - depende del objetivo de negocio
 
 #### **Recall aumenta significativamente** (50% → 78%)
+
 - **¿Por qué?** El modelo ahora detecta mejor la clase minoritaria
 - **¿Es bueno?** ¡Sí! Detectamos más clientes en riesgo
 
 #### **Precision baja un poco** (70% → 65%)
+
 - **¿Por qué?** Más falsos positivos
 - **Trade-off**: Sacrificamos un poco de precisión por mucho más recall
 
@@ -154,14 +169,17 @@ El bloque reentrena los mejores modelos (identificados en el bloque anterior) co
 **Analogía del detector de metales**:
 
 **Antes de SMOTE** (Alta Precision, Bajo Recall):
+
 - Cuando pita, casi siempre hay metal (pocas falsas alarmas)
 - Pero se pierde mucho metal (no detecta todo)
 
 **Después de SMOTE** (Precision moderada, Alto Recall):
+
 - Pita más veces, algunas falsas alarmas
 - Pero encuentra casi todo el metal
 
 **Para el negocio de Telco**:
+
 - **Falso Positivo**: Ofrecemos descuento a alguien que no se iba a ir (costo: descuento innecesario)
 - **Falso Negativo**: No detectamos a alguien que se va (costo: perder el cliente completo)
 
@@ -193,7 +211,9 @@ Este bloque es **crítico** porque:
 
 ## 🎓 Conclusión
 
-El manejo del desbalanceo de clases transforma un modelo "perezoso" que ignora la clase minoritaria en uno que realmente detecta clientes en riesgo. SMOTE es como darle al modelo "gafas especiales" para ver mejor la clase minoritaria.
+El manejo del desbalanceo de clases transforma un modelo "perezoso" que ignora la 
+clase minoritaria en uno que realmente detecta clientes en riesgo. SMOTE es como 
+darle al modelo "gafas especiales" para ver mejor la clase minoritaria.
 
 **Lección importante**: En problemas de negocio, la métrica más importante no siempre es accuracy. Para churn, Recall es crítico porque el costo de perder un cliente es mucho mayor que el costo de una falsa alarma.
 

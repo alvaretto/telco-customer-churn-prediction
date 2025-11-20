@@ -38,6 +38,7 @@ El código crea una función personalizada que intenta cargar el archivo desde m
 **Analogía**: Es como buscar tus llaves en varios lugares donde podrían estar (bolsillo, mesa, bolso) en vez de asumir que están en un solo lugar.
 
 **Beneficios**:
+
 - Funciona en diferentes entornos (Google Colab, local, servidor)
 - Evita errores por rutas incorrectas
 - Hace el código más portable y robusto
@@ -68,6 +69,7 @@ El código crea una función personalizada que intenta cargar el archivo desde m
 ### 5. **Estadísticas Descriptivas (`df.describe()`)**
 
 Para variables numéricas, calcula:
+
 - **count**: Cantidad de valores
 - **mean**: Promedio
 - **std**: Desviación estándar
@@ -75,6 +77,7 @@ Para variables numéricas, calcula:
 - **25%, 50%, 75%**: Cuartiles
 
 **Ejemplo con `tenure` (meses como cliente)**:
+
 - **Promedio**: 32.37 meses (~2.7 años)
 - **Mínimo**: 0 meses (clientes nuevos)
 - **Máximo**: 72 meses (6 años)

@@ -16,13 +16,16 @@ El objetivo de este bloque es:
 
 ### ¿Por qué es importante?
 
-**Analogía del carpintero**: Imagina que eres un carpintero que va a construir una mesa. Antes de empezar, necesitas sacar del taller:
+**Analogía del carpintero**: Imagina que eres un carpintero que va a construir una mesa. 
+Antes de empezar, necesitas sacar del taller:
+
 - El martillo (para clavar)
 - La sierra (para cortar)
 - El nivel (para medir)
 - El taladro (para perforar)
 
-De la misma manera, este bloque "saca del taller" todas las herramientas de software que necesitaremos.
+De la misma manera, este bloque "saca del taller" todas las herramientas de 
+software que necesitaremos.
 
 ---
 

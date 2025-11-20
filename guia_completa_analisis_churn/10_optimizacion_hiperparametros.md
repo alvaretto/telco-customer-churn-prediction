@@ -19,6 +19,7 @@ Los objetivos principales de este bloque son:
 ### ¿Por qué es importante?
 
 **Analogía del café**: Hacer café perfecto requiere ajustar:
+
 - Temperatura del agua
 - Tiempo de extracción
 - Cantidad de café
@@ -32,13 +33,16 @@ Cambiar cualquiera de estos parámetros afecta el sabor final. Lo mismo pasa con
 
 ### 1. **¿Qué son los Hiperparámetros?**
 
-**Hiperparámetros** son configuraciones que se establecen ANTES del entrenamiento y controlan cómo aprende el modelo.
+**Hiperparámetros** son configuraciones que se establecen ANTES del entrenamiento 
+y controlan cómo aprende el modelo.
 
 **Diferencia con parámetros**:
+
 - **Parámetros**: El modelo los aprende de los datos (ej: pesos en regresión)
 - **Hiperparámetros**: Los definimos nosotros (ej: profundidad de un árbol)
 
 **Analogía del estudiante**:
+
 - **Parámetros**: El conocimiento que adquiere estudiando
 - **Hiperparámetros**: Cuántas horas estudia, qué técnica usa, en qué ambiente
 
@@ -128,10 +132,12 @@ max_depth: [10, 20]
 Combinaciones: 2 × 2 = 4 pruebas
 
 **Ventajas**:
+
 - ✅ Garantiza encontrar la mejor combinación en el espacio definido
 - ✅ Exhaustivo
 
 **Desventajas**:
+
 - ❌ Muy lento con muchos parámetros
 - ❌ Crece exponencialmente
 
@@ -142,6 +148,7 @@ Combinaciones: 2 × 2 = 4 pruebas
 #### **RandomizedSearchCV (Búsqueda Aleatoria)**
 
 **¿Cómo funciona?**
+
 - Prueba un número fijo de combinaciones aleatorias
 
 **Ejemplo**:
@@ -154,11 +161,13 @@ Combinaciones posibles: 5 × 6 × 5 = 150
 Pero solo prueba, por ejemplo, 30 aleatorias
 
 **Ventajas**:
+
 - ✅ Mucho más rápido
 - ✅ Puede explorar espacios grandes
 - ✅ Sorprendentemente efectivo
 
 **Desventajas**:
+
 - ❌ No garantiza encontrar el óptimo absoluto
 - ❌ Resultados pueden variar entre ejecuciones
 
@@ -183,11 +192,13 @@ Fold 5: [Train] [Train] [Train] [Train] [Test]
 ```
 
 **Proceso**:
+
 1. Entrena con 4 folds, evalúa en 1
 2. Repite 5 veces (cada fold es test una vez)
 3. Promedia los resultados
 
 **Ventajas**:
+
 - ✅ Usa todos los datos para entrenar y evaluar
 - ✅ Resultados más robustos
 - ✅ Reduce varianza de la evaluación
@@ -222,6 +233,7 @@ best_model = grid_search.best_estimator_
 - **verbose=2**: Muestra progreso detallado
 
 **Resultado**:
+
 - **best_estimator_**: Modelo con los mejores hiperparámetros
 - **best_params_**: Diccionario con la mejor configuración
 - **best_score_**: Mejor score obtenido en CV
@@ -263,6 +275,7 @@ best_model = grid_search.best_estimator_
 ```
 
 **Interpretación**:
+
 - 200 árboles (balance entre rendimiento y velocidad)
 - Profundidad moderada (5) para evitar overfitting
 - Learning rate moderado (0.1) para convergencia estable

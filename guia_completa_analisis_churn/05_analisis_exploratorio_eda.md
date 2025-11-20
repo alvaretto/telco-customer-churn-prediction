@@ -2,7 +2,9 @@
 
 ## 📋 Descripción General
 
-Este bloque es como **ser un detective que investiga un caso**. Ahora que los datos están limpios, exploramos en profundidad para descubrir patrones, tendencias y relaciones que nos ayuden a entender por qué los clientes abandonan el servicio.
+Este bloque es como **ser un detective que investiga un caso**. Ahora que los 
+datos están limpios, exploramos en profundidad para descubrir patrones, tendencias 
+y relaciones que nos ayuden a entender por qué los clientes abandonan el servicio.
 
 ---
 
@@ -19,6 +21,7 @@ Los objetivos principales de este bloque son:
 ### ¿Por qué es importante?
 
 **Analogía del médico**: Antes de recetar un tratamiento, el médico necesita:
+
 - Entender los síntomas
 - Identificar patrones
 - Buscar causas subyacentes
@@ -40,6 +43,7 @@ El EDA es el "diagnóstico" que nos permite entender el problema antes de constr
 **Analogía del restaurante**: De cada 100 clientes que entran, 27 no vuelven nunca. Eso es un problema serio que cuesta dinero.
 
 **Implicación importante**: Hay **desbalanceo de clases**
+
 - Más clientes se quedan que se van
 - Esto puede afectar el entrenamiento de modelos (los modelos tienden a predecir la clase mayoritaria)
 
@@ -50,15 +54,19 @@ El EDA es el "diagnóstico" que nos permite entender el problema antes de constr
 El bloque examina cómo diferentes características se relacionan con el churn:
 
 #### **Género (Gender)**
+
 - **Hallazgo**: El churn es similar entre hombres y mujeres
 - **Conclusión**: El género NO es un factor determinante
 
 #### **Adultos Mayores (SeniorCitizen)**
+
 - **Hallazgo**: Los adultos mayores tienen MAYOR tasa de churn
 - **Analogía**: Como si los clientes mayores fueran más propensos a cambiar de proveedor
 
 #### **Tipo de Contrato (Contract)**
+
 - **Hallazgo clave**: 
+
   - Contratos mes a mes: ALTA tasa de churn (~42%)
   - Contratos de 1 año: Churn moderado (~11%)
   - Contratos de 2 años: BAJA tasa de churn (~3%)
@@ -68,10 +76,12 @@ El bloque examina cómo diferentes características se relacionan con el churn:
 **Insight de negocio**: ¡Ofrecer contratos largos reduce significativamente el churn!
 
 #### **Servicio de Internet (InternetService)**
+
 - **Hallazgo**: Clientes con Fibra Óptica tienen MAYOR churn que DSL
 - **Posible razón**: Fibra óptica es más cara, los clientes son más sensibles al precio
 
 #### **Servicios Adicionales**
+
 - **OnlineSecurity, TechSupport, OnlineBackup**: Los clientes SIN estos servicios tienen mayor churn
 - **Analogía**: Es como tener un seguro completo vs. básico; el completo te hace sentir más protegido y menos propenso a cambiar
 
@@ -80,6 +90,7 @@ El bloque examina cómo diferentes características se relacionan con el churn:
 ### 3. **Análisis de Variables Numéricas**
 
 #### **Tenure (Antigüedad en meses)**
+
 - **Clientes que se van**: Promedio de ~18 meses
 - **Clientes que se quedan**: Promedio de ~38 meses
 
@@ -88,12 +99,14 @@ El bloque examina cómo diferentes características se relacionan con el churn:
 **Analogía**: Es como una relación: los primeros meses son críticos. Si sobrevives el primer año, es más probable que dures mucho tiempo.
 
 #### **MonthlyCharges (Cargos Mensuales)**
+
 - **Clientes que se van**: Pagan MÁS en promedio (~$75)
 - **Clientes que se quedan**: Pagan MENOS en promedio (~$61)
 
 **Insight**: El precio alto es un factor de riesgo para el churn.
 
 #### **TotalCharges (Cargos Totales)**
+
 - **Clientes que se van**: Han pagado MENOS en total
 - **Razón**: Tienen menos antigüedad (tenure bajo)
 
@@ -104,8 +117,10 @@ El bloque examina cómo diferentes características se relacionan con el churn:
 El bloque crea una **matriz de correlación** que muestra cómo las variables se relacionan entre sí.
 
 **¿Qué es correlación?**
+
 - Mide si dos variables se mueven juntas
 - Valores de -1 a +1:
+
   - **+1**: Correlación positiva perfecta (si una sube, la otra también)
   - **0**: No hay relación
   - **-1**: Correlación negativa perfecta (si una sube, la otra baja)
@@ -131,18 +146,22 @@ El bloque crea una **matriz de correlación** que muestra cómo las variables se
 El bloque crea varios tipos de gráficos:
 
 ### **1. Gráficos de Barras**
+
 - Comparan churn entre diferentes categorías
 - **Ejemplo**: Churn por tipo de contrato
 
 ### **2. Histogramas**
+
 - Muestran distribuciones de variables numéricas
 - **Ejemplo**: Distribución de tenure para clientes que se van vs. se quedan
 
 ### **3. Box Plots (Diagramas de Caja)**
+
 - Muestran la distribución, mediana y valores atípicos
 - **Ejemplo**: MonthlyCharges para cada grupo de churn
 
 ### **4. Heatmap de Correlación**
+
 - Matriz de colores que muestra correlaciones
 - Colores cálidos (rojo) = correlación alta
 - Colores fríos (azul) = correlación baja
@@ -168,12 +187,14 @@ El EDA es **fundamental** porque:
 1. **27% de churn** - Problema significativo de negocio
 2. **Desbalanceo de clases**: 73% No, 27% Yes
 3. **Factores de riesgo de churn**:
+
    - Contratos mes a mes
    - Clientes nuevos (tenure bajo)
    - Cargos mensuales altos
    - Sin servicios adicionales (seguridad, soporte)
    - Fibra óptica (más cara)
 4. **Factores protectores**:
+
    - Contratos largos (1-2 años)
    - Mayor antigüedad
    - Servicios adicionales contratados
@@ -183,9 +204,14 @@ El EDA es **fundamental** porque:
 
 ## 🎓 Conclusión
 
-El EDA revela la **historia detrás de los números**: los clientes se van principalmente por precios altos y falta de compromiso (contratos cortos). Los clientes leales tienen contratos largos, servicios adicionales y llevan más tiempo con la empresa.
+El EDA revela la **historia detrás de los números**: los clientes se van 
+principalmente por precios altos y falta de compromiso (contratos cortos). 
+Los clientes leales tienen contratos largos, servicios adicionales y llevan más 
+tiempo con la empresa.
 
-Estos insights no solo nos ayudan a construir mejores modelos, sino que también sugieren **estrategias de negocio**:
+Estos insights no solo nos ayudan a construir mejores modelos, sino que también 
+sugieren **estrategias de negocio**:
+
 - Incentivar contratos largos
 - Ofrecer descuentos en servicios adicionales
 - Programas de retención para clientes nuevos

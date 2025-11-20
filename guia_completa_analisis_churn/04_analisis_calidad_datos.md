@@ -18,7 +18,9 @@ Los objetivos principales de este bloque son:
 
 ### ¿Por qué es importante?
 
-**Analogía de la cocina**: Imagina que vas a preparar una ensalada. Antes de cocinar, necesitas:
+**Analogía de la cocina**: Imagina que vas a preparar una ensalada. Antes de cocinar, 
+necesitas:
+
 - Revisar que todas las verduras estén frescas (no falten ingredientes)
 - Lavar y limpiar lo que esté sucio
 - Desechar lo que esté en mal estado
@@ -68,6 +70,7 @@ espacios_blancos = df[df['TotalCharges'] == ' ']
 ```
 
 **Hallazgo importante**:
+
 - Todos tienen `tenure = 0` (son clientes nuevos, con 0 meses de antigüedad)
 - Tienen `MonthlyCharges` pero no `TotalCharges`
 
@@ -94,6 +97,7 @@ df['TotalCharges'] = pd.to_numeric(df['TotalCharges'], errors='coerce')
 ```
 
 **¿Qué hace `pd.to_numeric()`?**
+
 - Convierte texto a números
 - `errors='coerce'` significa: "si no puedes convertir, pon NaN"
 
@@ -106,6 +110,7 @@ df.loc[df['TotalCharges'].isna(), 'TotalCharges'] = \
 ```
 
 **¿Qué significa "imputar"?**
+
 - Rellenar valores faltantes con valores razonables
 - En este caso: TotalCharges = MonthlyCharges para clientes nuevos
 
@@ -127,17 +132,20 @@ df.isnull().sum().sum()          # Retorna: 0
 ## 📊 Hallazgos Clave del Análisis de Calidad
 
 ### **Problemas Detectados**
+
 1. ⚠️ 11 registros con `TotalCharges` vacío (espacios en blanco)
 2. ⚠️ Todos corresponden a clientes nuevos (tenure = 0)
 3. ⚠️ `TotalCharges` estaba almacenado como texto en vez de número
 
 ### **Soluciones Aplicadas**
+
 1. ✅ Convertir espacios en blanco a NaN
 2. ✅ Convertir `TotalCharges` de texto a número (float64)
 3. ✅ Imputar valores faltantes usando `MonthlyCharges`
 4. ✅ Verificar que no queden valores faltantes
 
 ### **Estado Final**
+
 - ✅ 0 valores faltantes en todo el dataset
 - ✅ Todos los tipos de datos son correctos
 - ✅ Los datos están limpios y listos para análisis
@@ -169,9 +177,14 @@ Este bloque es **crítico** porque:
 
 ## 🎓 Conclusión
 
-Este bloque demuestra que la **calidad de datos es fundamental**. Encontramos un problema sutil (espacios en blanco en vez de NaN), lo investigamos, entendimos su causa (clientes nuevos) y aplicamos una solución lógica (igualar a MonthlyCharges).
+Este bloque demuestra que la **calidad de datos es fundamental**. Encontramos un 
+problema sutil (espacios en blanco en vez de NaN), lo investigamos, entendimos 
+su causa (clientes nuevos) y aplicamos una solución lógica (igualar a MonthlyCharges).
 
-**Lección importante**: Los datos del mundo real casi nunca están perfectos. La limpieza de datos es una parte esencial (y a menudo la más larga) de cualquier proyecto de ciencia de datos.
+**Lección importante**: Los datos del mundo real casi nunca están perfectos. La 
+limpieza de datos es una parte esencial (y a menudo la más larga) de cualquier 
+proyecto de ciencia de datos.
 
-**Siguiente paso**: Con los datos limpios, podemos proceder al Análisis Exploratorio de Datos (EDA) para entender patrones y relaciones.
+**Siguiente paso**: Con los datos limpios, podemos proceder al Análisis 
+Exploratorio de Datos (EDA) para entender patrones y relaciones.
 

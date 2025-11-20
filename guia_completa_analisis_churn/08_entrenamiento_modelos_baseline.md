@@ -2,7 +2,10 @@
 
 ## 📋 Descripción General
 
-Este bloque es como **una competencia deportiva donde varios atletas compiten** para ver quién es el mejor. Entrenamos múltiples algoritmos de Machine Learning diferentes y comparamos su rendimiento para identificar cuáles funcionan mejor para predecir el churn.
+Este bloque es como **una competencia deportiva donde varios atletas compiten** 
+para ver quién es el mejor. Entrenamos múltiples algoritmos de Machine Learning 
+diferentes y comparamos su rendimiento para identificar cuáles funcionan mejor 
+para predecir el churn.
 
 ---
 
@@ -18,12 +21,14 @@ Los objetivos principales de este bloque son:
 ### ¿Por qué probar múltiples modelos?
 
 **Analogía del transporte**: Si necesitas ir de A a B, podrías usar:
+
 - Bicicleta (rápida para distancias cortas)
 - Auto (versátil)
 - Tren (eficiente para largas distancias)
 - Avión (rápido pero costoso)
 
-Cada uno tiene ventajas y desventajas. Lo mismo pasa con los algoritmos: cada uno tiene fortalezas en diferentes tipos de problemas.
+Cada uno tiene ventajas y desventajas. Lo mismo pasa con los algoritmos: cada uno 
+tiene fortalezas en diferentes tipos de problemas.
 
 ---
 
@@ -32,15 +37,18 @@ Cada uno tiene ventajas y desventajas. Lo mismo pasa con los algoritmos: cada un
 ### 1. **Logistic Regression (Regresión Logística)**
 
 **¿Cómo funciona?**
+
 - Encuentra una línea (o hiperplano) que separa las dos clases
 - Calcula la probabilidad de que un cliente haga churn
 
 **Ventajas**:
+
 - ✅ Simple y rápido
 - ✅ Fácil de interpretar
 - ✅ Funciona bien con relaciones lineales
 
 **Desventajas**:
+
 - ❌ Asume relaciones lineales
 - ❌ No captura patrones complejos
 
@@ -51,6 +59,7 @@ Cada uno tiene ventajas y desventajas. Lo mismo pasa con los algoritmos: cada un
 ### 2. **Decision Tree (Árbol de Decisión)**
 
 **¿Cómo funciona?**
+
 - Hace una serie de preguntas (if-then-else)
 - Cada pregunta divide los datos en grupos más puros
 
@@ -64,11 +73,13 @@ Cada uno tiene ventajas y desventajas. Lo mismo pasa con los algoritmos: cada un
 ```
 
 **Ventajas**:
+
 - ✅ Muy interpretable
 - ✅ Captura relaciones no lineales
 - ✅ No requiere normalización
 
 **Desventajas**:
+
 - ❌ Propenso a overfitting (memorizar en vez de aprender)
 - ❌ Inestable (pequeños cambios en datos → árbol muy diferente)
 
@@ -79,17 +90,20 @@ Cada uno tiene ventajas y desventajas. Lo mismo pasa con los algoritmos: cada un
 ### 3. **Random Forest (Bosque Aleatorio)**
 
 **¿Cómo funciona?**
+
 - Crea muchos árboles de decisión (100-1000)
 - Cada árbol vota
 - La decisión final es por mayoría
 
 **Ventajas**:
+
 - ✅ Muy robusto y preciso
 - ✅ Reduce overfitting vs. un solo árbol
 - ✅ Maneja bien datos complejos
 - ✅ Proporciona importancia de features
 
 **Desventajas**:
+
 - ❌ Menos interpretable que un solo árbol
 - ❌ Más lento de entrenar
 
@@ -100,16 +114,19 @@ Cada uno tiene ventajas y desventajas. Lo mismo pasa con los algoritmos: cada un
 ### 4. **Gradient Boosting**
 
 **¿Cómo funciona?**
+
 - Construye árboles secuencialmente
 - Cada árbol nuevo corrige los errores del anterior
 - Es como aprender de tus errores iterativamente
 
 **Ventajas**:
+
 - ✅ Muy preciso
 - ✅ Captura patrones complejos
 - ✅ Funciona bien en competencias de ML
 
 **Desventajas**:
+
 - ❌ Más lento de entrenar
 - ❌ Requiere ajuste cuidadoso de parámetros
 - ❌ Propenso a overfitting si no se configura bien
@@ -121,17 +138,20 @@ Cada uno tiene ventajas y desventajas. Lo mismo pasa con los algoritmos: cada un
 ### 5. **XGBoost (Extreme Gradient Boosting)**
 
 **¿Cómo funciona?**
+
 - Versión optimizada y mejorada de Gradient Boosting
 - Incluye regularización para prevenir overfitting
 - Muy eficiente computacionalmente
 
 **Ventajas**:
+
 - ✅ Estado del arte en muchos problemas
 - ✅ Muy preciso
 - ✅ Maneja bien datos desbalanceados
 - ✅ Rápido (comparado con Gradient Boosting tradicional)
 
 **Desventajas**:
+
 - ❌ Muchos hiperparámetros para ajustar
 - ❌ Menos interpretable
 
@@ -142,14 +162,17 @@ Cada uno tiene ventajas y desventajas. Lo mismo pasa con los algoritmos: cada un
 ### 6. **Support Vector Machine (SVM)**
 
 **¿Cómo funciona?**
+
 - Encuentra el mejor hiperplano que separa las clases
 - Maximiza el margen entre las clases
 
 **Ventajas**:
+
 - ✅ Efectivo en espacios de alta dimensión
 - ✅ Funciona bien con datos no lineales (usando kernels)
 
 **Desventajas**:
+
 - ❌ Lento con datasets grandes
 - ❌ Sensible a la escala de datos
 - ❌ Difícil de interpretar
@@ -161,14 +184,17 @@ Cada uno tiene ventajas y desventajas. Lo mismo pasa con los algoritmos: cada un
 ### 7. **K-Nearest Neighbors (KNN)**
 
 **¿Cómo funciona?**
+
 - Para clasificar un punto, mira sus K vecinos más cercanos
 - Asigna la clase más común entre esos vecinos
 
 **Ventajas**:
+
 - ✅ Simple de entender
 - ✅ No requiere entrenamiento (lazy learning)
 
 **Desventajas**:
+
 - ❌ Lento en predicción con datasets grandes
 - ❌ Sensible a la escala y ruido
 - ❌ Requiere elegir K apropiado
@@ -182,6 +208,7 @@ Cada uno tiene ventajas y desventajas. Lo mismo pasa con los algoritmos: cada un
 El bloque evalúa cada modelo con múltiples métricas:
 
 ### **1. Accuracy (Exactitud)**
+
 - **¿Qué mide?** Porcentaje de predicciones correctas
 - **Fórmula**: (Aciertos totales) / (Total de predicciones)
 - **Problema**: Puede ser engañosa con datos desbalanceados
@@ -189,6 +216,7 @@ El bloque evalúa cada modelo con múltiples métricas:
 **Ejemplo**: Si 73% de clientes NO hacen churn, un modelo que siempre predice "NO" tendría 73% de accuracy pero sería inútil.
 
 ### **2. Precision (Precisión)**
+
 - **¿Qué mide?** De los que predijimos como churn, ¿cuántos realmente lo hicieron?
 - **Fórmula**: Verdaderos Positivos / (Verdaderos Positivos + Falsos Positivos)
 - **Importancia**: Evita falsas alarmas
@@ -196,6 +224,7 @@ El bloque evalúa cada modelo con múltiples métricas:
 **Analogía**: De todas las veces que el detector de humo sonó, ¿cuántas veces realmente había fuego?
 
 ### **3. Recall (Sensibilidad)**
+
 - **¿Qué mide?** De todos los que realmente hicieron churn, ¿cuántos detectamos?
 - **Fórmula**: Verdaderos Positivos / (Verdaderos Positivos + Falsos Negativos)
 - **Importancia**: No perder clientes en riesgo
@@ -203,11 +232,13 @@ El bloque evalúa cada modelo con múltiples métricas:
 **Analogía**: De todos los incendios que hubo, ¿cuántos detectó el detector de humo?
 
 ### **4. F1-Score**
+
 - **¿Qué mide?** Balance entre Precision y Recall
 - **Fórmula**: 2 × (Precision × Recall) / (Precision + Recall)
 - **Importancia**: Métrica equilibrada
 
 ### **5. ROC-AUC**
+
 - **¿Qué mide?** Capacidad del modelo para discriminar entre clases
 - **Rango**: 0.5 (aleatorio) a 1.0 (perfecto)
 - **Importancia**: Independiente del umbral de decisión
@@ -217,15 +248,18 @@ El bloque evalúa cada modelo con múltiples métricas:
 ## 🏆 Resultados Típicos (Baseline)
 
 **Modelos de mejor rendimiento** (generalmente):
+
 1. **XGBoost**: ~85% accuracy, ~0.85 ROC-AUC
 2. **Random Forest**: ~84% accuracy, ~0.84 ROC-AUC
 3. **Gradient Boosting**: ~83% accuracy, ~0.83 ROC-AUC
 
 **Modelos de rendimiento moderado**:
+
 4. **Logistic Regression**: ~80% accuracy
 5. **SVM**: ~79% accuracy
 
 **Modelos de menor rendimiento**:
+
 6. **Decision Tree**: ~75% accuracy (overfitting)
 7. **KNN**: ~76% accuracy
 

@@ -17,7 +17,9 @@ Los objetivos principales de este bloque son:
 
 ### ¿Por qué es importante?
 
-**Analogía del detective**: Un detective no solo mira las pistas individuales, sino que las combina para formar una imagen completa. Por ejemplo:
+**Analogía del detective**: Un detective no solo mira las pistas individuales, 
+sino que las combina para formar una imagen completa. Por ejemplo:
+
 - Pista 1: Huellas en la puerta
 - Pista 2: Ventana rota
 - **Nueva pista combinada**: Entrada forzada
@@ -39,10 +41,12 @@ df_fe['AvgChargesPerMonth'] = df_fe['TotalCharges'] / (df_fe['tenure'] + 1)
 ```
 
 **¿Qué mide?**
+
 - Cuánto paga el cliente en promedio por mes
 - El `+1` evita división por cero para clientes nuevos
 
 **¿Por qué es útil?**
+
 - Captura si el cliente ha tenido aumentos o descuentos a lo largo del tiempo
 - Normaliza el gasto por la antigüedad
 
@@ -60,9 +64,11 @@ df_fe['TotalServices'] = (df_fe[services] != 'No').sum(axis=1)
 ```
 
 **¿Qué mide?**
+
 - Cuenta cuántos servicios tiene contratados el cliente (de 0 a 8)
 
 **¿Por qué es útil?**
+
 - El EDA mostró que clientes con más servicios tienen menos churn
 - Resume 8 variables en una sola métrica
 
@@ -78,10 +84,12 @@ df_fe['IsPremium'] = ((df_fe['MonthlyCharges'] > df_fe['MonthlyCharges'].median(
 ```
 
 **¿Qué mide?**
+
 - Si el cliente paga más que la mediana Y tiene 3+ servicios
 - Valor: 1 (premium) o 0 (no premium)
 
 **¿Por qué es útil?**
+
 - Identifica clientes de alto valor
 - Combina dos dimensiones: gasto y uso de servicios
 
@@ -98,16 +106,19 @@ df_fe['TenureGroup'] = pd.cut(df_fe['tenure'],
 ```
 
 **¿Qué hace `pd.cut()`?**
+
 - Divide una variable continua en categorías (bins)
 - Como poner edades en grupos: niño, adolescente, adulto, anciano
 
 **Categorías creadas**:
+
 - **0-1 year**: Clientes nuevos (alto riesgo de churn)
 - **1-2 years**: Clientes establecidos
 - **2-4 years**: Clientes leales
 - **4+ years**: Clientes muy leales (bajo riesgo)
 
 **¿Por qué es útil?**
+
 - Los modelos pueden capturar mejor relaciones no lineales
 - Refleja que el riesgo de churn no disminuye uniformemente con el tiempo
 
@@ -122,9 +133,11 @@ df_fe['HasFlexibleContract'] = (df_fe['Contract'] == 'Month-to-month').astype(in
 ```
 
 **¿Qué mide?**
+
 - Si el cliente tiene contrato mes a mes (1) o no (0)
 
 **¿Por qué es útil?**
+
 - El EDA mostró que contratos mes a mes tienen ~42% de churn
 - Simplifica la variable Contract en un indicador binario de riesgo
 
@@ -140,10 +153,12 @@ df_fe['SecurityServicesRatio'] = (df_fe[security_services] != 'No').sum(axis=1) 
 ```
 
 **¿Qué mide?**
+
 - Proporción de servicios de seguridad contratados (0 a 1)
 - 0 = ninguno, 0.5 = mitad, 1 = todos
 
 **¿Por qué es útil?**
+
 - Los servicios de seguridad están asociados con menor churn
 - Normaliza el conteo en una escala de 0 a 1
 
@@ -161,6 +176,7 @@ df_fe['Partner'] = df_fe['Partner'].map({'Yes': 1, 'No': 0})
 ```
 
 **¿Por qué convertir a números?**
+
 - Los modelos de Machine Learning solo entienden números
 - Yes/No → 1/0 es más eficiente que crear columnas dummy
 

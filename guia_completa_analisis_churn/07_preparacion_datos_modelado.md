@@ -2,7 +2,9 @@
 
 ## 📋 Descripción General
 
-Este bloque es como **preparar los ingredientes antes de cocinar**. Tenemos los datos limpios y las features creadas, pero ahora necesitamos transformarlos al formato exacto que los algoritmos de Machine Learning requieren.
+Este bloque es como **preparar los ingredientes antes de cocinar**. Tenemos los 
+datos limpios y las features creadas, pero ahora necesitamos transformarlos al 
+formato exacto que los algoritmos de Machine Learning requieren.
 
 ---
 
@@ -22,7 +24,8 @@ Los objetivos principales de este bloque son:
 - **Entrenamiento**: Estudias con ejercicios de práctica
 - **Prueba**: Tomas el examen real con preguntas nuevas
 
-Si estudias con las mismas preguntas del examen, memorizarás las respuestas pero no aprenderás realmente. Por eso separamos los datos.
+Si estudias con las mismas preguntas del examen, memorizarás las respuestas pero 
+no aprenderás realmente. Por eso separamos los datos.
 
 ---
 
@@ -36,10 +39,12 @@ y = df_model['Churn'].map({'Yes': 1, 'No': 0})
 ```
 
 **¿Qué hace esto?**
+
 - **X**: Variables predictoras (features) - todo excepto Churn y customerID
 - **y**: Variable objetivo - Churn convertido a 1 (Yes) y 0 (No)
 
 **¿Por qué eliminar customerID?**
+
 - Es solo un identificador único, no tiene poder predictivo
 - Sería como usar el número de cédula para predecir si alguien se enferma
 
@@ -58,21 +63,26 @@ X_train, X_test, y_train, y_test = train_test_split(
 **Parámetros importantes**:
 
 #### **test_size=0.20**
+
 - 80% de datos para entrenar
 - 20% de datos para probar
 - **Analogía**: De 100 problemas de matemáticas, practicas con 80 y te evalúan con 20 nuevos
 
 #### **random_state=42**
+
 - Fija la semilla aleatoria para reproducibilidad
 - Siempre obtendremos la misma división
 - **Analogía**: Como usar la misma baraja de cartas mezclada de la misma forma cada vez
 
 #### **stratify=y**
+
 - Mantiene la misma proporción de churn en train y test
 - Si hay 27% de churn en total, habrá ~27% en train y ~27% en test
-- **Analogía**: Si una clase tiene 30% niños y 70% niñas, al dividir en grupos mantienes esa proporción
+- **Analogía**: Si una clase tiene 30% niños y 70% niñas, al dividir en grupos 
+mantienes esa proporción
 
 **¿Por qué es crítico?**
+
 - **Sin stratify**: Podrías tener 40% churn en train y 10% en test (desbalance)
 - **Con stratify**: Ambos conjuntos son representativos
 
@@ -86,6 +96,7 @@ numerical_features = X_train.select_dtypes(include=['int64', 'float64']).columns
 ```
 
 **¿Por qué separar?**
+
 - Variables categóricas y numéricas requieren transformaciones diferentes
 - **Categóricas**: Necesitan codificación (texto → números)
 - **Numéricas**: Necesitan normalización (misma escala)
@@ -103,18 +114,22 @@ OneHotEncoder(drop='first', sparse=False, handle_unknown='ignore')
 Convierte categorías en columnas binarias (0 o 1).
 
 **Ejemplo con InternetService**:
+
 - Original: ['DSL', 'Fiber optic', 'No']
 - Después de One-Hot:
+
   - `InternetService_Fiber optic`: 1 si es Fiber, 0 si no
   - `InternetService_No`: 1 si es No, 0 si no
   - (DSL se infiere cuando ambas son 0)
 
 **Parámetros**:
+
 - **drop='first'**: Elimina la primera categoría para evitar multicolinealidad
 - **sparse=False**: Retorna array denso (más fácil de manejar)
 - **handle_unknown='ignore'**: Si aparece una categoría nueva en test, la ignora
 
 **Analogía**: Es como tener casillas de verificación:
+
 - ☐ DSL
 - ☐ Fiber optic  
 - ☐ No internet
@@ -132,6 +147,7 @@ StandardScaler()
 **¿Qué hace StandardScaler?**
 
 Transforma los datos para que tengan:
+
 - **Media = 0**
 - **Desviación estándar = 1**
 
@@ -140,13 +156,17 @@ Transforma los datos para que tengan:
 **¿Por qué es necesario?**
 
 **Problema sin normalización**:
+
 - `tenure`: rango 0-72
 - `MonthlyCharges`: rango 18-118
 - `TotalCharges`: rango 0-8,000+
 
-Algunos algoritmos (como SVM, KNN) son sensibles a la escala. Sin normalización, `TotalCharges` dominaría porque tiene valores mucho más grandes.
+Algunos algoritmos (como SVM, KNN) son sensibles a la escala. Sin normalización, 
+`TotalCharges` dominaría porque tiene valores mucho más grandes.
 
-**Analogía**: Es como convertir todas las medidas a la misma unidad antes de compararlas:
+**Analogía**: Es como convertir todas las medidas a la misma unidad antes de 
+compararlas:
+
 - Altura: metros
 - Peso: kilogramos
 - Edad: años
@@ -171,12 +191,14 @@ preprocessor = ColumnTransformer(
 Un flujo de trabajo automatizado que aplica transformaciones en orden.
 
 **Ventajas**:
+
 1. **Automatización**: Aplica todas las transformaciones con un solo comando
 2. **Consistencia**: Las mismas transformaciones se aplican a train y test
 3. **Previene data leakage**: No usa información de test para transformar train
 4. **Reproducibilidad**: Fácil de replicar
 
 **Analogía**: Es como una línea de ensamblaje en una fábrica:
+
 - Estación 1: Normalizar números
 - Estación 2: Codificar categorías
 - Producto final: Datos listos para el modelo
@@ -191,12 +213,14 @@ X_test_processed = preprocessor.transform(X_test)
 ```
 
 **Diferencia crítica**:
+
 - **fit_transform** en train: Aprende los parámetros (media, desviación) Y transforma
 - **transform** en test: Solo transforma usando los parámetros aprendidos de train
 
 **¿Por qué esta diferencia?**
 
 **Analogía del profesor**: 
+
 - El profesor (preprocessor) aprende de los estudiantes de práctica (train)
 - Luego aplica lo aprendido a los estudiantes del examen (test)
 - NO debe aprender nada de los estudiantes del examen (evita data leakage)
@@ -206,16 +230,19 @@ X_test_processed = preprocessor.transform(X_test)
 ## 📊 Resultado de la Preparación
 
 **Antes**:
+
 - Variables categóricas como texto
 - Variables numéricas en diferentes escalas
 - Todo en un solo DataFrame
 
 **Después**:
+
 - Todo convertido a números
 - Variables normalizadas (media=0, std=1)
 - Listo para alimentar a los modelos
 
 **Dimensiones**:
+
 - **X_train**: ~5,634 filas (80%)
 - **X_test**: ~1,409 filas (20%)
 - **Columnas**: Aumentan por One-Hot Encoding
