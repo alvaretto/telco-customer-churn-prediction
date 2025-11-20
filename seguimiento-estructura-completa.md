@@ -555,6 +555,130 @@ Tener un proyecto completo de deployment de ML con:
 
 ---
 
+## 🚀 FASE 7: DEPLOYMENT EN PRODUCCIÓN
+
+**Estado**: [ ] PENDIENTE - Listo para iniciar
+**Fecha de inicio**: _____________
+**Tiempo estimado**: 30-40 minutos
+
+### 📋 Checklist de Deployment
+
+#### Pre-deployment (5 min)
+- [x] Verificar que todos los archivos están committed
+- [x] Verificar que todo está pushed a GitHub
+- [x] Verificar que Git LFS está funcionando
+- [x] Verificar archivos de configuración (runtime.txt, render.yaml, .streamlit/config.toml)
+- [ ] Leer `DEPLOYMENT_CHECKLIST.md` completo
+- [ ] Tener cuenta de GitHub lista
+
+#### Deployment API en Render.com (20-25 min)
+- [ ] Crear cuenta en https://render.com con GitHub
+- [ ] Conectar repositorio `telco-customer-churn-prediction`
+- [ ] Crear Web Service con configuración:
+  - Root Directory: `api`
+  - Build Command: `pip install -r requirements.txt`
+  - Start Command: `gunicorn --bind 0.0.0.0:$PORT --workers 2 --threads 2 --timeout 60 app:app`
+  - Environment: `PYTHON_VERSION=3.10.13`
+- [ ] Esperar deployment (10-15 min)
+- [ ] Verificar endpoint `/health`
+- [ ] Verificar endpoint `/model_info`
+- [ ] Guardar URL de producción
+
+#### Deployment Dashboard en Streamlit Cloud (15-20 min)
+- [ ] Crear cuenta en https://share.streamlit.io con GitHub
+- [ ] Crear nueva app con configuración:
+  - Repository: `alvaretto/telco-customer-churn-prediction`
+  - Branch: `main`
+  - Main file: `dashboard/app.py`
+  - Python version: 3.10
+- [ ] Esperar deployment (5-10 min)
+- [ ] Verificar que todas las páginas cargan
+- [ ] Probar predicción en "🎯 Risk Analysis"
+- [ ] Verificar métricas en "📈 Model Metrics"
+- [ ] Guardar URL de producción
+
+#### Post-deployment (5 min)
+- [ ] Actualizar `URLS_PRODUCCION.md` con URLs reales
+- [ ] Actualizar `README.md` con badges y URLs
+- [ ] Probar integración completa
+- [ ] Documentar fecha de deployment
+- [ ] Marcar esta fase como [COMPLETADA]
+
+### 📊 Métricas de Deployment Esperadas
+
+| Métrica | Valor Esperado |
+|---------|----------------|
+| **Tiempo de build API** | 5-8 minutos |
+| **Tiempo de build Dashboard** | 3-5 minutos |
+| **Tamaño del modelo descargado** | 65 MB (via Git LFS) |
+| **RAM usada (API)** | ~200-300 MB |
+| **RAM usada (Dashboard)** | ~400-500 MB |
+| **Tiempo de respuesta API** | <500ms |
+| **Tiempo de carga Dashboard** | 2-3 segundos |
+
+### 🔗 URLs de Producción
+
+**API**: `https://_____________________.onrender.com`
+**Dashboard**: `https://_____________________.streamlit.app`
+**GitHub**: `https://github.com/alvaretto/telco-customer-churn-prediction`
+
+*(Actualizar después del deployment)*
+
+### ⚠️ Troubleshooting Común
+
+**Problema**: Build failed en Render
+**Solución**: Verificar logs, confirmar que Git LFS descargó archivos .pkl
+
+**Problema**: Dashboard no carga modelo
+**Solución**: Verificar rutas relativas en código, reboot app
+
+**Problema**: API responde 500
+**Solución**: Ver logs en Render, verificar que modelo se cargó correctamente
+
+### 📚 Documentación de Referencia
+
+- `DEPLOYMENT_CHECKLIST.md` - Checklist detallado paso a paso
+- `docs/DEPLOYMENT_PASO_A_PASO.md` - Guía con screenshots
+- `PLAN_ACCION_INFRAESTRUCTURA.md` - Análisis de opciones
+- `EMPEZAR_AQUI.md` - Guía de inicio rápido
+
+---
+
+## 🎯 ESTADO FINAL DEL PROYECTO
+
+### ✅ Completado (100%)
+- [x] Modelo entrenado y optimizado (ROC-AUC: 0.87)
+- [x] Modelo serializado y versionado con Git LFS
+- [x] Estructura completa de deployment (35 archivos)
+- [x] API REST con Flask (4 endpoints)
+- [x] Dashboard con Streamlit (5 páginas)
+- [x] Tests automatizados
+- [x] Documentación exhaustiva
+- [x] Configuración para cloud deployment
+- [x] Todo committed y pushed a GitHub
+
+### ⏳ Pendiente
+- [ ] Deployment en Render.com (API)
+- [ ] Deployment en Streamlit Cloud (Dashboard)
+- [ ] Verificación en producción
+- [ ] Actualización de URLs en documentación
+
+### 🚀 Próximo Paso Inmediato
+
+**Acción**: Abrir `EMPEZAR_AQUI.md` y seguir las instrucciones para deployment
+
+**Comando**:
+```bash
+cat EMPEZAR_AQUI.md
+# O en tu editor
+code EMPEZAR_AQUI.md
+```
+
+**Luego**: Ir a https://render.com y seguir el checklist en `DEPLOYMENT_CHECKLIST.md`
+
+---
+
 *Estructura completa creada el 2025-11-20. Proyecto listo para deployment.*
-*Última actualización: 2025-11-20 - Agregada configuración para cloud deployment.*
+*Última actualización: 2025-11-20 - Agregada Fase 7: Deployment en Producción.*
+*Estado actual: ✅ 100% LISTO PARA DEPLOYMENT - Esperando deployment a cloud.*
 
