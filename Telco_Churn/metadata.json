@@ -1,0 +1,43 @@
+{
+  "model_type": "RandomForestClassifier",
+  "environment": "Google Colab",
+  "metrics": {
+    "roc_auc": 0.87,
+    "recall": 0.83,
+    "precision": 0.72,
+    "f1_score": 0.77
+  },
+  "training_date": "2025-11-20T19:25:05.731544",
+  "features": [
+    "gender",
+    "SeniorCitizen",
+    "Partner",
+    "Dependents",
+    "tenure",
+    "PhoneService",
+    "MultipleLines",
+    "InternetService",
+    "OnlineSecurity",
+    "OnlineBackup",
+    "DeviceProtection",
+    "TechSupport",
+    "StreamingTV",
+    "StreamingMovies",
+    "Contract",
+    "PaperlessBilling",
+    "PaymentMethod",
+    "MonthlyCharges",
+    "TotalCharges",
+    "ChargeRatio",
+    "AvgMonthlyCharges",
+    "TenureGroup",
+    "TotalServices",
+    "SeniorWithDependents",
+    "HighValueContract"
+  ],
+  "n_features": 25,
+  "n_samples_train": 5634,
+  "model_size_mb": 64.09,
+  "preprocessor_size_mb": 0.01,
+  "save_location": "/content/drive/MyDrive/Colab_Models/Telco_Churn"
+}
