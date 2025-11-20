@@ -33,8 +33,62 @@ except Exception as e:
     preprocessor = None
     metadata = {}
 
-# Expected features (from metadata)
-EXPECTED_FEATURES = metadata.get('features', [])
+# Original features expected from user (before feature engineering)
+ORIGINAL_FEATURES = [
+    'gender', 'SeniorCitizen', 'Partner', 'Dependents', 'tenure',
+    'PhoneService', 'MultipleLines', 'InternetService', 'OnlineSecurity',
+    'OnlineBackup', 'DeviceProtection', 'TechSupport', 'StreamingTV',
+    'StreamingMovies', 'Contract', 'PaperlessBilling', 'PaymentMethod',
+    'MonthlyCharges', 'TotalCharges'
+]
+
+
+def apply_feature_engineering(df):
+    """
+    Apply feature engineering to match training data
+
+    Args:
+        df (pd.DataFrame): DataFrame with original features
+
+    Returns:
+        pd.DataFrame: DataFrame with engineered features
+    """
+    df_fe = df.copy()
+
+    # 1. ChargeRatio: Monthly charges relative to total charges
+    df_fe['ChargeRatio'] = df_fe['MonthlyCharges'] / (df_fe['TotalCharges'] + 1)
+
+    # 2. AvgMonthlyCharges: Average monthly charges based on tenure
+    df_fe['AvgMonthlyCharges'] = df_fe['TotalCharges'] / (df_fe['tenure'] + 1)
+
+    # 3. TenureGroup: Categorize tenure into groups
+    df_fe['TenureGroup'] = pd.cut(
+        df_fe['tenure'],
+        bins=[0, 12, 24, 48, 72],
+        labels=['0-1 año', '1-2 años', '2-4 años', '4+ años']
+    ).astype(str)
+
+    # 4. TotalServices: Count of services contracted
+    service_cols = ['PhoneService', 'InternetService', 'OnlineSecurity', 'OnlineBackup',
+                    'DeviceProtection', 'TechSupport', 'StreamingTV', 'StreamingMovies']
+    df_fe['TotalServices'] = 0
+    for col in service_cols:
+        if col in df_fe.columns:
+            df_fe['TotalServices'] += (df_fe[col] != 'No').astype(int)
+
+    # 5. SeniorWithDependents: Senior citizen with dependents
+    df_fe['SeniorWithDependents'] = (
+        (df_fe['SeniorCitizen'] == 1) & (df_fe['Dependents'] == 'Yes')
+    ).astype(int)
+
+    # 6. HighValueContract: Long contract + high charges
+    median_charges = df_fe['MonthlyCharges'].median()
+    df_fe['HighValueContract'] = (
+        (df_fe['Contract'].isin(['One year', 'Two year'])) &
+        (df_fe['MonthlyCharges'] > median_charges)
+    ).astype(int)
+
+    return df_fe
 
 
 @app.route('/', methods=['GET'])
@@ -72,15 +126,19 @@ def model_info():
     """Get model information and metrics"""
     if not metadata:
         return jsonify({'error': 'Model metadata not available'}), 503
-    
+
     return jsonify({
         'model_type': metadata.get('model_type'),
         'metrics': metadata.get('metrics'),
-        'n_features': metadata.get('n_features'),
-        'features': metadata.get('features'),
+        'n_features_total': metadata.get('n_features'),
+        'n_features_original': len(ORIGINAL_FEATURES),
+        'original_features': ORIGINAL_FEATURES,
+        'engineered_features': ['ChargeRatio', 'AvgMonthlyCharges', 'TenureGroup',
+                                'TotalServices', 'SeniorWithDependents', 'HighValueContract'],
         'training_date': metadata.get('training_date'),
         'model_size_mb': metadata.get('model_size_mb'),
-        'environment': metadata.get('environment')
+        'environment': metadata.get('environment'),
+        'library_versions': metadata.get('library_versions')
     })
 
 
@@ -88,37 +146,41 @@ def model_info():
 def predict():
     """
     Single customer churn prediction
-    
-    Expected JSON body with customer features
+
+    Expected JSON body with original customer features (before feature engineering)
     """
     if model is None or preprocessor is None:
         return jsonify({'error': 'Model not loaded'}), 503
-    
+
     try:
         # Get JSON data
         data = request.get_json()
-        
+
         if not data:
             return jsonify({'error': 'No data provided'}), 400
-        
+
         # Convert to DataFrame
         df = pd.DataFrame([data])
-        
-        # Validate features
-        missing_features = set(EXPECTED_FEATURES) - set(df.columns)
+
+        # Validate original features
+        missing_features = set(ORIGINAL_FEATURES) - set(df.columns)
         if missing_features:
             return jsonify({
                 'error': 'Missing features',
-                'missing': list(missing_features)
+                'missing': list(missing_features),
+                'expected_features': ORIGINAL_FEATURES
             }), 400
-        
-        # Select only expected features in correct order
-        df = df[EXPECTED_FEATURES]
-        
+
+        # Apply feature engineering
+        df_engineered = apply_feature_engineering(df)
+
+        # Apply preprocessing (scaling and encoding)
+        df_processed = preprocessor.transform(df_engineered)
+
         # Make prediction
-        prediction = model.predict(df)[0]
-        probability = model.predict_proba(df)[0]
-        
+        prediction = model.predict(df_processed)[0]
+        probability = model.predict_proba(df_processed)[0]
+
         # Prepare response
         response = {
             'prediction': int(prediction),
@@ -130,9 +192,9 @@ def predict():
             'risk_level': get_risk_level(probability[1]),
             'timestamp': datetime.now().isoformat()
         }
-        
+
         return jsonify(response), 200
-        
+
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
@@ -141,36 +203,40 @@ def predict():
 def predict_batch():
     """
     Batch churn predictions
-    
-    Expected JSON body with list of customer features
+
+    Expected JSON body with list of original customer features (before feature engineering)
     """
     if model is None or preprocessor is None:
         return jsonify({'error': 'Model not loaded'}), 503
-    
+
     try:
         # Get JSON data
         data = request.get_json()
-        
+
         if not data or not isinstance(data, list):
             return jsonify({'error': 'Expected list of customer data'}), 400
-        
+
         # Convert to DataFrame
         df = pd.DataFrame(data)
 
         # Validate features
-        missing_features = set(EXPECTED_FEATURES) - set(df.columns)
+        missing_features = set(ORIGINAL_FEATURES) - set(df.columns)
         if missing_features:
             return jsonify({
                 'error': 'Missing features',
-                'missing': list(missing_features)
+                'missing': list(missing_features),
+                'expected_features': ORIGINAL_FEATURES
             }), 400
 
-        # Select only expected features in correct order
-        df = df[EXPECTED_FEATURES]
+        # Apply feature engineering
+        df_engineered = apply_feature_engineering(df)
+
+        # Apply preprocessing (scaling and encoding)
+        df_processed = preprocessor.transform(df_engineered)
 
         # Make predictions
-        predictions = model.predict(df)
-        probabilities = model.predict_proba(df)
+        predictions = model.predict(df_processed)
+        probabilities = model.predict_proba(df_processed)
 
         # Prepare response
         results = []
