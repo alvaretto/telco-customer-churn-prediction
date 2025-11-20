@@ -560,7 +560,7 @@ Tener un proyecto completo de deployment de ML con:
 **Estado**: [🔄] EN PROGRESO - Preparación completada
 **Fecha de inicio**: 2025-11-20
 **Tiempo estimado**: 30-40 minutos
-**Última actualización**: 2025-11-20 - Pre-deployment verificado
+**Última actualización**: 2025-11-20 - Documentación formateada
 
 ### 📋 Checklist de Deployment
 
@@ -573,6 +573,7 @@ Tener un proyecto completo de deployment de ML con:
 - [x] Verificar modelo existe ✅ (models/churn_model.pkl, models/preprocessor.pkl)
 - [x] Leer `DEPLOYMENT_CHECKLIST.md` completo ✅
 - [x] Tener cuenta de GitHub lista ✅
+- [x] Formatear documentación de deployment ✅ (bu/deploy/03-deploy.md - 9 correcciones)
 
 #### Deployment API en Render.com (20-25 min)
 - [ ] Crear cuenta en https://render.com con GitHub
@@ -682,6 +683,6 @@ code EMPEZAR_AQUI.md
 ---
 
 *Estructura completa creada el 2025-11-20. Proyecto listo para deployment.*
-*Última actualización: 2025-11-20 - Agregada Fase 7: Deployment en Producción.*
+*Última actualización: 2025-11-20 - Documentación formateada (bu/deploy/03-deploy.md).*
 *Estado actual: ✅ 100% LISTO PARA DEPLOYMENT - Esperando deployment a cloud.*
 
