@@ -456,6 +456,7 @@ El código crea una función personalizada que intenta cargar el archivo desde m
 ### 3. **Inspección de Dimensiones**
 
 **Resultado**: `(7043, 21)`
+
 - **7,043 filas** = 7,043 clientes
 - **21 columnas** = 21 variables por cliente
 
