@@ -26,9 +26,18 @@ Status: ✅ DEPLOYADO Y FUNCIONANDO
 
 #### 📊 Dashboard (Streamlit Cloud)
 ```
-URL: https://[PENDIENTE-DEPLOYMENT].streamlit.app
-Status: ⏳ Pendiente de deployment
+URL: https://telco-churn-dashboard-ml.streamlit.app
+Status: ✅ DEPLOYADO Y FUNCIONANDO
+Última actualización: 2025-11-21 01:10 UTC
 ```
+
+**Páginas disponibles:**
+- 🏠 **Home** - Overview del proyecto ✅
+- 📊 **Overview** - Análisis exploratorio de datos ✅
+- 🎯 **Risk Analysis** - Predicción interactiva de churn ✅
+- 📈 **Model Metrics** - Métricas y rendimiento del modelo ✅
+- 💰 **ROI Simulator** - Simulador de retorno de inversión ✅
+- 🔍 **Model Monitoring** - Monitoreo del modelo ✅
 
 **Páginas disponibles:**
 - 🏠 Home - Overview del proyecto
@@ -202,7 +211,7 @@ Para actualizar el modelo en producción:
 
 ---
 
-## 🎯 PRÓXIMOS PASOS
+## 🎯 ESTADO DEL PROYECTO
 
 ### ✅ Completado
 - [x] URL real de la API: `https://telco-churn-api-y9xy.onrender.com`
@@ -210,21 +219,33 @@ Para actualizar el modelo en producción:
 - [x] Feature engineering automático implementado
 - [x] Versiones de librerías actualizadas (scikit-learn 1.5.2)
 - [x] Documentación actualizada
+- [x] **URL real del Dashboard: `https://telco-churn-dashboard-ml.streamlit.app`** ✅
+- [x] **Deployment del Dashboard completado** ✅
+- [x] **Fecha de deployment Dashboard: 2025-11-21** ✅
+- [x] **Integración Dashboard → Modelo funcionando** ✅
 
-### ⏳ Pendiente
-- [ ] URL real del Dashboard (Streamlit Cloud)
-- [ ] Deployment del Dashboard
-- [ ] Capturas de pantalla
-- [ ] Métricas de uso iniciales
-- [ ] Integración Dashboard → API
+### ⏳ Opcional (Mejoras Futuras)
+- [ ] Capturas de pantalla para documentación
+- [ ] Métricas de uso en producción
+- [ ] Monitoreo de performance
+- [ ] A/B testing de modelos
 
 ---
 
-**Última actualización**: 2025-11-20 23:59 UTC
-**Estado**: 🟢 API DEPLOYADA | ⏳ Dashboard pendiente
+**Última actualización**: 2025-11-21 01:10 UTC
+**Estado**: 🟢 PROYECTO 100% DEPLOYADO - API Y DASHBOARD FUNCIONANDO
 **Responsable**: Álvaro Ángel Molina (@alvaretto)
 
 ## 📊 Historial de Cambios
+
+### 2025-11-21 01:10 UTC - Dashboard Deployado ✅
+- ✅ Dashboard deployado en Streamlit Cloud
+- ✅ URL: https://telco-churn-dashboard-ml.streamlit.app
+- ✅ 6 páginas funcionando correctamente
+- ✅ Predicción interactiva funcionando
+- ✅ Feature engineering integrado en dashboard
+- ✅ Preprocesador aplicado correctamente
+- ✅ Visualizaciones y métricas funcionando
 
 ### 2025-11-20 23:59 UTC - Feature Engineering Automático
 - ✅ Implementado feature engineering automático en API

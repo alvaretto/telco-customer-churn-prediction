@@ -1,11 +1,19 @@
 # 📊 Predicción de Abandono de Clientes en Telecomunicaciones
 
-[![Python](https://img.shields.io/badge/Python-3.8%2B-blue.svg)](https://www.python.org/)
+[![Python](https://img.shields.io/badge/Python-3.10-blue.svg)](https://www.python.org/)
 [![Jupyter](https://img.shields.io/badge/Jupyter-Notebook-orange.svg)](https://jupyter.org/)
-[![scikit-learn](https://img.shields.io/badge/scikit--learn-1.0%2B-yellow.svg)](https://scikit-learn.org/)
+[![scikit-learn](https://img.shields.io/badge/scikit--learn-1.5.2-yellow.svg)](https://scikit-learn.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
+[![API](https://img.shields.io/badge/API-Render-46E3B7.svg)](https://telco-churn-api-y9xy.onrender.com)
+[![Dashboard](https://img.shields.io/badge/Dashboard-Streamlit-FF4B4B.svg)](https://telco-churn-dashboard-ml.streamlit.app)
 
 > Proyecto de Machine Learning para predecir el abandono de clientes (Customer Churn) en empresas de telecomunicaciones utilizando técnicas avanzadas de análisis de datos y modelado predictivo.
+
+## 🚀 Demo en Vivo
+
+- **🌐 API REST**: [https://telco-churn-api-y9xy.onrender.com](https://telco-churn-api-y9xy.onrender.com)
+- **📊 Dashboard Interactivo**: [https://telco-churn-dashboard-ml.streamlit.app](https://telco-churn-dashboard-ml.streamlit.app)
+- **📂 Repositorio**: [https://github.com/alvaretto/telco-customer-churn-prediction](https://github.com/alvaretto/telco-customer-churn-prediction)
 
 ---
 
@@ -153,7 +161,65 @@ conda install numpy pandas matplotlib seaborn scikit-learn xgboost imbalanced-le
 
 ## 💻 Uso
 
-### Ejecutar el Notebook Principal
+### 🌐 Usar la Aplicación en Producción (Recomendado)
+
+#### 1. Dashboard Interactivo
+Accede al dashboard en vivo para hacer predicciones y explorar el modelo:
+
+**URL**: [https://telco-churn-dashboard-ml.streamlit.app](https://telco-churn-dashboard-ml.streamlit.app)
+
+**Páginas disponibles:**
+- 🏠 **Home** - Introducción al proyecto
+- 📊 **Overview** - Análisis exploratorio de datos
+- 🎯 **Risk Analysis** - Predicción interactiva de churn
+- 📈 **Model Metrics** - Métricas y rendimiento del modelo
+- 💰 **ROI Simulator** - Simulador de retorno de inversión
+- 🔍 **Model Monitoring** - Monitoreo del modelo
+
+#### 2. API REST
+Integra predicciones en tus aplicaciones:
+
+**URL Base**: `https://telco-churn-api-y9xy.onrender.com`
+
+**Ejemplo de uso:**
+```bash
+# Health check
+curl https://telco-churn-api-y9xy.onrender.com/health
+
+# Información del modelo
+curl https://telco-churn-api-y9xy.onrender.com/model_info
+
+# Predicción
+curl -X POST https://telco-churn-api-y9xy.onrender.com/predict \
+  -H "Content-Type: application/json" \
+  -d '{
+    "gender": "Female",
+    "SeniorCitizen": 0,
+    "Partner": "Yes",
+    "Dependents": "No",
+    "tenure": 1,
+    "PhoneService": "No",
+    "MultipleLines": "No phone service",
+    "InternetService": "DSL",
+    "OnlineSecurity": "No",
+    "OnlineBackup": "Yes",
+    "DeviceProtection": "No",
+    "TechSupport": "No",
+    "StreamingTV": "No",
+    "StreamingMovies": "No",
+    "Contract": "Month-to-month",
+    "PaperlessBilling": "Yes",
+    "PaymentMethod": "Electronic check",
+    "MonthlyCharges": 29.85,
+    "TotalCharges": 29.85
+  }'
+```
+
+**Documentación completa**: [API_USAGE.md](docs/API_USAGE.md)
+
+---
+
+### 🔬 Ejecutar el Notebook Localmente
 
 1. **Iniciar Jupyter Notebook:**
    ```bash
@@ -489,13 +555,20 @@ pytest tests/test_model.py -v
 
 ---
 
-### Próximos Pasos
+### ✅ Completado
 
-1. 🚀 **Implementación en Producción**: API REST para scoring en tiempo real
-2. 📊 **Dashboard Ejecutivo**: Visualización de métricas y clientes en riesgo
-3. 🧪 **A/B Testing**: Validar efectividad de estrategias de retención
-4. 🔄 **Reentrenamiento Automático**: Pipeline MLOps para actualización continua
-5. 🤖 **Modelos Avanzados**: Explorar Deep Learning y AutoML
+1. ✅ **Implementación en Producción**: API REST deployada en Render
+2. ✅ **Dashboard Ejecutivo**: Dashboard interactivo deployado en Streamlit Cloud
+3. ✅ **Feature Engineering Automático**: API acepta datos categóricos originales
+4. ✅ **Documentación Completa**: Guías de uso y deployment
+
+### 🔮 Próximos Pasos (Mejoras Futuras)
+
+1. 🧪 **A/B Testing**: Validar efectividad de estrategias de retención
+2. 🔄 **Reentrenamiento Automático**: Pipeline MLOps para actualización continua
+3. 🤖 **Modelos Avanzados**: Explorar Deep Learning y AutoML
+4. 📊 **Monitoreo en Producción**: Métricas de uso y performance
+5. 🔔 **Alertas Automáticas**: Notificaciones de clientes en riesgo crítico
 
 ---
 

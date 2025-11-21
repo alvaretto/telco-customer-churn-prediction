@@ -92,53 +92,62 @@
 
 ---
 
-## 📊 DEPLOYMENT - PARTE 2: DASHBOARD EN STREAMLIT CLOUD
+## 📊 DEPLOYMENT - PARTE 2: DASHBOARD EN STREAMLIT CLOUD ✅ COMPLETADO
 
-### Paso 1: Preparación (1 min)
-- [ ] Abrir https://share.streamlit.io en navegador
-- [ ] Tener la URL de la API de Render lista
+### Paso 1: Preparación (1 min) ✅
+- [x] Abrir https://share.streamlit.io en navegador
+- [x] Tener la URL de la API de Render lista
 
-### Paso 2: Crear cuenta (2 min)
-- [ ] Click "Sign in"
-- [ ] Seleccionar "Continue with GitHub"
-- [ ] Autorizar Streamlit
+### Paso 2: Crear cuenta (2 min) ✅
+- [x] Click "Sign in"
+- [x] Seleccionar "Continue with GitHub"
+- [x] Autorizar Streamlit
 
-### Paso 3: Crear app (3 min)
-- [ ] Click "New app"
-- [ ] **Repository**: `alvaretto/telco-customer-churn-prediction`
-- [ ] **Branch**: `main`
-- [ ] **Main file path**: `dashboard/app.py`
-- [ ] **App URL**: `telco-churn-dashboard` (o personalizado)
+### Paso 3: Crear app (3 min) ✅
+- [x] Click "New app"
+- [x] **Repository**: `alvaretto/telco-customer-churn-prediction`
+- [x] **Branch**: `main`
+- [x] **Main file path**: `dashboard/app.py`
+- [x] **App URL**: `telco-churn-dashboard-ml`
 
-### Paso 4: Configuración avanzada (2 min)
-- [ ] Click "Advanced settings"
-- [ ] **Python version**: 3.10
-- [ ] Click "Save"
+### Paso 4: Configuración avanzada (2 min) ✅
+- [x] Click "Advanced settings"
+- [x] **Python version**: 3.10
+- [x] Click "Save"
 
-### Paso 5: Deploy (5 min)
-- [ ] Click "Deploy!"
-- [ ] Esperar mientras Streamlit:
-  - [ ] Clona el repositorio
-  - [ ] Descarga archivos Git LFS
-  - [ ] Instala dependencias de `dashboard/requirements.txt`
-  - [ ] Ejecuta `dashboard/app.py`
-- [ ] Ver logs en tiempo real
-- [ ] Esperar a que cargue la aplicación
+### Paso 5: Deploy (5 min) ✅
+- [x] Click "Deploy!"
+- [x] Esperar mientras Streamlit:
+  - [x] Clona el repositorio
+  - [x] Descarga archivos Git LFS
+  - [x] Instala dependencias de `requirements.txt`
+  - [x] Ejecuta `dashboard/app.py`
+- [x] Ver logs en tiempo real
+- [x] Esperar a que cargue la aplicación
 
-### Paso 6: Verificar Dashboard (5 min)
-- [ ] Copiar URL (ej: `https://telco-churn-dashboard.streamlit.app`)
-- [ ] Guardar URL
-- [ ] Verificar página Home carga correctamente
-- [ ] Navegar a "📊 Overview" - debe cargar
-- [ ] Navegar a "🎯 Risk Analysis" - debe cargar formulario
-- [ ] Llenar formulario de prueba
-- [ ] Click "Predict Churn Risk"
-- [ ] Verificar que muestra predicción
-- [ ] Navegar a "📈 Model Metrics" - debe mostrar métricas
-- [ ] Navegar a "💰 ROI Simulator" - debe cargar
-- [ ] Navegar a "🔍 Model Monitoring" - debe cargar
+### Paso 6: Resolver Errores (15 min) ✅
+- [x] Error en `packages.txt` - Eliminado archivo con comentarios problemáticos
+- [x] Error en predicción - Agregado preprocesador y feature engineering
+- [x] Pusheado cambios a GitHub
+- [x] Reboot app en Streamlit Cloud
+- [x] Verificar que funcione correctamente
 
-**✅ DASHBOARD DEPLOYADO - Tiempo total: ~18 minutos**
+### Paso 7: Verificar Dashboard (5 min) ✅
+- [x] Copiar URL: `https://telco-churn-dashboard-ml.streamlit.app`
+- [x] Guardar URL
+- [x] Verificar página Home carga correctamente ✅
+- [x] Navegar a "📊 Overview" - carga correctamente ✅
+- [x] Navegar a "🎯 Risk Analysis" - carga formulario ✅
+- [x] Llenar formulario de prueba ✅
+- [x] Click "Predict Churn Risk" ✅
+- [x] Verificar que muestra predicción ✅
+- [x] Navegar a "📈 Model Metrics" - muestra métricas ✅
+- [x] Navegar a "💰 ROI Simulator" - carga correctamente ✅
+- [x] Navegar a "🔍 Model Monitoring" - carga correctamente ✅
+
+**✅ DASHBOARD DEPLOYADO Y FUNCIONANDO - Tiempo total: ~40 minutos**
+**URL**: `https://telco-churn-dashboard-ml.streamlit.app`
+**Fecha**: 2025-11-21
 
 ---
 
@@ -146,7 +155,7 @@
 
 ### URLs del proyecto
 - [x] **API**: `https://telco-churn-api-y9xy.onrender.com` ✅
-- [ ] **Dashboard**: `https://_____________________.streamlit.app` ⏳
+- [x] **Dashboard**: `https://telco-churn-dashboard-ml.streamlit.app` ✅
 - [x] **GitHub**: `https://github.com/alvaretto/telco-customer-churn-prediction` ✅
 
 ### Tests funcionales - API
@@ -158,15 +167,19 @@
 - [x] Feature engineering automático funciona ✅
 
 ### Tests funcionales - Dashboard
-- [ ] Dashboard carga todas las páginas ⏳
-- [ ] Dashboard puede hacer predicciones ⏳
-- [ ] Métricas del modelo se muestran correctamente ⏳
+- [x] Dashboard carga todas las páginas ✅
+- [x] Dashboard puede hacer predicciones ✅
+- [x] Métricas del modelo se muestran correctamente ✅
+- [x] Formulario de Risk Analysis funciona ✅
+- [x] Preprocesador aplicado correctamente ✅
+- [x] Feature engineering integrado ✅
 
 ### Documentación
 - [x] Actualizar README.md con URLs de producción ✅
 - [x] Actualizar `URLS_PRODUCCION.md` con las URLs ✅
 - [x] Actualizar `api/README.md` con feature engineering ✅
-- [ ] Actualizar `seguimiento-estructura-completa.md` ⏳
+- [x] Actualizar `DEPLOYMENT_CHECKLIST.md` ✅
+- [x] Actualizar `seguimiento-estructura-completa.md` ✅
 
 ---
 
