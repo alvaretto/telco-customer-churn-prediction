@@ -132,13 +132,45 @@ st.markdown("---")
 # Importancia de Características (datos de muestra)
 st.subheader("🔍 Importancia de Características")
 
+# Diccionario de traducción de características
+feature_translations = {
+    'gender': 'Género (gender)',
+    'SeniorCitizen': 'Adulto Mayor (SeniorCitizen)',
+    'Partner': 'Tiene Pareja (Partner)',
+    'Dependents': 'Tiene Dependientes (Dependents)',
+    'tenure': 'Antigüedad en Meses (tenure)',
+    'PhoneService': 'Servicio Telefónico (PhoneService)',
+    'MultipleLines': 'Múltiples Líneas (MultipleLines)',
+    'InternetService': 'Servicio de Internet (InternetService)',
+    'OnlineSecurity': 'Seguridad Online (OnlineSecurity)',
+    'OnlineBackup': 'Respaldo Online (OnlineBackup)',
+    'DeviceProtection': 'Protección de Dispositivo (DeviceProtection)',
+    'TechSupport': 'Soporte Técnico (TechSupport)',
+    'StreamingTV': 'Streaming TV (StreamingTV)',
+    'StreamingMovies': 'Streaming Películas (StreamingMovies)',
+    'Contract': 'Tipo de Contrato (Contract)',
+    'PaperlessBilling': 'Facturación sin Papel (PaperlessBilling)',
+    'PaymentMethod': 'Método de Pago (PaymentMethod)',
+    'MonthlyCharges': 'Cargos Mensuales (MonthlyCharges)',
+    'TotalCharges': 'Cargos Totales (TotalCharges)',
+    'ChargeRatio': 'Ratio de Cargos (ChargeRatio)',
+    'AvgMonthlyCharges': 'Promedio Cargos Mensuales (AvgMonthlyCharges)',
+    'TenureGroup': 'Grupo de Antigüedad (TenureGroup)',
+    'TotalServices': 'Total de Servicios (TotalServices)',
+    'SeniorWithDependents': 'Adulto Mayor con Dependientes (SeniorWithDependents)',
+    'HighValueContract': 'Contrato de Alto Valor (HighValueContract)'
+}
+
 # Importancia de características de muestra
 features = ['Contract', 'tenure', 'TotalCharges', 'MonthlyCharges', 'InternetService',
             'PaymentMethod', 'OnlineSecurity', 'TechSupport', 'PaperlessBilling', 'SeniorCitizen']
 importance = [0.18, 0.15, 0.12, 0.11, 0.09, 0.08, 0.07, 0.06, 0.05, 0.04]
 
+# Traducir nombres de características
+features_translated = [feature_translations.get(f, f) for f in features]
+
 df_importance = pd.DataFrame({
-    'Feature': features,
+    'Feature': features_translated,
     'Importance': importance
 }).sort_values('Importance', ascending=True)
 

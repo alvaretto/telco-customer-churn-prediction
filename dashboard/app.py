@@ -198,13 +198,44 @@ st.header("📋 Características del Modelo")
 if metadata.get('features'):
     features = metadata['features']
 
+    # Diccionario de traducción de características
+    feature_translations = {
+        'gender': 'Género (gender)',
+        'SeniorCitizen': 'Adulto Mayor (SeniorCitizen)',
+        'Partner': 'Tiene Pareja (Partner)',
+        'Dependents': 'Tiene Dependientes (Dependents)',
+        'tenure': 'Antigüedad en Meses (tenure)',
+        'PhoneService': 'Servicio Telefónico (PhoneService)',
+        'MultipleLines': 'Múltiples Líneas (MultipleLines)',
+        'InternetService': 'Servicio de Internet (InternetService)',
+        'OnlineSecurity': 'Seguridad Online (OnlineSecurity)',
+        'OnlineBackup': 'Respaldo Online (OnlineBackup)',
+        'DeviceProtection': 'Protección de Dispositivo (DeviceProtection)',
+        'TechSupport': 'Soporte Técnico (TechSupport)',
+        'StreamingTV': 'Streaming TV (StreamingTV)',
+        'StreamingMovies': 'Streaming Películas (StreamingMovies)',
+        'Contract': 'Tipo de Contrato (Contract)',
+        'PaperlessBilling': 'Facturación sin Papel (PaperlessBilling)',
+        'PaymentMethod': 'Método de Pago (PaymentMethod)',
+        'MonthlyCharges': 'Cargos Mensuales (MonthlyCharges)',
+        'TotalCharges': 'Cargos Totales (TotalCharges)',
+        'ChargeRatio': 'Ratio de Cargos (ChargeRatio)',
+        'AvgMonthlyCharges': 'Promedio Cargos Mensuales (AvgMonthlyCharges)',
+        'TenureGroup': 'Grupo de Antigüedad (TenureGroup)',
+        'TotalServices': 'Total de Servicios (TotalServices)',
+        'SeniorWithDependents': 'Adulto Mayor con Dependientes (SeniorWithDependents)',
+        'HighValueContract': 'Contrato de Alto Valor (HighValueContract)'
+    }
+
     # Crear columnas para características
     n_cols = 3
     cols = st.columns(n_cols)
 
     for i, feature in enumerate(features):
         with cols[i % n_cols]:
-            st.markdown(f"✓ {feature}")
+            # Usar traducción si existe, sino mostrar el nombre original
+            translated_name = feature_translations.get(feature, feature)
+            st.markdown(f"✓ {translated_name}")
 
 st.markdown("---")
 

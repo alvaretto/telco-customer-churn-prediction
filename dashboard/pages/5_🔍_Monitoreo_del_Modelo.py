@@ -170,9 +170,21 @@ col1, col2 = st.columns(2)
 with col1:
     st.markdown("### Comparación de Distribución de Características")
 
+    # Diccionario de traducción de características
+    feature_translations = {
+        'tenure': 'Antigüedad en Meses (tenure)',
+        'MonthlyCharges': 'Cargos Mensuales (MonthlyCharges)',
+        'TotalCharges': 'Cargos Totales (TotalCharges)',
+        'Contract': 'Tipo de Contrato (Contract)',
+        'InternetService': 'Servicio de Internet (InternetService)'
+    }
+
     # Desviación de características simulada
+    features_original = ['tenure', 'MonthlyCharges', 'TotalCharges', 'Contract', 'InternetService']
+    features_translated = [feature_translations.get(f, f) for f in features_original]
+
     feature_drift = pd.DataFrame({
-        'Característica': ['tenure', 'MonthlyCharges', 'TotalCharges', 'Contract', 'InternetService'],
+        'Característica': features_translated,
         'Puntuación_Drift': [0.02, 0.15, 0.08, 0.25, 0.18],
         'Estado': ['✅ Estable', '⚠️ Advertencia', '✅ Estable', '🔴 Alerta', '⚠️ Advertencia']
     })
