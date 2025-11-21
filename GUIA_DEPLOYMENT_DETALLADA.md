@@ -73,7 +73,7 @@
 **IMPORTANTE**: Copia exactamente estos valores
 
 1. **Name**: `telco-churn-api`
-   - Este será parte de tu URL: `telco-churn-api.onrender.com`
+   - Este será parte de tu URL: `telco-churn-api-y9xy.onrender.com` (Render agrega un sufijo único)
 
 2. **Region**: Selecciona **Oregon (US West)** o el más cercano a ti
 
@@ -170,14 +170,14 @@
 
 1. **Copia la URL de tu API**
    - Render te mostrará la URL en la parte superior
-   - Ejemplo: `https://telco-churn-api.onrender.com`
+   - Ejemplo: `https://telco-churn-api-y9xy.onrender.com`
    - Click en el icono de copiar 📋
 
 2. **Abre una nueva pestaña** en tu navegador
 
 3. **Prueba el endpoint de health**:
    - Pega la URL y agrega `/health` al final
-   - Ejemplo: `https://telco-churn-api.onrender.com/health`
+   - Ejemplo: `https://telco-churn-api-y9xy.onrender.com/health`
    - Presiona Enter
 
 4. **Deberías ver una respuesta JSON**:
@@ -196,7 +196,7 @@
 
 6. **Ejecuta el script de verificación**:
    ```bash
-   ./scripts/verify_api_deployment.sh https://telco-churn-api.onrender.com
+   python scripts/validate_deployment.py
    ```
    - Reemplaza la URL con tu URL real
    - El script ejecutará 4 tests automáticos
@@ -311,7 +311,7 @@
 
 1. **Copia la URL del Dashboard**
    - Streamlit te mostrará la URL en la parte superior
-   - Ejemplo: `https://telco-churn-dashboard.streamlit.app`
+   - Ejemplo: `https://telco-churn-dashboard-ml.streamlit.app`
 
 2. **Verifica la página principal**:
    - Deberías ver el título "Telco Customer Churn Prediction"
@@ -334,7 +334,7 @@
 
 5. **Ejecuta el script de verificación**:
    ```bash
-   ./scripts/verify_dashboard_deployment.sh https://telco-churn-dashboard.streamlit.app
+   python scripts/validate_deployment.py
    ```
    - Reemplaza la URL con tu URL real
    - Sigue las instrucciones del script
@@ -353,9 +353,8 @@
 
 1. **Ejecuta el script de actualización**:
    ```bash
-   ./scripts/update_production_urls.sh \
-     https://telco-churn-api.onrender.com \
-     https://telco-churn-dashboard.streamlit.app
+   # Las URLs de producción están en docs/URL_REFERENCE.md
+   python scripts/monitor_production.py
    ```
    - Reemplaza las URLs con tus URLs reales
    - Esto actualizará `URLS_PRODUCCION.md` automáticamente
@@ -375,8 +374,8 @@
 
 2. **Agrega los badges** al inicio del archivo (después del título):
    ```markdown
-   [![API Status](https://img.shields.io/badge/API-Live-success)](https://telco-churn-api.onrender.com)
-   [![Dashboard](https://img.shields.io/badge/Dashboard-Live-success)](https://telco-churn-dashboard.streamlit.app)
+   [![API Status](https://img.shields.io/badge/API-Live-success)](https://telco-churn-api-y9xy.onrender.com)
+   [![Dashboard](https://img.shields.io/badge/Dashboard-Live-success)](https://telco-churn-dashboard-ml.streamlit.app)
    [![Python](https://img.shields.io/badge/Python-3.10.13-blue)](https://www.python.org/)
    [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
    ```
@@ -385,8 +384,8 @@
    ```markdown
    ## 🌐 Demo en Vivo
 
-   - **🚀 API REST**: https://telco-churn-api.onrender.com
-   - **📊 Dashboard**: https://telco-churn-dashboard.streamlit.app
+   - **🚀 API REST**: https://telco-churn-api-y9xy.onrender.com
+   - **📊 Dashboard**: https://telco-churn-dashboard-ml.streamlit.app
    - **📦 Repositorio**: https://github.com/alvaretto/telco-customer-churn-prediction
    ```
 
@@ -417,8 +416,8 @@ git push origin main
 
 **URLs de Producción**:
 
-- 🚀 **API**: https://telco-churn-api.onrender.com
-- 📊 **Dashboard**: https://telco-churn-dashboard.streamlit.app
+- 🚀 **API**: https://telco-churn-api-y9xy.onrender.com
+- 📊 **Dashboard**: https://telco-churn-dashboard-ml.streamlit.app
 - 📦 **GitHub**: https://github.com/alvaretto/telco-customer-churn-prediction
 
 **Tiempo total**: ~40 minutos

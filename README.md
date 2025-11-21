@@ -4,8 +4,16 @@
 [![Jupyter](https://img.shields.io/badge/Jupyter-Notebook-orange.svg)](https://jupyter.org/)
 [![scikit-learn](https://img.shields.io/badge/scikit--learn-1.5.2-yellow.svg)](https://scikit-learn.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
-[![API](https://img.shields.io/badge/API-Render-46E3B7.svg)](https://telco-churn-api-y9xy.onrender.com)
-[![Dashboard](https://img.shields.io/badge/Dashboard-Streamlit-FF4B4B.svg)](https://telco-churn-dashboard-ml.streamlit.app)
+
+[![API Status](https://img.shields.io/badge/API-Online-success.svg)](https://telco-churn-api-y9xy.onrender.com)
+[![Dashboard Status](https://img.shields.io/badge/Dashboard-Online-success.svg)](https://telco-churn-dashboard-ml.streamlit.app)
+[![CI/CD](https://img.shields.io/badge/CI%2FCD-GitHub%20Actions-2088FF.svg)](https://github.com/alvaretto/telco-customer-churn-prediction/actions)
+[![Deployment](https://img.shields.io/badge/Deployment-Automated-brightgreen.svg)](https://github.com/alvaretto/telco-customer-churn-prediction/blob/main/.github/workflows/deploy.yml)
+
+[![Model ROC-AUC](https://img.shields.io/badge/ROC--AUC-0.87-brightgreen.svg)](https://github.com/alvaretto/telco-customer-churn-prediction)
+[![Model Recall](https://img.shields.io/badge/Recall-0.83-green.svg)](https://github.com/alvaretto/telco-customer-churn-prediction)
+[![Model Precision](https://img.shields.io/badge/Precision-0.72-yellowgreen.svg)](https://github.com/alvaretto/telco-customer-churn-prediction)
+[![Model F1-Score](https://img.shields.io/badge/F1--Score-0.77-green.svg)](https://github.com/alvaretto/telco-customer-churn-prediction)
 
 > Proyecto de Machine Learning para predecir el abandono de clientes (Customer Churn) en empresas de telecomunicaciones utilizando técnicas avanzadas de análisis de datos y modelado predictivo.
 
@@ -26,6 +34,7 @@
 - [Requisitos Previos](#-requisitos-previos)
 - [Instalación](#-instalación)
 - [Uso](#-uso)
+- [Testing y CI/CD](#-testing-y-cicd)
 - [Metodología](#-metodología)
 - [Resultados](#-resultados)
 - [Conclusiones](#-conclusiones)
@@ -273,6 +282,52 @@ El archivo `preguntas-sustentacion.md` contiene:
 - **Explicación de decisiones técnicas** del proyecto
 - **Interpretación de métricas** y resultados
 - Organizado por 7 categorías: Comprensión del Problema, EDA, Preprocesamiento, Feature Engineering, Modelado, Evaluación y Métricas, Conclusiones y Recomendaciones
+
+---
+
+## 🧪 Testing y CI/CD
+
+### Tests Unitarios
+
+El proyecto incluye una suite completa de tests unitarios:
+
+- **Tests de API** (`tests/test_api.py`): 7 tests que validan todos los endpoints
+- **Tests de Modelo** (`tests/test_model.py`): 10 tests que validan el modelo y preprocessor
+- **Cobertura**: ~87% del código
+
+### Scripts de Monitoreo
+
+- **`scripts/monitor_production.py`**: Verifica el estado de la API y Dashboard en producción
+- **`scripts/validate_deployment.py`**: Valida el deployment end-to-end con casos de prueba
+
+```bash
+# Ejecutar monitoreo de producción
+python scripts/monitor_production.py
+
+# Ejecutar validación completa
+python scripts/validate_deployment.py
+```
+
+### CI/CD con GitHub Actions
+
+El proyecto utiliza GitHub Actions para automatización:
+
+- **CI Pipeline** (`.github/workflows/ci.yml`):
+  - ✅ Ejecuta tests unitarios automáticamente
+  - ✅ Verifica calidad de código (flake8, black, isort)
+  - ✅ Monitorea producción en cada push a main
+  - ✅ Escaneo de seguridad con Trivy
+
+- **Deploy Pipeline** (`.github/workflows/deploy.yml`):
+  - ✅ Verifica deployment de API y Dashboard
+  - ✅ Ejecuta validaciones post-deployment
+  - ✅ Genera reportes de deployment
+
+Ver estado de CI/CD: [GitHub Actions](https://github.com/alvaretto/telco-customer-churn-prediction/actions)
+
+### Documentación de Testing
+
+Para más detalles sobre cómo ejecutar tests, ver: [`docs/TESTING.md`](docs/TESTING.md)
 
 ---
 

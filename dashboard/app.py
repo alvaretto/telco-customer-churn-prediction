@@ -4,11 +4,16 @@ Página principal - Inicio y Resumen
 """
 
 import streamlit as st
+import sys
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 import json
 import os
+
+# Agregar el directorio config al path
+sys.path.append(os.path.join(os.path.dirname(__file__)))
+from config.colors import CUSTOM_CSS
 
 # Configuración de página
 st.set_page_config(
@@ -17,6 +22,9 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded"
 )
+
+# Aplicar CSS personalizado
+st.markdown(CUSTOM_CSS, unsafe_allow_html=True)
 
 # Cargar metadata
 METADATA_PATH = os.path.join(os.path.dirname(__file__), '..', 'models', 'metadata.json')
@@ -28,30 +36,87 @@ except Exception as e:
     st.error(f"Error al cargar metadata del modelo: {e}")
     metadata = {}
 
-# Título y descripción
-st.title("📊 Dashboard de Predicción de Churn de Clientes Telco")
+# Hero Section
+st.markdown("""
+<div class="hero">
+    <h1>📊 Dashboard de Predicción de Churn</h1>
+    <p>Sistema inteligente para predecir y prevenir el abandono de clientes en telecomunicaciones</p>
+    <p style="font-size: 1rem; margin-top: 1rem;">
+        ✨ Modelo de Machine Learning con <strong>87% de precisión (ROC-AUC)</strong>
+    </p>
+</div>
+""", unsafe_allow_html=True)
+
+# Sección "Cómo funciona"
+st.markdown("## 🚀 Cómo Funciona")
+st.markdown("Sigue estos 3 simples pasos para predecir el riesgo de churn de tus clientes:")
+
+col_step1, col_step2, col_step3 = st.columns(3)
+
+with col_step1:
+    st.markdown("""
+    <div class="feature-box">
+        <h3 style="text-align: center;">1️⃣ Ingresa Datos</h3>
+        <p style="text-align: center;">
+            Ve a la página <strong>Análisis de Riesgo</strong> y completa el formulario
+            con la información del cliente.
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+
+with col_step2:
+    st.markdown("""
+    <div class="feature-box">
+        <h3 style="text-align: center;">2️⃣ Obtén Predicción</h3>
+        <p style="text-align: center;">
+            El modelo de Machine Learning analiza los datos y calcula la
+            probabilidad de churn en segundos.
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+
+with col_step3:
+    st.markdown("""
+    <div class="feature-box">
+        <h3 style="text-align: center;">3️⃣ Toma Acción</h3>
+        <p style="text-align: center;">
+            Recibe recomendaciones personalizadas para retener al cliente
+            según su nivel de riesgo.
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+
 st.markdown("---")
 
-# Barra lateral
+# Barra lateral simplificada
 with st.sidebar:
     st.image("https://img.icons8.com/fluency/96/000000/phone-disconnected.png", width=80)
-    st.title("Navegación")
+    st.title("📍 Navegación")
     st.markdown("""
-    Usa las páginas en la barra lateral para navegar:
+    **Páginas disponibles:**
 
-    - **📊 Resumen**: Resumen del proyecto
-    - **🎯 Análisis de Riesgo**: Predecir riesgo de churn
-    - **📈 Métricas del Modelo**: Rendimiento del modelo
-    - **💰 Simulador ROI**: Calcular ROI
-    - **🔍 Monitoreo del Modelo**: Seguimiento del rendimiento
+    - 🏠 **Inicio** (estás aquí)
+    - 📊 **Resumen** - Análisis exploratorio
+    - 🎯 **Análisis de Riesgo** - Predicciones
+    - 📈 **Métricas del Modelo** - Rendimiento
+    - 💰 **Simulador ROI** - Retorno de inversión
+    - 🔍 **Monitoreo** - Seguimiento
     """)
 
     st.markdown("---")
-    st.markdown("### Información del Modelo")
+    st.markdown("### 📊 Información del Modelo")
     if metadata:
-        st.metric("Tipo de Modelo", metadata.get('model_type', 'N/A'))
+        st.metric("Tipo", metadata.get('model_type', 'N/A'))
         st.metric("ROC-AUC", f"{metadata.get('metrics', {}).get('roc_auc', 0):.2f}")
-        st.metric("Características", metadata.get('n_features', 'N/A'))
+        st.metric("Features", metadata.get('n_features', 'N/A'))
+
+    st.markdown("---")
+    st.markdown("""
+    <div style="text-align: center; font-size: 0.8rem; color: #666;">
+        <p>💡 <strong>Tip:</strong> Comienza por la página de <strong>Análisis de Riesgo</strong>
+        para hacer tu primera predicción.</p>
+    </div>
+    """, unsafe_allow_html=True)
 
 # Contenido principal
 col1, col2, col3, col4 = st.columns(4)

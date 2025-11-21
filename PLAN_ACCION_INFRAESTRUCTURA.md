@@ -188,7 +188,7 @@ Los tests son **muy ligeros**, solo cargan el modelo y hacen predicciones de pru
    ```
 5. **Deploy!**
 6. **Esperar 3-5 minutos**
-7. **Verificar**: `https://telco-churn-dashboard.streamlit.app`
+7. **Verificar**: `https://telco-churn-dashboard-ml.streamlit.app`
 
 #### Paso 3: Probar en Producción (5 min)
 
