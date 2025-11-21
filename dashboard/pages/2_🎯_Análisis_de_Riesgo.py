@@ -4,8 +4,7 @@ Página de Análisis de Riesgo - Predicción individual de churn de clientes
 
 import streamlit as st
 import pandas as pd
-import joblib
-import os
+import requests
 import plotly.graph_objects as go
 
 st.set_page_config(page_title="Análisis de Riesgo", page_icon="🎯", layout="wide")
@@ -14,17 +13,8 @@ st.title("🎯 Análisis de Riesgo de Churn de Clientes")
 st.markdown("Ingresa la información del cliente para predecir el riesgo de churn")
 st.markdown("---")
 
-# Cargar modelo
-MODEL_PATH = os.path.join(os.path.dirname(__file__), '..', '..', 'models', 'churn_model.pkl')
-PREPROCESSOR_PATH = os.path.join(os.path.dirname(__file__), '..', '..', 'models', 'preprocessor.pkl')
-
-try:
-    model = joblib.load(MODEL_PATH)
-    preprocessor = joblib.load(PREPROCESSOR_PATH)
-    model_loaded = True
-except Exception as e:
-    st.error(f"Error al cargar el modelo: {e}")
-    model_loaded = False
+# URL de la API
+API_URL = "https://telco-churn-api-y9xy.onrender.com/predict"
 
 # Formulario de entrada
 st.subheader("📝 Información del Cliente")
@@ -84,66 +74,39 @@ st.markdown("---")
 
 # Botón de predicción
 if st.button("🔮 Predecir Riesgo de Churn", type="primary", use_container_width=True):
-    if not model_loaded:
-        st.error("Modelo no cargado. No se puede hacer la predicción.")
-    else:
-        # Preparar datos (solo características originales - 19 características)
-        customer_data = {
-            'gender': gender,
-            'SeniorCitizen': 1 if senior_citizen == "Yes" else 0,
-            'Partner': partner,
-            'Dependents': dependents,
-            'tenure': tenure,
-            'PhoneService': phone_service,
-            'MultipleLines': multiple_lines,
-            'InternetService': internet_service,
-            'OnlineSecurity': online_security,
-            'OnlineBackup': online_backup,
-            'DeviceProtection': device_protection,
-            'TechSupport': tech_support,
-            'StreamingTV': streaming_tv,
-            'StreamingMovies': streaming_movies,
-            'Contract': contract,
-            'PaperlessBilling': paperless_billing,
-            'PaymentMethod': payment_method,
-            'MonthlyCharges': monthly_charges,
-            'TotalCharges': total_charges
-        }
+    # Preparar datos (solo características originales - 19 características)
+    # La API hace el feature engineering automáticamente
+    customer_data = {
+        'gender': gender,
+        'SeniorCitizen': 1 if senior_citizen == "Yes" else 0,
+        'Partner': partner,
+        'Dependents': dependents,
+        'tenure': tenure,
+        'PhoneService': phone_service,
+        'MultipleLines': multiple_lines,
+        'InternetService': internet_service,
+        'OnlineSecurity': online_security,
+        'OnlineBackup': online_backup,
+        'DeviceProtection': device_protection,
+        'TechSupport': tech_support,
+        'StreamingTV': streaming_tv,
+        'StreamingMovies': streaming_movies,
+        'Contract': contract,
+        'PaperlessBilling': paperless_billing,
+        'PaymentMethod': payment_method,
+        'MonthlyCharges': monthly_charges,
+        'TotalCharges': total_charges
+    }
 
-        df = pd.DataFrame([customer_data])
+    # Hacer predicción usando la API
+    try:
+        with st.spinner('Consultando el modelo...'):
+            response = requests.post(API_URL, json=customer_data, timeout=30)
 
-        # Aplicar feature engineering (igual que en el notebook)
-        df['ChargeRatio'] = df['MonthlyCharges'] / (df['TotalCharges'] + 1)
-        df['AvgMonthlyCharges'] = df['TotalCharges'] / (df['tenure'] + 1)
-
-        # TenureGroup
-        df['TenureGroup'] = pd.cut(df['tenure'],
-                                    bins=[0, 12, 24, 48, 72],
-                                    labels=['0-1 año', '1-2 años', '2-4 años', '4+ años']).astype(str)
-
-        # TotalServices
-        service_cols = ['PhoneService', 'InternetService', 'OnlineSecurity', 'OnlineBackup',
-                       'DeviceProtection', 'TechSupport', 'StreamingTV', 'StreamingMovies']
-        df['TotalServices'] = (df[service_cols] != 'No').sum(axis=1)
-
-        # SeniorWithDependents
-        df['SeniorWithDependents'] = ((df['SeniorCitizen'] == 1) & (df['Dependents'] == 'Yes')).astype(int)
-
-        # HighValueContract
-        median_charges = 70.0  # Mediana aproximada de los datos de entrenamiento
-        df['HighValueContract'] = ((df['Contract'].isin(['One year', 'Two year'])) &
-                                   (df['MonthlyCharges'] > median_charges)).astype(int)
-
-        # Hacer predicción
-        try:
-            # Aplicar preprocesamiento
-            df_processed = preprocessor.transform(df)
-
-            # Hacer predicción con datos preprocesados
-            prediction = model.predict(df_processed)[0]
-            probability = model.predict_proba(df_processed)[0]
-
-            churn_prob = probability[1]
+        if response.status_code == 200:
+            result = response.json()
+            prediction = result['prediction']
+            churn_prob = result['churn_probability']
 
             # Mostrar resultados
             st.markdown("---")
@@ -201,6 +164,14 @@ if st.button("🔮 Predecir Riesgo de Churn", type="primary", use_container_widt
 
             st.plotly_chart(fig, use_container_width=True)
 
-        except Exception as e:
-            st.error(f"Error al hacer la predicción: {e}")
+        else:
+            st.error(f"Error en la API: {response.status_code}")
+            st.error(f"Mensaje: {response.text}")
+
+    except requests.exceptions.Timeout:
+        st.error("⏱️ La solicitud a la API tardó demasiado. Por favor, intenta de nuevo.")
+    except requests.exceptions.ConnectionError:
+        st.error("🔌 No se pudo conectar con la API. Verifica tu conexión a internet.")
+    except Exception as e:
+        st.error(f"❌ Error al hacer la predicción: {e}")
 
