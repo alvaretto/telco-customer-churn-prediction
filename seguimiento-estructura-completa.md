@@ -31,14 +31,15 @@
 
 #### ✅ Completadas (2025-11-21):
 
-- [x] **Sincronización temporal de versiones scikit-learn (Opción B)**
-  - **Acción tomada**: Ajustadas dependencias a scikit-learn==1.6.1
-  - **Archivos modificados**:
-    - `requirements.txt` (scikit-learn 1.5.2 → 1.6.1)
-    - `dashboard/requirements.txt` (scikit-learn 1.5.2 → 1.6.1)
-  - **Resultado**: Dashboard ahora muestra importancias reales del modelo
+- [x] **Sincronización de versiones scikit-learn con el modelo entrenado (Opción B)**
+  - **Acción tomada**: Verificadas y confirmadas dependencias en scikit-learn==1.5.2
+  - **Archivos verificados**:
+    - `requirements.txt` (scikit-learn==1.5.2)
+    - `dashboard/requirements.txt` (scikit-learn==1.5.2)
+    - `models/metadata.json` (modelo entrenado con sklearn 1.5.2)
+  - **Resultado**: Versiones sincronizadas correctamente
   - **Estado**: ✅ Desplegado en producción
-  - **Nota**: Solución temporal hasta reentrenamiento en Colab
+  - **Nota**: Las versiones ya coinciden con el modelo entrenado en Colab
 
 #### 🔄 Pendientes (Mejora Futura):
 
