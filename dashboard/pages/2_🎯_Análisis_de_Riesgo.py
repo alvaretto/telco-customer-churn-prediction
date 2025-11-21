@@ -211,7 +211,8 @@ if st.button("🔮 Predecir Riesgo de Churn", type="primary", use_container_widt
         if response.status_code == 200:
             result = response.json()
             prediction = result['prediction']
-            churn_prob = result['churn_probability']
+            # La API devuelve probability.churn, no churn_probability
+            churn_prob = result['probability']['churn']
 
             # Mostrar resultados con mejor diseño
             st.markdown("---")
