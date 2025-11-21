@@ -54,6 +54,7 @@ Este proyecto presenta un **análisis completo de predicción de abandono de cli
 ## ✨ Características Principales
 
 - ✅ **Análisis Exploratorio Completo (EDA)**: Visualizaciones detalladas y análisis estadístico
+- ✅ **Comprobación de Hipótesis Estadísticas**: 7 pruebas formales (Chi-cuadrado, Mann-Whitney U) con interpretaciones
 - ✅ **Limpieza de Datos Robusta**: Manejo de valores faltantes y conversión de tipos
 - ✅ **Feature Engineering Avanzado**: Creación de 6 nuevas características derivadas
 - ✅ **Pipeline de Preprocesamiento**: ColumnTransformer con encoding y scaling
@@ -239,13 +240,14 @@ curl -X POST https://telco-churn-api-y9xy.onrender.com/predict \
 | Importación de Librerías | ~10-15 segundos |
 | Carga y Exploración Inicial | ~30 segundos |
 | Análisis Exploratorio (EDA) | ~2-3 minutos |
+| **Comprobación de Hipótesis** | **~1-2 minutos** |
 | Feature Engineering | ~30 segundos |
 | Preprocesamiento | ~15 segundos |
 | Modelado Baseline (7 modelos) | ~3-5 minutos |
 | SMOTE y Reentrenamiento | ~2-3 minutos |
 | Optimización de Hiperparámetros | ~5-10 minutos |
 | Evaluación Final y Visualizaciones | ~1-2 minutos |
-| **Total** | **~15-25 minutos** |
+| **Total** | **~17-27 minutos** |
 
 ### Archivos Generados
 

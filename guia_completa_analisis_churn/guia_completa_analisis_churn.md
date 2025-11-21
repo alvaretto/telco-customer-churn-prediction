@@ -959,21 +959,67 @@ El EDA es **fundamental** porque:
 
 ---
 
+---
+
+## 🔬 Comprobación de Hipótesis Estadísticas
+
+Después del análisis exploratorio visual, el notebook incluye **pruebas estadísticas formales** para validar las relaciones observadas.
+
+### ¿Qué son las pruebas de hipótesis?
+
+**Analogía del juicio**: En un juicio, no basta con "creer" que alguien es culpable. Necesitas **evidencia estadística** que demuestre la culpabilidad más allá de una duda razonable.
+
+Las pruebas de hipótesis nos permiten determinar si las relaciones que observamos son **estadísticamente significativas** o podrían ser producto del azar.
+
+### Nivel de Significancia (α = 0.05)
+
+- Si **p-value < 0.05**: Rechazamos H₀ (hay evidencia estadística significativa)
+- Si **p-value ≥ 0.05**: No rechazamos H₀ (no hay evidencia suficiente)
+
+**Analogía**: Es como tener 95% de confianza de que algo es verdad, no solo una corazonada.
+
+### Pruebas Realizadas
+
+El notebook incluye **7 pruebas de hipótesis**:
+
+1. **Contract vs Churn** (Chi-cuadrado) - ✅ Significativa
+2. **PaymentMethod vs Churn** (Chi-cuadrado) - ✅ Significativa
+3. **InternetService vs Churn** (Chi-cuadrado) - ✅ Significativa
+4. **tenure vs Churn** (Mann-Whitney U) - ✅ Significativa
+5. **MonthlyCharges vs Churn** (Mann-Whitney U) - ✅ Significativa
+6. **TechSupport vs Churn** (Chi-cuadrado) - ✅ Significativa
+7. **PaperlessBilling vs Churn** (Chi-cuadrado) - ✅ Significativa
+
+### Implicaciones
+
+Todas las variables mostraron **asociaciones estadísticamente significativas** con el churn (p-value < 0.05), lo que valida que:
+
+- Las relaciones observadas en el EDA NO son casualidad
+- Estas variables tienen poder predictivo real
+- Están justificadas para incluirse en el modelo de ML
+
+---
+
 ## 🎓 Conclusión
 
-El EDA revela la **historia detrás de los números**: los clientes se van 
-principalmente por precios altos y falta de compromiso (contratos cortos). 
-Los clientes leales tienen contratos largos, servicios adicionales y llevan más 
+El EDA revela la **historia detrás de los números**: los clientes se van
+principalmente por precios altos y falta de compromiso (contratos cortos).
+Los clientes leales tienen contratos largos, servicios adicionales y llevan más
 tiempo con la empresa.
 
-Estos insights no solo nos ayudan a construir mejores modelos, sino que también 
+Las **pruebas de hipótesis estadísticas** confirman que estas relaciones NO son casualidad,
+sino que tienen **significancia estadística** (p-value < 0.05).
+
+Estos insights no solo nos ayudan a construir mejores modelos, sino que también
 sugieren **estrategias de negocio**:
 
 - Incentivar contratos largos
 - Ofrecer descuentos en servicios adicionales
 - Programas de retención para clientes nuevos
+- Mejorar soporte técnico
+- Revisar estrategia de facturación electrónica
 
-**Siguiente paso**: Feature Engineering - crear nuevas variables basadas en estos insights.
+**Siguiente paso**: Feature Engineering - crear nuevas variables basadas en estos insights validados estadísticamente.
 
 
 ---

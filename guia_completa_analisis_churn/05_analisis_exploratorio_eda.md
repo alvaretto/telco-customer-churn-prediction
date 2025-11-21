@@ -202,19 +202,103 @@ El EDA es **fundamental** porque:
 
 ---
 
+---
+
+## 🔬 Comprobación de Hipótesis Estadísticas
+
+### ¿Qué es?
+
+Después del análisis exploratorio visual, realizamos **pruebas estadísticas formales** para validar las relaciones observadas.
+
+**Analogía del juicio**: En un juicio, no basta con "creer" que alguien es culpable. Necesitas **evidencia estadística** que demuestre la culpabilidad más allá de una duda razonable.
+
+### Pruebas Realizadas
+
+El notebook incluye **7 pruebas de hipótesis** con nivel de significancia α = 0.05:
+
+#### 1. **Tipo de Contrato vs Churn** (Chi-cuadrado)
+- **H₀**: El contrato NO está asociado con el churn
+- **H₁**: El contrato SÍ está asociado con el churn
+- **Resultado**: ✅ Rechazamos H₀ (p-value < 0.05)
+- **Conclusión**: El tipo de contrato SÍ está significativamente asociado con el churn
+
+#### 2. **Método de Pago vs Churn** (Chi-cuadrado)
+- **H₀**: El método de pago NO está asociado con el churn
+- **H₁**: El método de pago SÍ está asociado con el churn
+- **Resultado**: ✅ Rechazamos H₀
+- **Conclusión**: El método de pago SÍ está significativamente asociado con el churn
+
+#### 3. **Servicio de Internet vs Churn** (Chi-cuadrado)
+- **H₀**: El servicio de internet NO está asociado con el churn
+- **H₁**: El servicio de internet SÍ está asociado con el churn
+- **Resultado**: ✅ Rechazamos H₀
+- **Conclusión**: El tipo de internet SÍ está significativamente asociado con el churn
+
+#### 4. **Antigüedad (Tenure) vs Churn** (Mann-Whitney U)
+- **H₀**: La antigüedad promedio es igual entre grupos
+- **H₁**: La antigüedad promedio es diferente entre grupos
+- **Resultado**: ✅ Rechazamos H₀
+- **Conclusión**: Los clientes que NO abandonan tienen significativamente más antigüedad
+
+#### 5. **Cargos Mensuales vs Churn** (Mann-Whitney U)
+- **H₀**: Los cargos mensuales son iguales entre grupos
+- **H₁**: Los cargos mensuales son diferentes entre grupos
+- **Resultado**: ✅ Rechazamos H₀
+- **Conclusión**: Los clientes que SÍ abandonan pagan significativamente más al mes
+
+#### 6. **Soporte Técnico vs Churn** (Chi-cuadrado)
+- **H₀**: El soporte técnico NO está asociado con el churn
+- **H₁**: El soporte técnico SÍ está asociado con el churn
+- **Resultado**: ✅ Rechazamos H₀
+- **Conclusión**: Tener soporte técnico SÍ está significativamente asociado con menor churn
+
+#### 7. **Facturación sin Papel vs Churn** (Chi-cuadrado)
+- **H₀**: La facturación sin papel NO está asociada con el churn
+- **H₁**: La facturación sin papel SÍ está asociada con el churn
+- **Resultado**: ✅ Rechazamos H₀
+- **Conclusión**: La facturación sin papel SÍ está significativamente asociada con el churn
+
+### ¿Qué significa p-value < 0.05?
+
+**Analogía del dado trucado**: Si lanzas un dado 100 veces y sale 6 en 90 ocasiones, ¿es casualidad o está trucado?
+
+- **p-value < 0.05** significa que hay menos del 5% de probabilidad de que la relación sea por casualidad
+- Es decir, tenemos **95% de confianza** de que la relación es real
+
+### Implicaciones para el Modelo
+
+Las variables que mostraron asociaciones significativas son **candidatas importantes** para el modelo de predicción:
+
+1. ✅ **Contract** - Fuerte predictor
+2. ✅ **PaymentMethod** - Fuerte predictor
+3. ✅ **InternetService** - Fuerte predictor
+4. ✅ **tenure** - Fuerte predictor
+5. ✅ **MonthlyCharges** - Fuerte predictor
+6. ✅ **TechSupport** - Predictor moderado
+7. ✅ **PaperlessBilling** - Predictor moderado
+
+Estas pruebas **validan estadísticamente** lo que observamos en el EDA visual.
+
+---
+
 ## 🎓 Conclusión
 
-El EDA revela la **historia detrás de los números**: los clientes se van 
-principalmente por precios altos y falta de compromiso (contratos cortos). 
-Los clientes leales tienen contratos largos, servicios adicionales y llevan más 
+El EDA revela la **historia detrás de los números**: los clientes se van
+principalmente por precios altos y falta de compromiso (contratos cortos).
+Los clientes leales tienen contratos largos, servicios adicionales y llevan más
 tiempo con la empresa.
 
-Estos insights no solo nos ayudan a construir mejores modelos, sino que también 
+Las **pruebas de hipótesis estadísticas** confirman que estas relaciones NO son casualidad,
+sino que tienen **significancia estadística** (p-value < 0.05).
+
+Estos insights no solo nos ayudan a construir mejores modelos, sino que también
 sugieren **estrategias de negocio**:
 
 - Incentivar contratos largos
 - Ofrecer descuentos en servicios adicionales
 - Programas de retención para clientes nuevos
+- Mejorar soporte técnico
+- Revisar estrategia de facturación electrónica
 
-**Siguiente paso**: Feature Engineering - crear nuevas variables basadas en estos insights.
+**Siguiente paso**: Feature Engineering - crear nuevas variables basadas en estos insights validados estadísticamente.
 

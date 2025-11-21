@@ -29,7 +29,7 @@ Defensa-Proyecto/
 │   ├── churn_model.pkl            # ✅ 65 MB - Manejado por Git LFS
 │   ├── preprocessor.pkl           # ✅ 7.6 KB - Manejado por Git LFS
 │   └── metadata.json              # ✅ 939 B
-├── Telco-Customer-Churn.ipynb     # ✅ Notebook con análisis completo
+├── Telco_Customer_Churn.ipynb     # ✅ Notebook con análisis completo + Pruebas de Hipótesis
 ├── .gitattributes                 # ✅ Configuración Git LFS
 ├── scripts/                        # ✅ Scripts de utilidad
 │   ├── check_model_size.py
