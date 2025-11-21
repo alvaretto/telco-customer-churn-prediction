@@ -9,6 +9,7 @@ import plotly.graph_objects as go
 import numpy as np
 import json
 import os
+import joblib
 
 st.set_page_config(page_title="Métricas del Modelo", page_icon="📈", layout="wide")
 
@@ -129,7 +130,7 @@ st.plotly_chart(fig, use_container_width=True)
 
 st.markdown("---")
 
-# Importancia de Características (datos de muestra)
+# Importancia de Características
 st.subheader("🔍 Importancia de Características")
 
 # Diccionario de traducción de características
@@ -161,23 +162,72 @@ feature_translations = {
     'HighValueContract': 'Contrato de Alto Valor (HighValueContract)'
 }
 
-# Importancia de características de muestra
-features = ['Contract', 'tenure', 'TotalCharges', 'MonthlyCharges', 'InternetService',
-            'PaymentMethod', 'OnlineSecurity', 'TechSupport', 'PaperlessBilling', 'SeniorCitizen']
-importance = [0.18, 0.15, 0.12, 0.11, 0.09, 0.08, 0.07, 0.06, 0.05, 0.04]
+# Intentar cargar importancias reales del modelo
+MODEL_PATH = os.path.join(os.path.dirname(__file__), '..', '..', 'models', 'churn_model.pkl')
+using_real_data = False
+features = []
+importance = []
+
+try:
+    # Cargar el modelo
+    model = joblib.load(MODEL_PATH)
+
+    # Verificar si el modelo tiene feature_importances_
+    if hasattr(model, 'feature_importances_'):
+        # Obtener nombres de características desde metadata
+        feature_names = metadata.get('features', [])
+
+        if len(feature_names) > 0:
+            # Obtener importancias del modelo
+            importances = model.feature_importances_
+
+            # Crear DataFrame con todas las características
+            df_all_importance = pd.DataFrame({
+                'Feature': feature_names,
+                'Importance': importances
+            }).sort_values('Importance', ascending=False)
+
+            # Tomar top 10
+            df_top10 = df_all_importance.head(10)
+            features = df_top10['Feature'].tolist()
+            importance = df_top10['Importance'].tolist()
+            using_real_data = True
+
+            st.success("✅ Mostrando importancias reales del modelo entrenado")
+        else:
+            raise ValueError("No se encontraron nombres de características en metadata")
+    else:
+        raise AttributeError("El modelo no tiene atributo 'feature_importances_'")
+
+except Exception as e:
+    # Si falla, usar datos de muestra
+    st.info(f"ℹ️ Mostrando datos de muestra (Error al cargar modelo: {type(e).__name__})")
+    features = ['Contract', 'tenure', 'TotalCharges', 'MonthlyCharges', 'InternetService',
+                'PaymentMethod', 'OnlineSecurity', 'TechSupport', 'PaperlessBilling', 'SeniorCitizen']
+    importance = [0.18, 0.15, 0.12, 0.11, 0.09, 0.08, 0.07, 0.06, 0.05, 0.04]
 
 # Traducir nombres de características
 features_translated = [feature_translations.get(f, f) for f in features]
 
+# Crear DataFrame para visualización
 df_importance = pd.DataFrame({
     'Feature': features_translated,
     'Importance': importance
-}).sort_values('Importance', ascending=True)
+})
 
-fig = px.barh(
+# Si estamos usando datos reales, ya están ordenados descendente, invertir para el gráfico
+# Si son datos de muestra, ordenar ascendente
+if using_real_data:
+    df_importance = df_importance.iloc[::-1]  # Invertir para que el más importante esté arriba
+else:
+    df_importance = df_importance.sort_values('Importance', ascending=True)
+
+# Crear gráfico
+fig = px.bar(
     df_importance,
     x='Importance',
     y='Feature',
+    orientation='h',
     title='Top 10 Características Más Importantes',
     color='Importance',
     color_continuous_scale='Viridis'
@@ -190,6 +240,14 @@ fig.update_layout(
 )
 
 st.plotly_chart(fig, use_container_width=True)
+
+# Mostrar tabla con valores exactos
+if using_real_data:
+    with st.expander("📋 Ver valores exactos de importancia"):
+        st.dataframe(
+            df_importance[['Feature', 'Importance']].iloc[::-1].reset_index(drop=True),
+            use_container_width=True
+        )
 
 st.markdown("---")
 
