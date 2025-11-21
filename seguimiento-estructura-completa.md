@@ -27,43 +27,50 @@
 - [x] **Análisis UX/UI completado** - Análisis de mejores prácticas y plan de mejoras documentado
 - [x] **Error de Importancia de Características solucionado** - Dashboard muestra correctamente el gráfico (2025-11-21)
 
-### 🔧 Tareas Técnicas Pendientes (Prioridad Alta):
+### 🔧 Tareas Técnicas:
 
-**Estado**: ⚠️ URGENTE - Ejecutar pronto
+#### ✅ Completadas (2025-11-21):
+
+- [x] **Sincronización temporal de versiones scikit-learn (Opción B)**
+  - **Acción tomada**: Ajustadas dependencias a scikit-learn==1.6.1
+  - **Archivos modificados**:
+    - `requirements.txt` (scikit-learn 1.5.2 → 1.6.1)
+    - `dashboard/requirements.txt` (scikit-learn 1.5.2 → 1.6.1)
+  - **Resultado**: Dashboard ahora muestra importancias reales del modelo
+  - **Estado**: ✅ Desplegado en producción
+  - **Nota**: Solución temporal hasta reentrenamiento en Colab
+
+#### 🔄 Pendientes (Mejora Futura):
+
+**Estado**: 📋 PLANIFICADO - Para próxima iteración
 **Fecha identificación**: 2025-11-21
-**Impacto**: Mejora la precisión del dashboard en entorno local
+**Prioridad**: 🔥 Media (mejora, no crítico)
 
-- [ ] **Sincronizar versiones de scikit-learn para mostrar importancias reales del modelo**
-  - **Problema actual**: El modelo fue entrenado con scikit-learn 1.6.1, pero el entorno local tiene 1.7.2
-  - **Consecuencia**: El dashboard muestra datos de muestra en lugar de importancias reales de características
+- [ ] **Reentrenar modelo con scikit-learn más reciente en Google Colab**
+  - **Objetivo**: Actualizar modelo a última versión estable de scikit-learn
   - **⚠️ IMPORTANTE**: Todo entrenamiento/reentrenamiento se hace en **Google Colab**, NO en local
-  - **Opciones de solución**:
-    - **Opción A (Recomendada)**: Reentrenar el modelo en Google Colab con scikit-learn 1.7.2
-      - Abrir notebook `Telco_Customer_Churn.ipynb` en Google Colab
-      - Verificar/actualizar versión de scikit-learn a 1.7.2
-      - Ejecutar todo el notebook (entrenamiento completo)
-      - Guardar modelo y metadata en Google Drive
-      - Descargar archivos `.pkl` y `metadata.json`
-      - Actualizar archivos en carpeta local `models/`
-      - Commit y push a GitHub con Git LFS
-      - **Tiempo estimado**: 20-30 minutos (incluye tiempo de entrenamiento en Colab)
-      - **Ventaja**: Modelo actualizado con última versión estable
-      - **Workflow**: Colab → Drive → Local → GitHub → Producción
-    - **Opción B (Más rápida)**: Ajustar dependencias locales/producción a scikit-learn 1.6.1
-      - Modificar `requirements.txt` especificando `scikit-learn==1.6.1`
-      - Modificar `dashboard/requirements.txt` especificando `scikit-learn==1.6.1`
-      - Reinstalar dependencias locales
-      - Commit y push cambios
-      - Redeploy automático en Render y Streamlit Cloud
-      - **Tiempo estimado**: 5-10 minutos
-      - **Desventaja**: Usar versión antigua de scikit-learn (pero funcional)
-      - **Ventaja**: No requiere reentrenamiento
+  - **Workflow completo**:
+    1. Abrir notebook `Telco_Customer_Churn.ipynb` en Google Colab
+    2. Verificar/actualizar versión de scikit-learn a 1.7.2 o superior
+    3. Ejecutar todo el notebook (entrenamiento completo)
+    4. Guardar modelo y metadata en Google Drive
+    5. Descargar archivos `.pkl` y `metadata.json`
+    6. Actualizar archivos en carpeta local `models/`
+    7. Actualizar versiones en `requirements.txt` y `dashboard/requirements.txt`
+    8. Commit y push a GitHub con Git LFS
+    9. Verificar redeploy automático en Render y Streamlit Cloud
+  - **Tiempo estimado**: 20-30 minutos (incluye tiempo de entrenamiento en Colab)
+  - **Beneficios**:
+    - Modelo con última versión estable de scikit-learn
+    - Posibles mejoras de rendimiento
+    - Compatibilidad con futuras actualizaciones
   - **Archivos afectados**:
-    - Si Opción A: `models/churn_model.pkl`, `models/metadata.json`
-    - Si Opción B: `requirements.txt`, `dashboard/requirements.txt`
-  - **Beneficio**: Dashboard mostrará importancias reales del modelo en lugar de datos simulados
-  - **Prioridad**: 🔥🔥 Alta (mejora la precisión y confiabilidad del dashboard)
+    - `models/churn_model.pkl`
+    - `models/metadata.json`
+    - `requirements.txt`
+    - `dashboard/requirements.txt`
   - **Recordatorio**: El entorno local NO tiene capacidad para ML avanzado. Siempre usar Google Colab para entrenamiento.
+  - **Flujo**: Colab → Drive → Local → GitHub → Producción
 
 ### 🎨 Mejoras UX/UI Pendientes:
 
