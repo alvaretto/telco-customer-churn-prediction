@@ -557,10 +557,11 @@ Tener un proyecto completo de deployment de ML con:
 
 ## 🚀 FASE 7: DEPLOYMENT EN PRODUCCIÓN
 
-**Estado**: [🔄] EN PROGRESO - Preparación completada
+**Estado**: [🟢] API COMPLETADA | [⏳] Dashboard Pendiente
 **Fecha de inicio**: 2025-11-20
-**Tiempo estimado**: 30-40 minutos
-**Última actualización**: 2025-11-20 - Aclaración sobre Runtime Python vs Docker
+**Fecha API deployada**: 2025-11-20 23:59 UTC
+**Tiempo total API**: ~55 minutos (deployment + mejoras)
+**Última actualización**: 2025-11-20 23:59 UTC - API con feature engineering automático
 
 ### 📋 Checklist de Deployment
 
@@ -577,18 +578,27 @@ Tener un proyecto completo de deployment de ML con:
 - [x] Formatear guía de deployment ✅ (GUIA_DEPLOYMENT_DETALLADA.md - 8 correcciones)
 - [x] Aclarar Runtime Python vs Docker ✅ (GUIA_DEPLOYMENT_DETALLADA.md - Paso 3)
 
-#### Deployment API en Render.com (20-25 min)
-- [ ] Crear cuenta en https://render.com con GitHub
-- [ ] Conectar repositorio `telco-customer-churn-prediction`
-- [ ] Crear Web Service con configuración:
+#### Deployment API en Render.com ✅ COMPLETADO
+- [x] Crear cuenta en https://render.com con GitHub ✅
+- [x] Conectar repositorio `telco-customer-churn-prediction` ✅
+- [x] Crear Web Service con configuración: ✅
   - Root Directory: `api`
   - Build Command: `pip install -r requirements.txt`
   - Start Command: `gunicorn --bind 0.0.0.0:$PORT --workers 2 --threads 2 --timeout 60 app:app`
   - Environment: `PYTHON_VERSION=3.10.13`
-- [ ] Esperar deployment (10-15 min)
-- [ ] Verificar endpoint `/health`
-- [ ] Verificar endpoint `/model_info`
-- [ ] Guardar URL de producción
+- [x] Esperar deployment (10-15 min) ✅
+- [x] Verificar endpoint `/health` ✅
+- [x] Verificar endpoint `/model_info` ✅
+- [x] Guardar URL de producción: `https://telco-churn-api-y9xy.onrender.com` ✅
+
+#### Mejoras Post-Deployment ✅ COMPLETADO
+- [x] Implementar feature engineering automático ✅
+- [x] Actualizar scikit-learn a 1.5.2 ✅
+- [x] Actualizar joblib a 1.4.2 ✅
+- [x] API acepta datos categóricos originales (19 features) ✅
+- [x] Agregar metadata con versiones de librerías ✅
+- [x] Actualizar documentación completa ✅
+- [x] Probar predicciones con datos reales ✅
 
 #### Deployment Dashboard en Streamlit Cloud (15-20 min)
 - [ ] Crear cuenta en https://share.streamlit.io con GitHub
@@ -624,11 +634,11 @@ Tener un proyecto completo de deployment de ML con:
 
 ### 🔗 URLs de Producción
 
-**API**: `https://_____________________.onrender.com`
-**Dashboard**: `https://_____________________.streamlit.app`
-**GitHub**: `https://github.com/alvaretto/telco-customer-churn-prediction`
+**API**: `https://telco-churn-api-y9xy.onrender.com` ✅ ACTIVA
+**Dashboard**: `https://_____________________.streamlit.app` ⏳ PENDIENTE
+**GitHub**: `https://github.com/alvaretto/telco-customer-churn-prediction` ✅ ACTIVO
 
-*(Actualizar después del deployment)*
+**Última actualización**: 2025-11-20 23:59 UTC
 
 ### ⚠️ Troubleshooting Común
 
@@ -652,7 +662,7 @@ Tener un proyecto completo de deployment de ML con:
 
 ## 🎯 ESTADO FINAL DEL PROYECTO
 
-### ✅ Completado (100%)
+### ✅ Completado
 - [x] Modelo entrenado y optimizado (ROC-AUC: 0.87)
 - [x] Modelo serializado y versionado con Git LFS
 - [x] Estructura completa de deployment (35 archivos)
@@ -662,29 +672,60 @@ Tener un proyecto completo de deployment de ML con:
 - [x] Documentación exhaustiva
 - [x] Configuración para cloud deployment
 - [x] Todo committed y pushed a GitHub
+- [x] **API deployada en Render.com** ✅
+- [x] **Feature engineering automático implementado** ✅
+- [x] **Versiones de librerías actualizadas** ✅
+- [x] **Documentación actualizada** ✅
+- [x] **Verificación en producción (API)** ✅
 
 ### ⏳ Pendiente
-- [ ] Deployment en Render.com (API)
 - [ ] Deployment en Streamlit Cloud (Dashboard)
-- [ ] Verificación en producción
-- [ ] Actualización de URLs en documentación
+- [ ] Integración Dashboard → API
+- [ ] Verificación completa en producción
+- [ ] Capturas de pantalla del dashboard
 
 ### 🚀 Próximo Paso Inmediato
 
-**Acción**: Abrir `EMPEZAR_AQUI.md` y seguir las instrucciones para deployment
+**Acción**: Deployar Dashboard en Streamlit Cloud
 
-**Comando**:
-```bash
-cat EMPEZAR_AQUI.md
-# O en tu editor
-code EMPEZAR_AQUI.md
-```
+**Pasos**:
+1. Ir a https://share.streamlit.io
+2. Crear nueva app con:
+   - Repository: `alvaretto/telco-customer-churn-prediction`
+   - Branch: `main`
+   - Main file: `dashboard/app.py`
+3. Seguir checklist en `DEPLOYMENT_CHECKLIST.md` (Parte 2)
 
-**Luego**: Ir a https://render.com y seguir el checklist en `DEPLOYMENT_CHECKLIST.md`
+**Documentación**: Ver `docs/DEPLOYMENT_PASO_A_PASO.md` para guía detallada
 
 ---
 
-*Estructura completa creada el 2025-11-20. Proyecto listo para deployment.*
-*Última actualización: 2025-11-20 - Aclaración Runtime Python vs Docker (GUIA_DEPLOYMENT_DETALLADA.md).*
-*Estado actual: ✅ 100% LISTO PARA DEPLOYMENT - Esperando deployment a cloud.*
+## 📊 RESUMEN DE DEPLOYMENT
+
+### ✅ API (Render.com) - COMPLETADO
+- **URL**: `https://telco-churn-api-y9xy.onrender.com`
+- **Estado**: 🟢 ACTIVA Y FUNCIONANDO
+- **Fecha**: 2025-11-20 23:59 UTC
+- **Features**:
+  - ✅ Feature engineering automático
+  - ✅ Acepta datos categóricos originales (19 features)
+  - ✅ Preprocesamiento automático
+  - ✅ scikit-learn 1.5.2, joblib 1.4.2
+  - ✅ Metadata con versiones de librerías
+- **Endpoints probados**:
+  - ✅ GET /health
+  - ✅ GET /model_info
+  - ✅ POST /predict (cliente alto riesgo)
+  - ✅ POST /predict (cliente bajo riesgo)
+
+### ⏳ Dashboard (Streamlit Cloud) - PENDIENTE
+- **URL**: Pendiente
+- **Estado**: ⏳ NO DEPLOYADO
+- **Próximo paso**: Seguir DEPLOYMENT_CHECKLIST.md Parte 2
+
+---
+
+*Estructura completa creada el 2025-11-20. API deployada y funcionando.*
+*Última actualización: 2025-11-20 23:59 UTC - API con feature engineering automático.*
+*Estado actual: 🟢 API DEPLOYADA | ⏳ Dashboard pendiente.*
 

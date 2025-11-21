@@ -6,16 +6,23 @@
 
 #### 🔗 API REST (Render)
 ```
-URL: https://[PENDIENTE-DEPLOYMENT].onrender.com
-Status: ⏳ Pendiente de deployment
+URL: https://telco-churn-api-y9xy.onrender.com
+Status: ✅ DEPLOYADO Y FUNCIONANDO
+Última actualización: 2025-11-20 23:59 UTC
 ```
 
 **Endpoints disponibles:**
-- `GET /` - Información de la API
-- `GET /health` - Health check
-- `GET /model_info` - Información del modelo y métricas
-- `POST /predict` - Predicción individual
-- `POST /predict_batch` - Predicciones en lote
+- `GET /` - Información de la API ✅
+- `GET /health` - Health check ✅
+- `GET /model_info` - Información del modelo y métricas ✅
+- `POST /predict` - Predicción individual ✅ (acepta datos categóricos originales)
+- `POST /predict_batch` - Predicciones en lote ✅
+
+**Mejoras implementadas:**
+- ✅ Feature engineering automático (6 features adicionales)
+- ✅ Acepta datos categóricos originales (19 features)
+- ✅ Preprocesamiento automático (scaling + encoding)
+- ✅ Versiones de librerías actualizadas (scikit-learn 1.5.2)
 
 #### 📊 Dashboard (Streamlit Cloud)
 ```
@@ -46,13 +53,13 @@ Branch: main
 
 ```bash
 # Health check
-curl https://[TU-API-URL].onrender.com/health
+curl https://telco-churn-api-y9xy.onrender.com/health
 
 # Información del modelo
-curl https://[TU-API-URL].onrender.com/model_info
+curl https://telco-churn-api-y9xy.onrender.com/model_info
 
-# Predicción individual
-curl -X POST https://[TU-API-URL].onrender.com/predict \
+# Predicción individual (SOLO FEATURES ORIGINALES - Feature engineering automático)
+curl -X POST https://telco-churn-api-y9xy.onrender.com/predict \
   -H "Content-Type: application/json" \
   -d '{
     "gender": "Female",
@@ -64,7 +71,7 @@ curl -X POST https://[TU-API-URL].onrender.com/predict \
     "MultipleLines": "No",
     "InternetService": "Fiber optic",
     "OnlineSecurity": "No",
-    "OnlineBackup": "No",
+    "OnlineBackup": "Yes",
     "DeviceProtection": "No",
     "TechSupport": "No",
     "StreamingTV": "No",
@@ -73,14 +80,20 @@ curl -X POST https://[TU-API-URL].onrender.com/predict \
     "PaperlessBilling": "Yes",
     "PaymentMethod": "Electronic check",
     "MonthlyCharges": 70.35,
-    "TotalCharges": 844.2,
-    "tenure_group": "6-12 months",
-    "TotalServices": 1,
-    "AvgChargePerService": 70.35,
-    "ChargeToTenureRatio": 5.86,
-    "HasMultipleServices": 0,
-    "HasStreamingServices": 0
+    "TotalCharges": 844.2
   }'
+
+# Respuesta esperada:
+# {
+#   "churn": true,
+#   "prediction": 1,
+#   "probability": {
+#     "churn": 0.609,
+#     "no_churn": 0.391
+#   },
+#   "risk_level": "high",
+#   "timestamp": "2025-11-20T23:59:06"
+# }
 ```
 
 ### Probar API con Python
@@ -88,23 +101,39 @@ curl -X POST https://[TU-API-URL].onrender.com/predict \
 ```python
 import requests
 
-# URL de tu API
-API_URL = "https://[TU-API-URL].onrender.com"
+# URL de la API en producción
+API_URL = "https://telco-churn-api-y9xy.onrender.com"
 
 # Health check
 response = requests.get(f"{API_URL}/health")
 print(response.json())
 
-# Predicción
+# Predicción (SOLO features originales - 19 features)
 customer_data = {
     "gender": "Female",
     "SeniorCitizen": 0,
     "Partner": "Yes",
-    # ... resto de features
+    "Dependents": "No",
+    "tenure": 12,
+    "PhoneService": "Yes",
+    "MultipleLines": "No",
+    "InternetService": "Fiber optic",
+    "OnlineSecurity": "No",
+    "OnlineBackup": "Yes",
+    "DeviceProtection": "No",
+    "TechSupport": "No",
+    "StreamingTV": "No",
+    "StreamingMovies": "No",
+    "Contract": "Month-to-month",
+    "PaperlessBilling": "Yes",
+    "PaymentMethod": "Electronic check",
+    "MonthlyCharges": 70.35,
+    "TotalCharges": 844.2
 }
 
 response = requests.post(f"{API_URL}/predict", json=customer_data)
 print(response.json())
+# Output: {'churn': True, 'prediction': 1, 'probability': {'churn': 0.609, 'no_churn': 0.391}, 'risk_level': 'high', ...}
 ```
 
 ---
@@ -175,16 +204,38 @@ Para actualizar el modelo en producción:
 
 ## 🎯 PRÓXIMOS PASOS
 
-Una vez deployado, actualizar este archivo con:
-- [ ] URL real de la API
-- [ ] URL real del Dashboard
-- [ ] Fecha de deployment
+### ✅ Completado
+- [x] URL real de la API: `https://telco-churn-api-y9xy.onrender.com`
+- [x] Fecha de deployment API: 2025-11-20
+- [x] Feature engineering automático implementado
+- [x] Versiones de librerías actualizadas (scikit-learn 1.5.2)
+- [x] Documentación actualizada
+
+### ⏳ Pendiente
+- [ ] URL real del Dashboard (Streamlit Cloud)
+- [ ] Deployment del Dashboard
 - [ ] Capturas de pantalla
 - [ ] Métricas de uso iniciales
+- [ ] Integración Dashboard → API
 
 ---
 
-**Última actualización**: 2025-11-20
-**Estado**: ⏳ Preparado para deployment
+**Última actualización**: 2025-11-20 23:59 UTC
+**Estado**: 🟢 API DEPLOYADA | ⏳ Dashboard pendiente
 **Responsable**: Álvaro Ángel Molina (@alvaretto)
+
+## 📊 Historial de Cambios
+
+### 2025-11-20 23:59 UTC - Feature Engineering Automático
+- ✅ Implementado feature engineering automático en API
+- ✅ API ahora acepta datos categóricos originales (19 features)
+- ✅ Actualizado scikit-learn a 1.5.2 para compatibilidad
+- ✅ Actualizado joblib a 1.4.2
+- ✅ Agregado metadata con versiones de librerías
+- ✅ Documentación actualizada (API_USAGE.md, README.md)
+
+### 2025-11-20 19:45 UTC - Deployment Inicial
+- ✅ API deployada en Render
+- ✅ Health checks funcionando
+- ✅ Modelo cargado correctamente (65 MB)
 

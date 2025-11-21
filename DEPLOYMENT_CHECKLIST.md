@@ -22,61 +22,73 @@
 
 ---
 
-## 🚀 DEPLOYMENT - PARTE 1: API EN RENDER
+## 🚀 DEPLOYMENT - PARTE 1: API EN RENDER ✅ COMPLETADO
 
-### Paso 1: Preparación (2 min)
-- [ ] Abrir https://render.com en navegador
-- [ ] Tener GitHub abierto en otra pestaña
-- [ ] Tener este checklist visible
+### Paso 1: Preparación (2 min) ✅
+- [x] Abrir https://render.com en navegador
+- [x] Tener GitHub abierto en otra pestaña
+- [x] Tener este checklist visible
 
-### Paso 2: Crear cuenta (3 min)
-- [ ] Click en "Get Started"
-- [ ] Seleccionar "Sign up with GitHub"
-- [ ] Autorizar Render a acceder a GitHub
-- [ ] Confirmar email (si es necesario)
+### Paso 2: Crear cuenta (3 min) ✅
+- [x] Click en "Get Started"
+- [x] Seleccionar "Sign up with GitHub"
+- [x] Autorizar Render a acceder a GitHub
+- [x] Confirmar email (si es necesario)
 
-### Paso 3: Conectar repositorio (2 min)
-- [ ] En dashboard de Render, click "New +" → "Web Service"
-- [ ] Click "Connect a repository"
-- [ ] Si no ves el repo: "Configure account" → "All repositories"
-- [ ] Buscar: `telco-customer-churn-prediction`
-- [ ] Click "Connect"
+### Paso 3: Conectar repositorio (2 min) ✅
+- [x] En dashboard de Render, click "New +" → "Web Service"
+- [x] Click "Connect a repository"
+- [x] Si no ves el repo: "Configure account" → "All repositories"
+- [x] Buscar: `telco-customer-churn-prediction`
+- [x] Click "Connect"
 
-### Paso 4: Configurar servicio (5 min)
-- [ ] **Name**: `telco-churn-api`
-- [ ] **Region**: Oregon (US West) o el más cercano
-- [ ] **Branch**: `main`
-- [ ] **Root Directory**: `api`
-- [ ] **Runtime**: Python 3
-- [ ] **Build Command**: `pip install -r requirements.txt`
-- [ ] **Start Command**: `gunicorn --bind 0.0.0.0:$PORT --workers 2 --threads 2 --timeout 60 app:app`
-- [ ] **Instance Type**: Free
+### Paso 4: Configurar servicio (5 min) ✅
+- [x] **Name**: `telco-churn-api`
+- [x] **Region**: Oregon (US West) o el más cercano
+- [x] **Branch**: `main`
+- [x] **Root Directory**: `api`
+- [x] **Runtime**: Python 3
+- [x] **Build Command**: `pip install -r requirements.txt`
+- [x] **Start Command**: `gunicorn --bind 0.0.0.0:$PORT --workers 2 --threads 2 --timeout 60 app:app`
+- [x] **Instance Type**: Free
 
-### Paso 5: Variables de entorno (2 min)
-- [ ] Click "Advanced"
-- [ ] Click "Add Environment Variable"
-- [ ] Key: `PYTHON_VERSION`, Value: `3.10.13`
-- [ ] Key: `FLASK_ENV`, Value: `production`
+### Paso 5: Variables de entorno (2 min) ✅
+- [x] Click "Advanced"
+- [x] Click "Add Environment Variable"
+- [x] Key: `PYTHON_VERSION`, Value: `3.10.13`
+- [x] Key: `FLASK_ENV`, Value: `production`
 
-### Paso 6: Deploy (10 min)
-- [ ] Click "Create Web Service"
-- [ ] Esperar mientras Render:
-  - [ ] Clona el repositorio
-  - [ ] Descarga archivos Git LFS (modelo 65 MB)
-  - [ ] Instala dependencias
-  - [ ] Inicia la aplicación
-- [ ] Ver logs en tiempo real
-- [ ] Esperar mensaje: "Your service is live 🎉"
+### Paso 6: Deploy (10 min) ✅
+- [x] Click "Create Web Service"
+- [x] Esperar mientras Render:
+  - [x] Clona el repositorio
+  - [x] Descarga archivos Git LFS (modelo 65 MB)
+  - [x] Instala dependencias
+  - [x] Inicia la aplicación
+- [x] Ver logs en tiempo real
+- [x] Esperar mensaje: "Your service is live 🎉"
 
-### Paso 7: Verificar API (3 min)
-- [ ] Copiar URL (ej: `https://telco-churn-api.onrender.com`)
-- [ ] Guardar URL en un archivo de texto
-- [ ] Probar en navegador: `https://tu-url.onrender.com/health`
-- [ ] Debe responder: `{"status": "healthy", "model_loaded": true, ...}`
-- [ ] Probar: `https://tu-url.onrender.com/model_info`
-- [ ] Debe mostrar métricas del modelo
+### Paso 7: Verificar API (3 min) ✅
+- [x] Copiar URL: `https://telco-churn-api-y9xy.onrender.com`
+- [x] Guardar URL en archivo de texto
+- [x] Probar en navegador: `https://telco-churn-api-y9xy.onrender.com/health`
+- [x] Responde: `{"status": "healthy", "model_loaded": true, ...}` ✅
+- [x] Probar: `https://telco-churn-api-y9xy.onrender.com/model_info`
+- [x] Muestra métricas del modelo ✅
 
-**✅ API DEPLOYADA - Tiempo total: ~25 minutos**
+### Paso 8: Mejoras Implementadas (30 min) ✅
+- [x] Implementar feature engineering automático
+- [x] Actualizar API para aceptar datos categóricos originales
+- [x] Actualizar scikit-learn a 1.5.2
+- [x] Actualizar joblib a 1.4.2
+- [x] Agregar metadata con versiones de librerías
+- [x] Actualizar documentación (README.md, API_USAGE.md)
+- [x] Probar predicciones con datos categóricos
+- [x] Verificar funcionamiento completo
+
+**✅ API DEPLOYADA Y MEJORADA - Tiempo total: ~55 minutos**
+**URL**: `https://telco-churn-api-y9xy.onrender.com`
+**Fecha**: 2025-11-20
 
 ---
 
@@ -133,22 +145,28 @@
 ## 🎯 VERIFICACIÓN FINAL
 
 ### URLs del proyecto
-- [ ] **API**: `https://_____________________.onrender.com`
-- [ ] **Dashboard**: `https://_____________________.streamlit.app`
-- [ ] **GitHub**: `https://github.com/alvaretto/telco-customer-churn-prediction`
+- [x] **API**: `https://telco-churn-api-y9xy.onrender.com` ✅
+- [ ] **Dashboard**: `https://_____________________.streamlit.app` ⏳
+- [x] **GitHub**: `https://github.com/alvaretto/telco-customer-churn-prediction` ✅
 
-### Tests funcionales
-- [ ] API `/health` responde correctamente
-- [ ] API `/model_info` muestra métricas
-- [ ] API `/predict` acepta predicciones (probar con curl o Postman)
-- [ ] Dashboard carga todas las páginas
-- [ ] Dashboard puede hacer predicciones
-- [ ] Métricas del modelo se muestran correctamente
+### Tests funcionales - API
+- [x] API `/health` responde correctamente ✅
+- [x] API `/model_info` muestra métricas ✅
+- [x] API `/predict` acepta predicciones con datos categóricos ✅
+- [x] Predicción de cliente alto riesgo funciona ✅
+- [x] Predicción de cliente bajo riesgo funciona ✅
+- [x] Feature engineering automático funciona ✅
+
+### Tests funcionales - Dashboard
+- [ ] Dashboard carga todas las páginas ⏳
+- [ ] Dashboard puede hacer predicciones ⏳
+- [ ] Métricas del modelo se muestran correctamente ⏳
 
 ### Documentación
-- [ ] Actualizar README.md con URLs de producción
-- [ ] Actualizar `seguimiento-estructura-completa.md`
-- [ ] Crear archivo `URLS_PRODUCCION.md` con las URLs
+- [x] Actualizar README.md con URLs de producción ✅
+- [x] Actualizar `URLS_PRODUCCION.md` con las URLs ✅
+- [x] Actualizar `api/README.md` con feature engineering ✅
+- [ ] Actualizar `seguimiento-estructura-completa.md` ⏳
 
 ---
 
