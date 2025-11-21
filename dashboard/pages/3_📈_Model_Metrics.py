@@ -1,5 +1,5 @@
 """
-Model Metrics Page - Performance metrics and visualizations
+Página de Métricas del Modelo - Métricas de rendimiento y visualizaciones
 """
 
 import streamlit as st
@@ -10,12 +10,12 @@ import numpy as np
 import json
 import os
 
-st.set_page_config(page_title="Model Metrics", page_icon="📈", layout="wide")
+st.set_page_config(page_title="Métricas del Modelo", page_icon="📈", layout="wide")
 
-st.title("📈 Model Performance Metrics")
+st.title("📈 Métricas de Rendimiento del Modelo")
 st.markdown("---")
 
-# Load metadata
+# Cargar metadata
 METADATA_PATH = os.path.join(os.path.dirname(__file__), '..', '..', 'models', 'metadata.json')
 
 try:
@@ -30,8 +30,8 @@ except:
         'f1_score': 0.77
     }
 
-# Metrics overview
-st.subheader("🎯 Key Performance Indicators")
+# Resumen de métricas
+st.subheader("🎯 Indicadores Clave de Rendimiento")
 
 col1, col2, col3, col4 = st.columns(4)
 
@@ -40,11 +40,11 @@ with col1:
     st.progress(metrics.get('roc_auc', 0))
 
 with col2:
-    st.metric("Recall", f"{metrics.get('recall', 0):.3f}")
+    st.metric("Recall (Sensibilidad)", f"{metrics.get('recall', 0):.3f}")
     st.progress(metrics.get('recall', 0))
 
 with col3:
-    st.metric("Precision", f"{metrics.get('precision', 0):.3f}")
+    st.metric("Precisión", f"{metrics.get('precision', 0):.3f}")
     st.progress(metrics.get('precision', 0))
 
 with col4:
@@ -53,52 +53,52 @@ with col4:
 
 st.markdown("---")
 
-# Confusion Matrix (sample data)
-st.subheader("📊 Confusion Matrix")
+# Matriz de Confusión (datos de muestra)
+st.subheader("📊 Matriz de Confusión")
 
 col1, col2 = st.columns([2, 1])
 
 with col1:
-    # Sample confusion matrix
+    # Matriz de confusión de muestra
     cm = np.array([[1200, 150], [250, 800]])
-    
+
     fig = go.Figure(data=go.Heatmap(
         z=cm,
-        x=['Predicted No Churn', 'Predicted Churn'],
-        y=['Actual No Churn', 'Actual Churn'],
+        x=['Predicho: No Churn', 'Predicho: Churn'],
+        y=['Real: No Churn', 'Real: Churn'],
         text=cm,
         texttemplate="%{text}",
         textfont={"size": 20},
         colorscale='Blues'
     ))
-    
+
     fig.update_layout(
-        title='Confusion Matrix',
-        xaxis_title='Predicted',
-        yaxis_title='Actual'
+        title='Matriz de Confusión',
+        xaxis_title='Predicción',
+        yaxis_title='Valor Real'
     )
-    
+
     st.plotly_chart(fig, use_container_width=True)
 
 with col2:
-    st.markdown("### Interpretation")
+    st.markdown("### Interpretación")
     st.markdown(f"""
-    - **True Negatives**: {cm[0,0]} (Correctly predicted no churn)
-    - **False Positives**: {cm[0,1]} (Incorrectly predicted churn)
-    - **False Negatives**: {cm[1,0]} (Missed churn cases)
-    - **True Positives**: {cm[1,1]} (Correctly predicted churn)
-    
-    **Accuracy**: {(cm[0,0] + cm[1,1]) / cm.sum():.1%}
+    - **Verdaderos Negativos**: {cm[0,0]} (Correctamente predicho no churn)
+    - **Falsos Positivos**: {cm[0,1]} (Incorrectamente predicho churn)
+    - **Falsos Negativos**: {cm[1,0]} (Casos de churn perdidos)
+    - **Verdaderos Positivos**: {cm[1,1]} (Correctamente predicho churn)
+
+    **Exactitud**: {(cm[0,0] + cm[1,1]) / cm.sum():.1%}
     """)
 
 st.markdown("---")
 
-# ROC Curve (sample data)
-st.subheader("📈 ROC Curve")
+# Curva ROC (datos de muestra)
+st.subheader("📈 Curva ROC")
 
-# Generate sample ROC curve data
+# Generar datos de muestra de curva ROC
 fpr = np.linspace(0, 1, 100)
-tpr = 1 - (1 - fpr) ** 2  # Sample curve
+tpr = 1 - (1 - fpr) ** 2  # Curva de muestra
 
 fig = go.Figure()
 
@@ -106,7 +106,7 @@ fig.add_trace(go.Scatter(
     x=fpr,
     y=tpr,
     mode='lines',
-    name=f'ROC Curve (AUC = {metrics.get("roc_auc", 0):.3f})',
+    name=f'Curva ROC (AUC = {metrics.get("roc_auc", 0):.3f})',
     line=dict(color='blue', width=2)
 ))
 
@@ -114,14 +114,14 @@ fig.add_trace(go.Scatter(
     x=[0, 1],
     y=[0, 1],
     mode='lines',
-    name='Random Classifier',
+    name='Clasificador Aleatorio',
     line=dict(color='red', width=2, dash='dash')
 ))
 
 fig.update_layout(
-    title='Receiver Operating Characteristic (ROC) Curve',
-    xaxis_title='False Positive Rate',
-    yaxis_title='True Positive Rate',
+    title='Curva ROC (Receiver Operating Characteristic)',
+    xaxis_title='Tasa de Falsos Positivos',
+    yaxis_title='Tasa de Verdaderos Positivos',
     hovermode='x unified'
 )
 
@@ -129,10 +129,10 @@ st.plotly_chart(fig, use_container_width=True)
 
 st.markdown("---")
 
-# Feature Importance (sample data)
-st.subheader("🔍 Feature Importance")
+# Importancia de Características (datos de muestra)
+st.subheader("🔍 Importancia de Características")
 
-# Sample feature importance
+# Importancia de características de muestra
 features = ['Contract', 'tenure', 'TotalCharges', 'MonthlyCharges', 'InternetService',
             'PaymentMethod', 'OnlineSecurity', 'TechSupport', 'PaperlessBilling', 'SeniorCitizen']
 importance = [0.18, 0.15, 0.12, 0.11, 0.09, 0.08, 0.07, 0.06, 0.05, 0.04]
@@ -146,14 +146,14 @@ fig = px.barh(
     df_importance,
     x='Importance',
     y='Feature',
-    title='Top 10 Most Important Features',
+    title='Top 10 Características Más Importantes',
     color='Importance',
     color_continuous_scale='Viridis'
 )
 
 fig.update_layout(
-    xaxis_title='Importance Score',
-    yaxis_title='Feature',
+    xaxis_title='Puntuación de Importancia',
+    yaxis_title='Característica',
     showlegend=False
 )
 
@@ -161,22 +161,22 @@ st.plotly_chart(fig, use_container_width=True)
 
 st.markdown("---")
 
-# Model info
-st.subheader("ℹ️ Model Information")
+# Información del modelo
+st.subheader("ℹ️ Información del Modelo")
 
 col1, col2 = st.columns(2)
 
 with col1:
     st.markdown("""
-    **Model Type**: Random Forest Classifier
-    
-    **Training Date**: {training_date}
-    
-    **Number of Features**: {n_features}
-    
-    **Training Samples**: {n_samples}
-    
-    **Model Size**: {model_size} MB
+    **Tipo de Modelo**: Random Forest Classifier
+
+    **Fecha de Entrenamiento**: {training_date}
+
+    **Número de Características**: {n_features}
+
+    **Muestras de Entrenamiento**: {n_samples}
+
+    **Tamaño del Modelo**: {model_size} MB
     """.format(
         training_date=metadata.get('training_date', 'N/A')[:10],
         n_features=metadata.get('n_features', 'N/A'),
@@ -186,13 +186,13 @@ with col1:
 
 with col2:
     st.info("""
-    **Performance Summary**
-    
-    The model shows strong performance with:
-    - High recall (83%) - catches most churners
-    - Good precision (72%) - low false positives
-    - Excellent ROC-AUC (0.87) - strong discriminative ability
-    
-    **Recommendation**: Model is production-ready
+    **Resumen de Rendimiento**
+
+    El modelo muestra un rendimiento sólido con:
+    - Alto recall (83%) - captura la mayoría de los churners
+    - Buena precisión (72%) - bajos falsos positivos
+    - Excelente ROC-AUC (0.87) - fuerte capacidad discriminativa
+
+    **Recomendación**: El modelo está listo para producción
     """)
 

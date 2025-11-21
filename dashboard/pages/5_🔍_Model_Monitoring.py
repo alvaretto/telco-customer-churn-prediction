@@ -1,5 +1,5 @@
 """
-Model Monitoring Page - Track model performance over time
+Página de Monitoreo del Modelo - Seguimiento del rendimiento del modelo a lo largo del tiempo
 """
 
 import streamlit as st
@@ -9,13 +9,13 @@ import plotly.graph_objects as go
 import numpy as np
 from datetime import datetime, timedelta
 
-st.set_page_config(page_title="Model Monitoring", page_icon="🔍", layout="wide")
+st.set_page_config(page_title="Monitoreo del Modelo", page_icon="🔍", layout="wide")
 
-st.title("🔍 Model Performance Monitoring")
-st.markdown("Track model performance and detect potential issues")
+st.title("🔍 Monitoreo del Rendimiento del Modelo")
+st.markdown("Seguimiento del rendimiento del modelo y detección de problemas potenciales")
 st.markdown("---")
 
-# Generate sample monitoring data
+# Generar datos de monitoreo de muestra
 np.random.seed(42)
 dates = pd.date_range(end=datetime.now(), periods=30, freq='D')
 
@@ -28,31 +28,31 @@ monitoring_data = pd.DataFrame({
     'Predictions': np.random.randint(100, 300, 30)
 })
 
-# Current metrics
+# Métricas actuales
 current_metrics = monitoring_data.iloc[-1]
 
-# Status indicators
-st.subheader("🎯 Current Status")
+# Indicadores de estado
+st.subheader("🎯 Estado Actual")
 
 col1, col2, col3, col4 = st.columns(4)
 
 with col1:
     st.metric(
-        "Accuracy",
+        "Exactitud",
         f"{current_metrics['Accuracy']:.3f}",
         delta=f"{(current_metrics['Accuracy'] - monitoring_data['Accuracy'].mean()):.3f}"
     )
 
 with col2:
     st.metric(
-        "Precision",
+        "Precisión",
         f"{current_metrics['Precision']:.3f}",
         delta=f"{(current_metrics['Precision'] - monitoring_data['Precision'].mean()):.3f}"
     )
 
 with col3:
     st.metric(
-        "Recall",
+        "Recall (Sensibilidad)",
         f"{current_metrics['Recall']:.3f}",
         delta=f"{(current_metrics['Recall'] - monitoring_data['Recall'].mean()):.3f}"
     )
@@ -66,8 +66,8 @@ with col4:
 
 st.markdown("---")
 
-# Performance over time
-st.subheader("📈 Performance Trends")
+# Rendimiento a lo largo del tiempo
+st.subheader("📈 Tendencias de Rendimiento")
 
 fig = go.Figure()
 
@@ -75,7 +75,7 @@ fig.add_trace(go.Scatter(
     x=monitoring_data['Date'],
     y=monitoring_data['Accuracy'],
     mode='lines+markers',
-    name='Accuracy',
+    name='Exactitud',
     line=dict(color='blue')
 ))
 
@@ -83,7 +83,7 @@ fig.add_trace(go.Scatter(
     x=monitoring_data['Date'],
     y=monitoring_data['Precision'],
     mode='lines+markers',
-    name='Precision',
+    name='Precisión',
     line=dict(color='green')
 ))
 
@@ -104,9 +104,9 @@ fig.add_trace(go.Scatter(
 ))
 
 fig.update_layout(
-    title='Model Metrics Over Time (Last 30 Days)',
-    xaxis_title='Date',
-    yaxis_title='Score',
+    title='Métricas del Modelo a lo Largo del Tiempo (Últimos 30 Días)',
+    xaxis_title='Fecha',
+    yaxis_title='Puntuación',
     hovermode='x unified',
     yaxis=dict(range=[0.6, 0.9])
 )
@@ -115,21 +115,21 @@ st.plotly_chart(fig, use_container_width=True)
 
 st.markdown("---")
 
-# Prediction volume
-st.subheader("📊 Prediction Volume")
+# Volumen de predicciones
+st.subheader("📊 Volumen de Predicciones")
 
 fig = px.bar(
     monitoring_data,
     x='Date',
     y='Predictions',
-    title='Daily Predictions',
+    title='Predicciones Diarias',
     color='Predictions',
     color_continuous_scale='Blues'
 )
 
 fig.update_layout(
-    xaxis_title='Date',
-    yaxis_title='Number of Predictions',
+    xaxis_title='Fecha',
+    yaxis_title='Número de Predicciones',
     showlegend=False
 )
 
@@ -137,95 +137,95 @@ st.plotly_chart(fig, use_container_width=True)
 
 st.markdown("---")
 
-# Alerts and warnings
-st.subheader("⚠️ Alerts & Warnings")
+# Alertas y advertencias
+st.subheader("⚠️ Alertas y Advertencias")
 
-# Check for performance degradation
+# Verificar degradación del rendimiento
 accuracy_drop = current_metrics['Accuracy'] < monitoring_data['Accuracy'].mean() - 0.05
 recall_drop = current_metrics['Recall'] < monitoring_data['Recall'].mean() - 0.05
 
 if accuracy_drop or recall_drop:
     st.warning("""
-    **Performance Degradation Detected**
-    
-    Model performance has dropped below acceptable thresholds. Recommended actions:
-    - Review recent predictions for patterns
-    - Check for data drift
-    - Consider model retraining
+    **Degradación del Rendimiento Detectada**
+
+    El rendimiento del modelo ha caído por debajo de umbrales aceptables. Acciones recomendadas:
+    - Revisar predicciones recientes en busca de patrones
+    - Verificar desviación de datos (data drift)
+    - Considerar reentrenamiento del modelo
     """)
 else:
     st.success("""
-    **Model Performance: Healthy**
-    
-    All metrics are within acceptable ranges. No immediate action required.
+    **Rendimiento del Modelo: Saludable**
+
+    Todas las métricas están dentro de rangos aceptables. No se requiere acción inmediata.
     """)
 
 st.markdown("---")
 
-# Data drift detection (simulated)
-st.subheader("🔄 Data Drift Detection")
+# Detección de desviación de datos (simulado)
+st.subheader("🔄 Detección de Desviación de Datos")
 
 col1, col2 = st.columns(2)
 
 with col1:
-    st.markdown("### Feature Distribution Comparison")
-    
-    # Simulated feature drift
+    st.markdown("### Comparación de Distribución de Características")
+
+    # Desviación de características simulada
     feature_drift = pd.DataFrame({
-        'Feature': ['tenure', 'MonthlyCharges', 'TotalCharges', 'Contract', 'InternetService'],
-        'Drift_Score': [0.02, 0.15, 0.08, 0.25, 0.18],
-        'Status': ['✅ Stable', '⚠️ Warning', '✅ Stable', '🔴 Alert', '⚠️ Warning']
+        'Característica': ['tenure', 'MonthlyCharges', 'TotalCharges', 'Contract', 'InternetService'],
+        'Puntuación_Drift': [0.02, 0.15, 0.08, 0.25, 0.18],
+        'Estado': ['✅ Estable', '⚠️ Advertencia', '✅ Estable', '🔴 Alerta', '⚠️ Advertencia']
     })
-    
+
     st.dataframe(feature_drift, use_container_width=True)
 
 with col2:
     fig = px.bar(
         feature_drift,
-        x='Feature',
-        y='Drift_Score',
-        title='Feature Drift Scores',
-        color='Drift_Score',
+        x='Característica',
+        y='Puntuación_Drift',
+        title='Puntuaciones de Desviación de Características',
+        color='Puntuación_Drift',
         color_continuous_scale='Reds'
     )
-    
-    fig.add_hline(y=0.1, line_dash="dash", line_color="orange", 
-                  annotation_text="Warning Threshold")
-    fig.add_hline(y=0.2, line_dash="dash", line_color="red", 
-                  annotation_text="Alert Threshold")
-    
-    fig.update_layout(yaxis_title="Drift Score", showlegend=False)
-    
+
+    fig.add_hline(y=0.1, line_dash="dash", line_color="orange",
+                  annotation_text="Umbral de Advertencia")
+    fig.add_hline(y=0.2, line_dash="dash", line_color="red",
+                  annotation_text="Umbral de Alerta")
+
+    fig.update_layout(yaxis_title="Puntuación de Drift", showlegend=False)
+
     st.plotly_chart(fig, use_container_width=True)
 
 st.markdown("---")
 
-# Recommendations
-st.subheader("💡 Monitoring Recommendations")
+# Recomendaciones
+st.subheader("💡 Recomendaciones de Monitoreo")
 
 col1, col2, col3 = st.columns(3)
 
 with col1:
     st.info("""
-    **Daily Checks**
-    - Monitor prediction volume
-    - Check for anomalies
-    - Review error logs
+    **Revisiones Diarias**
+    - Monitorear volumen de predicciones
+    - Verificar anomalías
+    - Revisar logs de errores
     """)
 
 with col2:
     st.info("""
-    **Weekly Reviews**
-    - Analyze performance trends
-    - Check data drift scores
-    - Review false positives/negatives
+    **Revisiones Semanales**
+    - Analizar tendencias de rendimiento
+    - Verificar puntuaciones de drift
+    - Revisar falsos positivos/negativos
     """)
 
 with col3:
     st.info("""
-    **Monthly Actions**
-    - Full model evaluation
-    - Retrain if needed
-    - Update documentation
+    **Acciones Mensuales**
+    - Evaluación completa del modelo
+    - Reentrenar si es necesario
+    - Actualizar documentación
     """)
 

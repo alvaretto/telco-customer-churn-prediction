@@ -1,5 +1,5 @@
 """
-Risk Analysis Page - Individual customer churn prediction
+Página de Análisis de Riesgo - Predicción individual de churn de clientes
 """
 
 import streamlit as st
@@ -8,13 +8,13 @@ import joblib
 import os
 import plotly.graph_objects as go
 
-st.set_page_config(page_title="Risk Analysis", page_icon="🎯", layout="wide")
+st.set_page_config(page_title="Análisis de Riesgo", page_icon="🎯", layout="wide")
 
-st.title("🎯 Customer Churn Risk Analysis")
-st.markdown("Enter customer information to predict churn risk")
+st.title("🎯 Análisis de Riesgo de Churn de Clientes")
+st.markdown("Ingresa la información del cliente para predecir el riesgo de churn")
 st.markdown("---")
 
-# Load model
+# Cargar modelo
 MODEL_PATH = os.path.join(os.path.dirname(__file__), '..', '..', 'models', 'churn_model.pkl')
 PREPROCESSOR_PATH = os.path.join(os.path.dirname(__file__), '..', '..', 'models', 'preprocessor.pkl')
 
@@ -23,57 +23,71 @@ try:
     preprocessor = joblib.load(PREPROCESSOR_PATH)
     model_loaded = True
 except Exception as e:
-    st.error(f"Error loading model: {e}")
+    st.error(f"Error al cargar el modelo: {e}")
     model_loaded = False
 
-# Input form
-st.subheader("📝 Customer Information")
+# Formulario de entrada
+st.subheader("📝 Información del Cliente")
 
 col1, col2, col3 = st.columns(3)
 
 with col1:
-    st.markdown("**Demographics**")
-    gender = st.selectbox("Gender", ["Male", "Female"])
-    senior_citizen = st.selectbox("Senior Citizen", ["No", "Yes"])
-    partner = st.selectbox("Partner", ["No", "Yes"])
-    dependents = st.selectbox("Dependents", ["No", "Yes"])
+    st.markdown("**Demografía**")
+    gender = st.selectbox("Género", ["Male", "Female"], format_func=lambda x: "Masculino" if x == "Male" else "Femenino")
+    senior_citizen = st.selectbox("Adulto Mayor", ["No", "Yes"], format_func=lambda x: "No" if x == "No" else "Sí")
+    partner = st.selectbox("Pareja", ["No", "Yes"], format_func=lambda x: "No" if x == "No" else "Sí")
+    dependents = st.selectbox("Dependientes", ["No", "Yes"], format_func=lambda x: "No" if x == "No" else "Sí")
 
 with col2:
-    st.markdown("**Services**")
-    phone_service = st.selectbox("Phone Service", ["No", "Yes"])
-    multiple_lines = st.selectbox("Multiple Lines", ["No", "Yes", "No phone service"])
-    internet_service = st.selectbox("Internet Service", ["No", "DSL", "Fiber optic"])
-    online_security = st.selectbox("Online Security", ["No", "Yes", "No internet service"])
-    online_backup = st.selectbox("Online Backup", ["No", "Yes", "No internet service"])
-    device_protection = st.selectbox("Device Protection", ["No", "Yes", "No internet service"])
-    tech_support = st.selectbox("Tech Support", ["No", "Yes", "No internet service"])
-    streaming_tv = st.selectbox("Streaming TV", ["No", "Yes", "No internet service"])
-    streaming_movies = st.selectbox("Streaming Movies", ["No", "Yes", "No internet service"])
+    st.markdown("**Servicios**")
+    phone_service = st.selectbox("Servicio Telefónico", ["No", "Yes"], format_func=lambda x: "No" if x == "No" else "Sí")
+    multiple_lines = st.selectbox("Múltiples Líneas", ["No", "Yes", "No phone service"],
+                                   format_func=lambda x: "No" if x == "No" else ("Sí" if x == "Yes" else "Sin servicio telefónico"))
+    internet_service = st.selectbox("Servicio de Internet", ["No", "DSL", "Fiber optic"],
+                                     format_func=lambda x: "No" if x == "No" else ("DSL" if x == "DSL" else "Fibra óptica"))
+    online_security = st.selectbox("Seguridad Online", ["No", "Yes", "No internet service"],
+                                    format_func=lambda x: "No" if x == "No" else ("Sí" if x == "Yes" else "Sin servicio de internet"))
+    online_backup = st.selectbox("Respaldo Online", ["No", "Yes", "No internet service"],
+                                  format_func=lambda x: "No" if x == "No" else ("Sí" if x == "Yes" else "Sin servicio de internet"))
+    device_protection = st.selectbox("Protección de Dispositivo", ["No", "Yes", "No internet service"],
+                                      format_func=lambda x: "No" if x == "No" else ("Sí" if x == "Yes" else "Sin servicio de internet"))
+    tech_support = st.selectbox("Soporte Técnico", ["No", "Yes", "No internet service"],
+                                 format_func=lambda x: "No" if x == "No" else ("Sí" if x == "Yes" else "Sin servicio de internet"))
+    streaming_tv = st.selectbox("Streaming TV", ["No", "Yes", "No internet service"],
+                                 format_func=lambda x: "No" if x == "No" else ("Sí" if x == "Yes" else "Sin servicio de internet"))
+    streaming_movies = st.selectbox("Streaming Películas", ["No", "Yes", "No internet service"],
+                                     format_func=lambda x: "No" if x == "No" else ("Sí" if x == "Yes" else "Sin servicio de internet"))
 
 with col3:
-    st.markdown("**Account**")
-    tenure = st.slider("Tenure (months)", 0, 72, 12)
-    contract = st.selectbox("Contract", ["Month-to-month", "One year", "Two year"])
-    paperless_billing = st.selectbox("Paperless Billing", ["No", "Yes"])
-    payment_method = st.selectbox("Payment Method", [
+    st.markdown("**Cuenta**")
+    tenure = st.slider("Antigüedad (meses)", 0, 72, 12)
+    contract = st.selectbox("Contrato", ["Month-to-month", "One year", "Two year"],
+                            format_func=lambda x: "Mes a mes" if x == "Month-to-month" else ("Un año" if x == "One year" else "Dos años"))
+    paperless_billing = st.selectbox("Facturación sin Papel", ["No", "Yes"], format_func=lambda x: "No" if x == "No" else "Sí")
+    payment_method = st.selectbox("Método de Pago", [
         "Electronic check",
         "Mailed check",
         "Bank transfer (automatic)",
         "Credit card (automatic)"
-    ])
-    monthly_charges = st.number_input("Monthly Charges ($)", 0.0, 200.0, 70.0, 0.01)
-    total_charges = st.number_input("Total Charges ($)", 0.0, 10000.0, 840.0, 0.01)
+    ], format_func=lambda x: {
+        "Electronic check": "Cheque electrónico",
+        "Mailed check": "Cheque por correo",
+        "Bank transfer (automatic)": "Transferencia bancaria (automática)",
+        "Credit card (automatic)": "Tarjeta de crédito (automática)"
+    }[x])
+    monthly_charges = st.number_input("Cargos Mensuales ($)", 0.0, 200.0, 70.0, 0.01)
+    total_charges = st.number_input("Cargos Totales ($)", 0.0, 10000.0, 840.0, 0.01)
 
-# These will be calculated after the button is pressed
+# Estos se calcularán después de presionar el botón
 
 st.markdown("---")
 
-# Predict button
-if st.button("🔮 Predict Churn Risk", type="primary", use_container_width=True):
+# Botón de predicción
+if st.button("🔮 Predecir Riesgo de Churn", type="primary", use_container_width=True):
     if not model_loaded:
-        st.error("Model not loaded. Cannot make prediction.")
+        st.error("Modelo no cargado. No se puede hacer la predicción.")
     else:
-        # Prepare data (original features only - 19 features)
+        # Preparar datos (solo características originales - 19 características)
         customer_data = {
             'gender': gender,
             'SeniorCitizen': 1 if senior_citizen == "Yes" else 0,
@@ -98,7 +112,7 @@ if st.button("🔮 Predict Churn Risk", type="primary", use_container_width=True
 
         df = pd.DataFrame([customer_data])
 
-        # Apply feature engineering (same as in notebook)
+        # Aplicar feature engineering (igual que en el notebook)
         df['ChargeRatio'] = df['MonthlyCharges'] / (df['TotalCharges'] + 1)
         df['AvgMonthlyCharges'] = df['TotalCharges'] / (df['tenure'] + 1)
 
@@ -116,57 +130,57 @@ if st.button("🔮 Predict Churn Risk", type="primary", use_container_width=True
         df['SeniorWithDependents'] = ((df['SeniorCitizen'] == 1) & (df['Dependents'] == 'Yes')).astype(int)
 
         # HighValueContract
-        median_charges = 70.0  # Approximate median from training data
+        median_charges = 70.0  # Mediana aproximada de los datos de entrenamiento
         df['HighValueContract'] = ((df['Contract'].isin(['One year', 'Two year'])) &
                                    (df['MonthlyCharges'] > median_charges)).astype(int)
 
-        # Make prediction
+        # Hacer predicción
         try:
-            # Apply preprocessing
+            # Aplicar preprocesamiento
             df_processed = preprocessor.transform(df)
 
-            # Make prediction with preprocessed data
+            # Hacer predicción con datos preprocesados
             prediction = model.predict(df_processed)[0]
             probability = model.predict_proba(df_processed)[0]
-            
+
             churn_prob = probability[1]
-            
-            # Display results
+
+            # Mostrar resultados
             st.markdown("---")
-            st.subheader("📊 Prediction Results")
-            
+            st.subheader("📊 Resultados de la Predicción")
+
             col1, col2, col3 = st.columns(3)
-            
+
             with col1:
                 if prediction == 1:
-                    st.error("### ⚠️ HIGH RISK")
-                    st.markdown("**Customer likely to churn**")
+                    st.error("### ⚠️ RIESGO ALTO")
+                    st.markdown("**Es probable que el cliente abandone**")
                 else:
-                    st.success("### ✅ LOW RISK")
-                    st.markdown("**Customer likely to stay**")
-            
+                    st.success("### ✅ RIESGO BAJO")
+                    st.markdown("**Es probable que el cliente se quede**")
+
             with col2:
-                st.metric("Churn Probability", f"{churn_prob*100:.1f}%")
-                st.metric("Retention Probability", f"{(1-churn_prob)*100:.1f}%")
-            
+                st.metric("Probabilidad de Churn", f"{churn_prob*100:.1f}%")
+                st.metric("Probabilidad de Retención", f"{(1-churn_prob)*100:.1f}%")
+
             with col3:
                 if churn_prob < 0.3:
-                    risk_level = "🟢 Low"
+                    risk_level = "🟢 Bajo"
                 elif churn_prob < 0.5:
-                    risk_level = "🟡 Medium"
+                    risk_level = "🟡 Medio"
                 elif churn_prob < 0.7:
-                    risk_level = "🟠 High"
+                    risk_level = "🟠 Alto"
                 else:
-                    risk_level = "🔴 Critical"
-                
-                st.metric("Risk Level", risk_level)
-            
-            # Probability gauge
+                    risk_level = "🔴 Crítico"
+
+                st.metric("Nivel de Riesgo", risk_level)
+
+            # Medidor de probabilidad
             fig = go.Figure(go.Indicator(
                 mode = "gauge+number+delta",
                 value = churn_prob * 100,
                 domain = {'x': [0, 1], 'y': [0, 1]},
-                title = {'text': "Churn Probability (%)"},
+                title = {'text': "Probabilidad de Churn (%)"},
                 delta = {'reference': 50},
                 gauge = {
                     'axis': {'range': [None, 100]},
@@ -184,9 +198,9 @@ if st.button("🔮 Predict Churn Risk", type="primary", use_container_width=True
                     }
                 }
             ))
-            
+
             st.plotly_chart(fig, use_container_width=True)
-            
+
         except Exception as e:
-            st.error(f"Error making prediction: {e}")
+            st.error(f"Error al hacer la predicción: {e}")
 
