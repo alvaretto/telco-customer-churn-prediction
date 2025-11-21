@@ -2,6 +2,17 @@
 
 Flask REST API for predicting customer churn using a Random Forest model.
 
+**🌐 Production URL:** `https://telco-churn-api-y9xy.onrender.com`
+
+## ✨ Features
+
+- ✅ Acepta datos categóricos originales (sin preprocesamiento)
+- ✅ Aplica feature engineering automáticamente
+- ✅ Preprocesamiento automático (scaling y encoding)
+- ✅ Predicciones individuales y en lote
+- ✅ Niveles de riesgo (low, medium, high, critical)
+- ✅ Métricas del modelo (ROC-AUC: 0.87, Recall: 0.83)
+
 ## 📋 Endpoints
 
 ### `GET /`
@@ -26,7 +37,7 @@ Health check endpoint
   "status": "healthy",
   "model_loaded": true,
   "preprocessor_loaded": true,
-  "timestamp": "2025-11-20T19:45:00"
+  "timestamp": "2025-11-20T23:58:51"
 }
 ```
 
@@ -43,15 +54,25 @@ Get model information and metrics
     "precision": 0.72,
     "f1_score": 0.77
   },
-  "n_features": 25,
-  "training_date": "2025-11-20T19:25:05"
+  "n_features_original": 19,
+  "n_features_total": 25,
+  "original_features": ["gender", "SeniorCitizen", ...],
+  "engineered_features": ["ChargeRatio", "AvgMonthlyCharges", ...],
+  "library_versions": {
+    "sklearn": "1.5.2",
+    "pandas": "2.1.4",
+    "numpy": "1.26.2",
+    "joblib": "1.4.2"
+  }
 }
 ```
 
 ### `POST /predict`
 Single customer churn prediction
 
-**Request Body:**
+**⚠️ IMPORTANTE:** Solo envía las **19 features originales**. El feature engineering se aplica automáticamente.
+
+**Request Body (solo features originales):**
 ```json
 {
   "gender": "Female",
@@ -72,13 +93,7 @@ Single customer churn prediction
   "PaperlessBilling": "Yes",
   "PaymentMethod": "Electronic check",
   "MonthlyCharges": 70.35,
-  "TotalCharges": 844.2,
-  "ChargeRatio": 0.083,
-  "AvgMonthlyCharges": 70.35,
-  "TenureGroup": "0-12",
-  "TotalServices": 3,
-  "SeniorWithDependents": 0,
-  "HighValueContract": 0
+  "TotalCharges": 844.2
 }
 ```
 
@@ -88,23 +103,76 @@ Single customer churn prediction
   "prediction": 1,
   "churn": true,
   "probability": {
-    "no_churn": 0.23,
-    "churn": 0.77
+    "no_churn": 0.391,
+    "churn": 0.609
   },
-  "risk_level": "critical",
-  "timestamp": "2025-11-20T19:45:00"
+  "risk_level": "high",
+  "timestamp": "2025-11-20T23:59:06"
 }
 ```
 
-### `POST /predict_batch`
-Batch churn predictions
+**Ejemplo con curl:**
+```bash
+curl -X POST https://telco-churn-api-y9xy.onrender.com/predict \
+  -H "Content-Type: application/json" \
+  -d '{
+    "gender": "Female",
+    "SeniorCitizen": 0,
+    "Partner": "Yes",
+    "Dependents": "No",
+    "tenure": 12,
+    "PhoneService": "Yes",
+    "MultipleLines": "No",
+    "InternetService": "Fiber optic",
+    "OnlineSecurity": "No",
+    "OnlineBackup": "Yes",
+    "DeviceProtection": "No",
+    "TechSupport": "No",
+    "StreamingTV": "No",
+    "StreamingMovies": "No",
+    "Contract": "Month-to-month",
+    "PaperlessBilling": "Yes",
+    "PaymentMethod": "Electronic check",
+    "MonthlyCharges": 70.35,
+    "TotalCharges": 844.2
+  }'
+```
 
-**Request Body:**
+### `POST /predict_batch`
+Batch churn predictions (múltiples clientes a la vez)
+
+**Request Body (array de features originales):**
 ```json
 [
-  {customer_1_data},
-  {customer_2_data},
-  ...
+  {
+    "gender": "Female",
+    "SeniorCitizen": 0,
+    "Partner": "Yes",
+    "Dependents": "No",
+    "tenure": 12,
+    "PhoneService": "Yes",
+    "MultipleLines": "No",
+    "InternetService": "Fiber optic",
+    "OnlineSecurity": "No",
+    "OnlineBackup": "Yes",
+    "DeviceProtection": "No",
+    "TechSupport": "No",
+    "StreamingTV": "No",
+    "StreamingMovies": "No",
+    "Contract": "Month-to-month",
+    "PaperlessBilling": "Yes",
+    "PaymentMethod": "Electronic check",
+    "MonthlyCharges": 70.35,
+    "TotalCharges": 844.2
+  },
+  {
+    "gender": "Male",
+    "SeniorCitizen": 0,
+    "Partner": "Yes",
+    "Dependents": "Yes",
+    "tenure": 60,
+    ...
+  }
 ]
 ```
 
@@ -117,19 +185,41 @@ Batch churn predictions
       "prediction": 1,
       "churn": true,
       "probability": {
-        "no_churn": 0.23,
-        "churn": 0.77
+        "no_churn": 0.391,
+        "churn": 0.609
       },
-      "risk_level": "critical"
+      "risk_level": "high"
     },
-    ...
+    {
+      "index": 1,
+      "prediction": 0,
+      "churn": false,
+      "probability": {
+        "no_churn": 0.764,
+        "churn": 0.236
+      },
+      "risk_level": "low"
+    }
   ],
-  "total": 100,
-  "churn_count": 27,
-  "churn_rate": 0.27,
-  "timestamp": "2025-11-20T19:45:00"
+  "total": 2,
+  "churn_count": 1,
+  "churn_rate": 0.5,
+  "timestamp": "2025-11-20T23:59:16"
 }
 ```
+
+## 🔧 Feature Engineering Automático
+
+La API aplica automáticamente las siguientes transformaciones:
+
+1. **ChargeRatio**: `MonthlyCharges / (TotalCharges + 1)`
+2. **AvgMonthlyCharges**: `TotalCharges / (tenure + 1)`
+3. **TenureGroup**: Categorización de tenure en grupos (0-1 año, 1-2 años, 2-4 años, 4+ años)
+4. **TotalServices**: Conteo de servicios contratados
+5. **SeniorWithDependents**: Senior citizen con dependientes (binario)
+6. **HighValueContract**: Contrato largo + cargos altos (binario)
+
+**No necesitas calcular estas features manualmente**, solo envía los datos originales.
 
 ## 🛠️ Installation
 
@@ -142,6 +232,7 @@ pip install -r requirements.txt
 
 2. Run the API:
 ```bash
+cd api
 python app.py
 ```
 
@@ -151,7 +242,7 @@ The API will be available at `http://localhost:5000`
 
 1. Build the image:
 ```bash
-docker build -t churn-api .
+docker build -t churn-api -f api/Dockerfile .
 ```
 
 2. Run the container:
@@ -161,13 +252,16 @@ docker run -p 5000:5000 churn-api
 
 ## 🌐 Deployment
 
-### Render
+### Render (Producción Actual)
+
+**URL de producción:** `https://telco-churn-api-y9xy.onrender.com`
 
 1. Create a new Web Service on Render
 2. Connect your GitHub repository
-3. Set build command: `pip install -r requirements.txt`
-4. Set start command: `gunicorn --bind 0.0.0.0:$PORT app:app`
-5. Deploy!
+3. Set root directory: `api`
+4. Set build command: `pip install -r requirements.txt`
+5. Set start command: `gunicorn --bind 0.0.0.0:$PORT app:app`
+6. Deploy!
 
 ### Environment Variables
 
