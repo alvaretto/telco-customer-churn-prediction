@@ -64,26 +64,7 @@ with col3:
     monthly_charges = st.number_input("Monthly Charges ($)", 0.0, 200.0, 70.0, 0.01)
     total_charges = st.number_input("Total Charges ($)", 0.0, 10000.0, 840.0, 0.01)
 
-# Calculate derived features
-charge_ratio = total_charges / (monthly_charges * tenure) if tenure > 0 and monthly_charges > 0 else 0
-avg_monthly_charges = total_charges / tenure if tenure > 0 else monthly_charges
-
-if tenure <= 12:
-    tenure_group = "0-12"
-elif tenure <= 24:
-    tenure_group = "13-24"
-elif tenure <= 48:
-    tenure_group = "25-48"
-else:
-    tenure_group = "49+"
-
-# Count total services
-services = [phone_service, internet_service, online_security, online_backup, 
-            device_protection, tech_support, streaming_tv, streaming_movies]
-total_services = sum(1 for s in services if s == "Yes")
-
-senior_with_dependents = 1 if senior_citizen == "Yes" and dependents == "Yes" else 0
-high_value_contract = 1 if contract in ["One year", "Two year"] and monthly_charges > 70 else 0
+# These will be calculated after the button is pressed
 
 st.markdown("---")
 
@@ -92,7 +73,7 @@ if st.button("🔮 Predict Churn Risk", type="primary", use_container_width=True
     if not model_loaded:
         st.error("Model not loaded. Cannot make prediction.")
     else:
-        # Prepare data
+        # Prepare data (original features only - 19 features)
         customer_data = {
             'gender': gender,
             'SeniorCitizen': 1 if senior_citizen == "Yes" else 0,
@@ -112,21 +93,41 @@ if st.button("🔮 Predict Churn Risk", type="primary", use_container_width=True
             'PaperlessBilling': paperless_billing,
             'PaymentMethod': payment_method,
             'MonthlyCharges': monthly_charges,
-            'TotalCharges': total_charges,
-            'ChargeRatio': charge_ratio,
-            'AvgMonthlyCharges': avg_monthly_charges,
-            'TenureGroup': tenure_group,
-            'TotalServices': total_services,
-            'SeniorWithDependents': senior_with_dependents,
-            'HighValueContract': high_value_contract
+            'TotalCharges': total_charges
         }
-        
+
         df = pd.DataFrame([customer_data])
-        
+
+        # Apply feature engineering (same as in notebook)
+        df['ChargeRatio'] = df['MonthlyCharges'] / (df['TotalCharges'] + 1)
+        df['AvgMonthlyCharges'] = df['TotalCharges'] / (df['tenure'] + 1)
+
+        # TenureGroup
+        df['TenureGroup'] = pd.cut(df['tenure'],
+                                    bins=[0, 12, 24, 48, 72],
+                                    labels=['0-1 año', '1-2 años', '2-4 años', '4+ años']).astype(str)
+
+        # TotalServices
+        service_cols = ['PhoneService', 'InternetService', 'OnlineSecurity', 'OnlineBackup',
+                       'DeviceProtection', 'TechSupport', 'StreamingTV', 'StreamingMovies']
+        df['TotalServices'] = (df[service_cols] != 'No').sum(axis=1)
+
+        # SeniorWithDependents
+        df['SeniorWithDependents'] = ((df['SeniorCitizen'] == 1) & (df['Dependents'] == 'Yes')).astype(int)
+
+        # HighValueContract
+        median_charges = 70.0  # Approximate median from training data
+        df['HighValueContract'] = ((df['Contract'].isin(['One year', 'Two year'])) &
+                                   (df['MonthlyCharges'] > median_charges)).astype(int)
+
         # Make prediction
         try:
-            prediction = model.predict(df)[0]
-            probability = model.predict_proba(df)[0]
+            # Apply preprocessing
+            df_processed = preprocessor.transform(df)
+
+            # Make prediction with preprocessed data
+            prediction = model.predict(df_processed)[0]
+            probability = model.predict_proba(df_processed)[0]
             
             churn_prob = probability[1]
             
