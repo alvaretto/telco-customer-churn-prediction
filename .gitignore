@@ -10,6 +10,11 @@ sync-*.sh
 # Archivos HTML generados
 *.html
 
+# Archivos temporales de nbconvert
+custom_template.tpl
+nbconvert_config_oficio.py
+*_temp.html
+
 # Entornos Virtuales
 venv/
 env/
