@@ -80,7 +80,7 @@
 ### 🎨 Mejoras UX/UI - Fase 1:
 
 **Estado**: ✅ COMPLETADO
-**Documentación**: `docs/MEJORAS_UX_UI_DASHBOARD.md`
+**Documentación**: `docs/varios/MEJORAS_UX_UI_DASHBOARD.md`
 **Análisis completado**: 2025-11-21
 **Implementación completada**: 2025-11-21
 
@@ -184,13 +184,28 @@ Defensa-Proyecto/
 │   ├── check_model_size.py        # ✅ Verificación de modelos
 │   ├── save_and_check_model.py    # ✅ Guardado de modelos
 │   └── convert_to_legal_pdf.py    # ✅ Generación de PDF oficio
-├── docs/                           # ✅ Documentación completa
-│   ├── API_USAGE.md               # ✅ Guía de uso de la API
-│   ├── DASHBOARD_GUIDE.md         # ✅ Manual del dashboard
-│   ├── DEPLOYMENT.md              # ✅ Guía de deployment
-│   ├── TESTING.md                 # ✅ Documentación de testing
-│   ├── MEJORAS_UX_UI_DASHBOARD.md # ✅ Análisis y mejoras UX/UI
-│   └── guia_completa_analisis_churn/  # ✅ Documentación detallada
+├── docs/                           # ✅ Documentación completa (46 archivos)
+│   ├── guia_completa_analisis_churn/  # ✅ Guía paso a paso (15 archivos)
+│   │   ├── 00_progreso.md         # ✅ Progreso del análisis
+│   │   ├── 01-11_*.md             # ✅ 12 capítulos del análisis
+│   │   ├── guia_completa_analisis_churn.md  # ✅ Guía completa
+│   │   ├── guia_completa_analisis_churn.docx # ✅ Versión Word
+│   │   └── guia_completa_analisis_churn.pdf  # ✅ Versión PDF
+│   ├── micro-tutoriales-preguntas/    # ✅ 26 micro-tutoriales de ML
+│   │   ├── OneHotEncoder.md       # ✅ Tutorial One-Hot Encoding
+│   │   ├── SMOTE.md               # ✅ Tutorial SMOTE
+│   │   ├── curva-ROC-[1-4].md     # ✅ Serie sobre curva ROC
+│   │   ├── metricas-clasificacion-binaria.md # ✅ Métricas
+│   │   ├── feature-engineering.md # ✅ Feature Engineering
+│   │   └── [+20 tutoriales más]   # ✅ Otros conceptos de ML
+│   └── varios/                    # ✅ Documentación general (7 archivos)
+│       ├── API_USAGE.md           # ✅ Guía de uso de la API
+│       ├── DASHBOARD_GUIDE.md     # ✅ Manual del dashboard
+│       ├── DEPLOYMENT.md          # ✅ Guía de deployment
+│       ├── DEPLOYMENT_PASO_A_PASO.md # ✅ Deployment paso a paso
+│       ├── TESTING.md             # ✅ Documentación de testing
+│       ├── URL_REFERENCE.md       # ✅ Referencias de URLs
+│       └── MEJORAS_UX_UI_DASHBOARD.md # ✅ Análisis de mejoras UX/UI
 ├── seguimiento/                    # ✅ Seguimiento del proyecto
 │   ├── EMPEZAR_AQUI.md
 │   ├── seguimiento-estructura-completa.md
@@ -437,12 +452,67 @@ Defensa-Proyecto/
 
 ---
 
-### 4️⃣ CARPETA: `docs/` - Documentación
+### 4️⃣ CARPETA: `docs/` - Documentación (46 archivos)
 
-**Propósito:** Documentación técnica y de usuario
+**Propósito:** Documentación técnica, educativa y de usuario
 
-##### `docs/API_USAGE.md` - [✅ COMPLETADO]
-- **Ruta:** `/docs/API_USAGE.md`
+#### 📖 Subdirectorio: `docs/guia_completa_analisis_churn/` - [✅ COMPLETADO]
+
+**Propósito:** Guía paso a paso del análisis de churn (15 archivos)
+
+- **00_progreso.md** - Progreso del análisis
+- **01_introduccion_proyecto.md** - Introducción al proyecto
+- **02_importacion_librerias.md** - Librerías utilizadas
+- **03_carga_exploracion_inicial.md** - Carga de datos
+- **04_analisis_calidad_datos.md** - Análisis de calidad
+- **05_analisis_exploratorio_eda.md** - EDA completo
+- **06_feature_engineering.md** - Feature Engineering
+- **07_preparacion_datos_modelado.md** - Preparación de datos
+- **08_entrenamiento_modelos_baseline.md** - Modelos baseline
+- **09_manejo_desbalanceo_clases.md** - Balanceo de clases
+- **10_optimizacion_hiperparametros.md** - Optimización
+- **11_evaluacion_modelo_final.md** - Evaluación final
+- **guia_completa_analisis_churn.md** - Guía completa consolidada
+- **guia_completa_analisis_churn.docx** - Versión Word
+- **guia_completa_analisis_churn.pdf** - Versión PDF
+
+**Estado:** ✅ Documentación completa del proyecto
+
+#### 🎓 Subdirectorio: `docs/micro-tutoriales-preguntas/` - [✅ COMPLETADO]
+
+**Propósito:** 26 micro-tutoriales sobre conceptos de Machine Learning
+
+**Tutoriales incluidos:**
+- **OneHotEncoder.md** - Tutorial One-Hot Encoding
+- **SMOTE.md** - Tutorial SMOTE
+- **analisis_codificacion_balanceo.md** - Análisis completo
+- **balanceo.md** - Técnicas de balanceo
+- **clases-hiperparametros.md** - Hiperparámetros
+- **clasificacion-binaria.md** - Clasificación binaria
+- **curva-ROC-1.md, curva-ROC-2.md, curva-ROC-3.md, curva-ROC-4.md** - Serie sobre curva ROC
+- **dtype-object.md** - Tipos de datos
+- **encoding.md** - Codificación de variables
+- **feature-engineering.md** - Feature Engineering
+- **imputacion.md** - Imputación de valores
+- **metricas-clasificacion-binaria.md** - Métricas
+- **modelos-baseline.md** - Modelos baseline
+- **preguntas-sustentacion/preguntas_sustentacion.md** - Preguntas de sustentación
+- **pruebas-de-hipotesis.md** - Pruebas estadísticas
+- **ratio-desbalanceo.md** - Ratio de desbalanceo
+- **regresion.md** - Regresión
+- **seniorcitizen-excluido.md** - SeniorCitizen
+- **siete-modelos.md** - 7 modelos evaluados
+- **solo-tres-variables.md** - Variables seleccionadas
+- **tabla-de-contingencia.md** - Tablas de contingencia
+
+**Estado:** ✅ Recursos educativos completos
+
+#### 📚 Subdirectorio: `docs/varios/` - [✅ COMPLETADO]
+
+**Propósito:** Documentación general del proyecto (7 archivos)
+
+##### `docs/varios/API_USAGE.md` - [✅ COMPLETADO]
+- **Ruta:** `/docs/varios/API_USAGE.md`
 - **Propósito:** Guía completa de uso de la API
 - **Contenido:**
   - Descripción de endpoints
@@ -451,8 +521,8 @@ Defensa-Proyecto/
   - Troubleshooting
 - **Estado:** ✅ Deployado en producción
 
-##### `docs/DASHBOARD_GUIDE.md` - [✅ COMPLETADO]
-- **Ruta:** `/docs/DASHBOARD_GUIDE.md`
+##### `docs/varios/DASHBOARD_GUIDE.md` - [✅ COMPLETADO]
+- **Ruta:** `/docs/varios/DASHBOARD_GUIDE.md`
 - **Propósito:** Manual de usuario del dashboard
 - **Contenido:**
   - Navegación
@@ -461,8 +531,8 @@ Defensa-Proyecto/
   - FAQ
 - **Estado:** ✅ Documentación completa
 
-##### `docs/DEPLOYMENT.md` - [✅ COMPLETADO]
-- **Ruta:** `/docs/DEPLOYMENT.md`
+##### `docs/varios/DEPLOYMENT.md` - [✅ COMPLETADO]
+- **Ruta:** `/docs/varios/DEPLOYMENT.md`
 - **Propósito:** Guía de deployment en producción
 - **Contenido:**
   - Deployment en Render (API)
@@ -472,7 +542,7 @@ Defensa-Proyecto/
   - Monitoreo
 - **Estado:** ✅ Guías paso a paso completas
 
-##### `docs/MEJORAS_UX_UI_DASHBOARD.md` - [✅ COMPLETADO]
+##### `docs/varios/MEJORAS_UX_UI_DASHBOARD.md` - [✅ COMPLETADO]
 - **Ruta:** `/docs/MEJORAS_UX_UI_DASHBOARD.md`
 - **Propósito:** Análisis y plan de mejoras UX/UI del dashboard
 - **Contenido:**
@@ -564,7 +634,7 @@ Defensa-Proyecto/
 3. [ ] Crear carpeta `dashboard/`
 4. [ ] Crear carpeta `dashboard/pages/`
 5. [ ] Crear carpeta `tests/`
-6. [ ] Crear carpeta `docs/`
+6. [ ] Crear carpeta `docs/` y subdirectorios
 
 ### Fase 2: Archivos de configuración (5 min)
 7. [ ] Actualizar `.gitignore`
@@ -590,9 +660,11 @@ Defensa-Proyecto/
 ### Fase 5: Tests y Documentación (10-15 min)
 22. [ ] Crear `tests/test_api.py`
 23. [ ] Crear `tests/test_model.py`
-24. [ ] Crear `docs/API_USAGE.md`
-25. [ ] Crear `docs/DASHBOARD_GUIDE.md`
-26. [ ] Crear `docs/DEPLOYMENT.md`
+24. [ ] Crear `docs/varios/API_USAGE.md`
+25. [ ] Crear `docs/varios/DASHBOARD_GUIDE.md`
+26. [ ] Crear `docs/varios/DEPLOYMENT.md`
+27. [ ] Crear `docs/guia_completa_analisis_churn/` (15 archivos)
+28. [ ] Crear `docs/micro-tutoriales-preguntas/` (26 archivos)
 
 **Tiempo total estimado:** 55-75 minutos
 
@@ -685,7 +757,7 @@ Tener un proyecto completo de deployment de ML con:
 - [x] Carpeta `dashboard/`
 - [x] Carpeta `dashboard/pages/`
 - [x] Carpeta `tests/`
-- [x] Carpeta `docs/`
+- [x] Carpeta `docs/` con subdirectorios (guia_completa_analisis_churn/, micro-tutoriales-preguntas/, varios/)
 - [x] Mover `Telco_Churn/` → `models/`
 
 ### ✅ Fase 2: Archivos de Configuración (2/2)
@@ -712,9 +784,11 @@ Tener un proyecto completo de deployment de ML con:
 ### ✅ Fase 5: Tests y Documentación (5/5)
 - [x] `tests/test_api.py` (130 líneas)
 - [x] `tests/test_model.py` (120 líneas)
-- [x] `docs/API_USAGE.md` (200 líneas)
-- [x] `docs/DASHBOARD_GUIDE.md` (200 líneas)
-- [x] `docs/DEPLOYMENT.md` (200 líneas)
+- [x] `docs/varios/API_USAGE.md` (200 líneas)
+- [x] `docs/varios/DASHBOARD_GUIDE.md` (200 líneas)
+- [x] `docs/varios/DEPLOYMENT.md` (200 líneas)
+- [x] `docs/guia_completa_analisis_churn/` (15 archivos, ~3,200 líneas)
+- [x] `docs/micro-tutoriales-preguntas/` (26 archivos, ~5,000 líneas)
 
 ### ✅ Fase 6: Configuración para Cloud Deployment (10/10)
 - [x] `render.yaml` - Blueprint para Render.com
@@ -725,7 +799,7 @@ Tener un proyecto completo de deployment de ML con:
 - [x] `DEPLOYMENT_CHECKLIST.md` - Checklist interactivo de deployment
 - [x] `URLS_PRODUCCION.md` - Plantilla para URLs de producción
 - [x] `PLAN_ACCION_INFRAESTRUCTURA.md` - Plan para infraestructura limitada
-- [x] `docs/DEPLOYMENT_PASO_A_PASO.md` - Guía detallada de deployment
+- [x] `docs/varios/DEPLOYMENT_PASO_A_PASO.md` - Guía detallada de deployment
 - [x] `scripts/test_model_loading.py` - Script de verificación del modelo
 
 ---
@@ -857,7 +931,7 @@ Tener un proyecto completo de deployment de ML con:
 ### 📚 Documentación de Referencia
 
 - `DEPLOYMENT_CHECKLIST.md` - Checklist detallado paso a paso
-- `docs/DEPLOYMENT_PASO_A_PASO.md` - Guía con screenshots
+- `docs/varios/DEPLOYMENT_PASO_A_PASO.md` - Guía con screenshots
 - `PLAN_ACCION_INFRAESTRUCTURA.md` - Análisis de opciones
 - `EMPEZAR_AQUI.md` - Guía de inicio rápido
 
@@ -899,7 +973,7 @@ Tener un proyecto completo de deployment de ML con:
    - Main file: `dashboard/app.py`
 3. Seguir checklist en `DEPLOYMENT_CHECKLIST.md` (Parte 2)
 
-**Documentación**: Ver `docs/DEPLOYMENT_PASO_A_PASO.md` para guía detallada
+**Documentación**: Ver `docs/varios/DEPLOYMENT_PASO_A_PASO.md` para guía detallada
 
 ---
 
@@ -960,7 +1034,7 @@ Tener un proyecto completo de deployment de ML con:
 ### 🎨 Análisis UX/UI - COMPLETADO
 - **Fecha**: 2025-11-21
 - **Dashboard de referencia**: https://alzheimer-front.onrender.com/
-- **Documento creado**: `docs/MEJORAS_UX_UI_DASHBOARD.md`
+- **Documento creado**: `docs/varios/MEJORAS_UX_UI_DASHBOARD.md`
 - **Análisis realizado**:
   - ✅ Identificación de elementos efectivos de diseño
   - ✅ Análisis de patrones de navegación y UX
@@ -1004,16 +1078,31 @@ Tener un proyecto completo de deployment de ML con:
    - ✅ `scripts/convert_to_legal_pdf.py` - Exportación a formato oficio
    - ✅ `Telco_Customer_Churn_Oficio.pdf` - Notebook exportado
 
-5. **Documentación Actualizada** (2025-11-22)
+5. **Reorganización del directorio docs/** (2025-11-22)
+   - ✅ Creación de subdirectorio `docs/guia_completa_analisis_churn/` (15 archivos)
+     * Guía paso a paso del análisis completo
+     * 12 capítulos markdown (00_progreso a 11_evaluacion)
+     * Versiones en .md, .docx y .pdf
+   - ✅ Creación de subdirectorio `docs/micro-tutoriales-preguntas/` (26 archivos)
+     * 26 micro-tutoriales sobre conceptos de ML
+     * Temas: encoding, balanceo, métricas, curva ROC, feature engineering
+     * Preguntas de sustentación documentadas
+   - ✅ Creación de subdirectorio `docs/varios/` (7 archivos)
+     * Documentación general del proyecto
+     * Archivos movidos desde raíz de docs/
+   - ✅ Total: 46 archivos reorganizados (~10,300 líneas de documentación)
+
+6. **Documentación Actualizada** (2025-11-22)
    - ✅ README.md - Estructura completa del proyecto actualizada
    - ✅ seguimiento-estructura-completa.md - Estado actual reflejado
    - ✅ Todos los archivos de seguimiento sincronizados
+   - ✅ Referencias a docs/ actualizadas a nueva estructura
 
 ### 📊 Métricas del Proyecto:
 
-- **Archivos totales**: 43
+- **Archivos totales**: 89 (43 código + 46 documentación)
 - **Líneas de código**: ~4,500
-- **Líneas de documentación**: ~3,000
+- **Líneas de documentación**: ~13,300 (3,000 seguimiento + 10,300 docs/)
 - **Tests unitarios**: 17 (7 API + 10 Modelo)
 - **Cobertura de tests**: ~87%
 - **Páginas del dashboard**: 6 (100% en español)

@@ -151,12 +151,28 @@ telco-customer-churn-prediction/
 │
 ├── 📚 Documentación
 │   ├── docs/
-│   │   ├── API_USAGE.md                     # Guía de uso de la API
-│   │   ├── DASHBOARD_GUIDE.md               # Manual del dashboard
-│   │   ├── DEPLOYMENT.md                    # Guía de deployment
-│   │   ├── TESTING.md                       # Documentación de testing
-│   │   ├── MEJORAS_UX_UI_DASHBOARD.md       # Análisis y mejoras UX/UI
-│   │   └── guia_completa_analisis_churn/    # Documentación detallada
+│   │   ├── guia_completa_analisis_churn/    # 📖 Guía paso a paso del análisis
+│   │   │   ├── 00_progreso.md               # Progreso del análisis
+│   │   │   ├── 01-11_*.md                   # 12 capítulos del análisis
+│   │   │   ├── guia_completa_analisis_churn.md  # Guía completa
+│   │   │   ├── guia_completa_analisis_churn.docx # Versión Word
+│   │   │   └── guia_completa_analisis_churn.pdf  # Versión PDF
+│   │   ├── micro-tutoriales-preguntas/      # 🎓 26 micro-tutoriales de ML
+│   │   │   ├── OneHotEncoder.md             # Tutorial One-Hot Encoding
+│   │   │   ├── SMOTE.md                     # Tutorial SMOTE
+│   │   │   ├── curva-ROC-[1-4].md           # Serie sobre curva ROC
+│   │   │   ├── metricas-clasificacion-binaria.md # Métricas
+│   │   │   ├── feature-engineering.md       # Feature Engineering
+│   │   │   ├── balanceo.md                  # Técnicas de balanceo
+│   │   │   └── [+20 tutoriales más]         # Otros conceptos de ML
+│   │   └── varios/                          # 📚 Documentación general
+│   │       ├── API_USAGE.md                 # Guía de uso de la API
+│   │       ├── DASHBOARD_GUIDE.md           # Manual del dashboard
+│   │       ├── DEPLOYMENT.md                # Guía de deployment
+│   │       ├── DEPLOYMENT_PASO_A_PASO.md    # Deployment paso a paso
+│   │       ├── TESTING.md                   # Guía de testing
+│   │       ├── URL_REFERENCE.md             # Referencias de URLs
+│   │       └── MEJORAS_UX_UI_DASHBOARD.md   # Análisis de mejoras UX/UI
 │
 ├── 📋 Seguimiento del Proyecto
 │   ├── seguimiento/
@@ -306,7 +322,7 @@ curl -X POST https://telco-churn-api-y9xy.onrender.com/predict \
   }'
 ```
 
-**Documentación completa**: [API_USAGE.md](docs/API_USAGE.md)
+**Documentación completa**: [API_USAGE.md](docs/varios/API_USAGE.md)
 
 ---
 
@@ -400,7 +416,7 @@ Ver estado de CI/CD: [GitHub Actions](https://github.com/alvaretto/telco-custome
 
 ### Documentación de Testing
 
-Para más detalles sobre cómo ejecutar tests, ver: [`docs/TESTING.md`](docs/TESTING.md)
+Para más detalles sobre cómo ejecutar tests, ver: [`docs/varios/TESTING.md`](docs/varios/TESTING.md)
 
 ---
 
@@ -629,7 +645,7 @@ pip install -r requirements.txt
 gunicorn --bind 0.0.0.0:$PORT app:app
 ```
 
-Ver [API Usage Guide](docs/API_USAGE.md) para detalles completos.
+Ver [API Usage Guide](docs/varios/API_USAGE.md) para detalles completos.
 
 ### 📊 Dashboard Interactivo (Streamlit) - 100% en Español 🇪🇸
 
@@ -653,7 +669,7 @@ cd dashboard
 streamlit run app.py
 ```
 
-Ver [Dashboard Guide](docs/DASHBOARD_GUIDE.md) para guía de usuario completa.
+Ver [Dashboard Guide](docs/varios/DASHBOARD_GUIDE.md) para guía de usuario completa.
 
 ### 📁 Estructura de Deployment
 
@@ -682,9 +698,12 @@ Defensa-Proyecto/
 │   ├── test_api.py
 │   └── test_model.py
 └── docs/                      # Documentación completa
-    ├── API_USAGE.md
-    ├── DASHBOARD_GUIDE.md
-    └── DEPLOYMENT.md
+    ├── guia_completa_analisis_churn/  # Guía paso a paso
+    ├── micro-tutoriales-preguntas/    # 26 tutoriales de ML
+    └── varios/                        # Docs generales
+        ├── API_USAGE.md
+        ├── DASHBOARD_GUIDE.md
+        └── DEPLOYMENT.md
 ```
 
 ### 🧪 Testing
@@ -699,9 +718,11 @@ pytest tests/test_model.py -v
 
 ### 📚 Documentación Completa
 
-- **[API Usage Guide](docs/API_USAGE.md)** - Guía de uso de la API REST
-- **[Dashboard Guide](docs/DASHBOARD_GUIDE.md)** - Guía de usuario del dashboard
-- **[Deployment Guide](docs/DEPLOYMENT.md)** - Guía de deployment en Render/Streamlit Cloud
+- **[API Usage Guide](docs/varios/API_USAGE.md)** - Guía de uso de la API REST
+- **[Dashboard Guide](docs/varios/DASHBOARD_GUIDE.md)** - Guía de usuario del dashboard
+- **[Deployment Guide](docs/varios/DEPLOYMENT.md)** - Guía de deployment en Render/Streamlit Cloud
+- **[Guía Completa del Análisis](docs/guia_completa_analisis_churn/guia_completa_analisis_churn.md)** - Documentación paso a paso del proyecto
+- **[Micro-tutoriales de ML](docs/micro-tutoriales-preguntas/)** - 26 tutoriales sobre conceptos de Machine Learning
 
 ---
 
@@ -749,7 +770,7 @@ Se completó la implementación de mejoras críticas de UX/UI en el dashboard:
    - Mensajes de error detallados con causas y soluciones
    - Recomendaciones contextuales según riesgo
 
-**📄 Documentación**: Ver [docs/MEJORAS_UX_UI_DASHBOARD.md](docs/MEJORAS_UX_UI_DASHBOARD.md) para análisis completo.
+**📄 Documentación**: Ver [docs/varios/MEJORAS_UX_UI_DASHBOARD.md](docs/varios/MEJORAS_UX_UI_DASHBOARD.md) para análisis completo.
 
 **✅ Estado**: Completado el 2025-11-21
 **📁 Archivos modificados**: `dashboard/app.py`, `dashboard/pages/2_🎯_Análisis_de_Riesgo.py`
