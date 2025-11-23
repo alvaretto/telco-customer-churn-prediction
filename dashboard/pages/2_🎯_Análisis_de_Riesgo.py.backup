@@ -1,6 +1,5 @@
 """
 Página de Análisis de Riesgo - Predicción individual de churn de clientes
-OPTIMIZADA: Solo solicita las características más importantes del modelo
 """
 
 import streamlit as st
@@ -20,16 +19,9 @@ st.set_page_config(page_title="Análisis de Riesgo", page_icon="🎯", layout="w
 st.markdown(CUSTOM_CSS, unsafe_allow_html=True)
 
 st.title("🎯 Análisis de Riesgo de Churn de Clientes")
-
-# Mensaje informativo sobre la optimización
 st.markdown("""
 <div class="alert-info">
-    <strong>✨ Formulario Optimizado</strong><br>
-    Este formulario solicita únicamente las <strong>10 características más importantes</strong>
-    identificadas por el modelo de Machine Learning. Esto reduce el tiempo de captura en un 50%
-    manteniendo la precisión de la predicción.
-    <br><br>
-    <strong>ℹ️ Instrucciones:</strong> Completa los campos con la información del cliente
+    <strong>ℹ️ Instrucciones:</strong> Completa el formulario con la información del cliente
     para obtener una predicción del riesgo de abandono (churn).
 </div>
 """, unsafe_allow_html=True)
@@ -37,229 +29,175 @@ st.markdown("""
 # URL de la API
 API_URL = "https://telco-churn-api-y9xy.onrender.com/predict"
 
-# Top 10 características más importantes (según feature_importances_)
-st.markdown("""
-<div style="background-color: #f0f2f6; padding: 15px; border-radius: 10px; margin: 20px 0;">
-    <h4 style="margin-top: 0;">🔝 Top 10 Características Más Importantes</h4>
-    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
-        <div>1. ⚡ <strong>ChargeRatio</strong> (12.45%)</div>
-        <div>2. 📅 <strong>Antigüedad</strong> (10.45%)</div>
-        <div>3. 💰 <strong>Cargos Totales</strong> (8.63%)</div>
-        <div>4. 📊 <strong>Promedio Mensual</strong> (7.73%)</div>
-        <div>5. 💵 <strong>Cargos Mensuales</strong> (7.65%)</div>
-        <div>6. 📝 <strong>Contrato 2 años</strong> (6.89%)</div>
-        <div>7. 🌐 <strong>Fibra Óptica</strong> (5.58%)</div>
-        <div>8. 📦 <strong>Total Servicios</strong> (4.49%)</div>
-        <div>9. 💳 <strong>Cheque Electrónico</strong> (3.40%)</div>
-        <div>10. ⏰ <strong>Grupo Antigüedad</strong> (3.12%)</div>
-    </div>
-</div>
-""", unsafe_allow_html=True)
+# Formulario de entrada con mejor organización
+st.subheader("📝 Información del Cliente")
+st.markdown("Organiza los datos del cliente por categorías para una mejor experiencia")
 
-# Formulario optimizado con solo las características necesarias
-st.subheader("📝 Información del Cliente (Solo Datos Esenciales)")
-
-# Organizar en 2 columnas
+# Cambiar a 2 columnas en lugar de 3
 col1, col2 = st.columns(2)
 
+# Columna 1: Demografía y Servicios Básicos
 with col1:
-    st.markdown("### 💰 Información Financiera")
-    st.markdown("*Las variables más predictivas del modelo*")
-
-    monthly_charges = st.number_input(
-        "💵 Cargos Mensuales ($)",
-        min_value=0.0,
-        max_value=200.0,
-        value=70.0,
-        step=0.01,
-        help="⭐ TOP 5 - Monto que el cliente paga mensualmente"
-    )
-
-    total_charges = st.number_input(
-        "💰 Cargos Totales ($)",
-        min_value=0.0,
-        max_value=10000.0,
-        value=840.0,
-        step=0.01,
-        help="⭐ TOP 3 - Monto total que el cliente ha pagado desde que se unió"
-    )
-
-    tenure = st.slider(
-        "📅 Antigüedad (meses)",
-        min_value=0,
-        max_value=72,
-        value=12,
-        help="⭐ TOP 2 - Número de meses que el cliente ha estado con la empresa"
-    )
-
-with col2:
-    st.markdown("### 📋 Información Contractual")
-    st.markdown("*Tipo de contrato y servicios*")
-
-    contract = st.selectbox(
-        "📝 Tipo de Contrato",
-        ["Month-to-month", "One year", "Two year"],
-        format_func=lambda x: {
-            "Month-to-month": "Mes a mes",
-            "One year": "Un año",
-            "Two year": "⭐ Dos años (TOP 6)"
-        }[x],
-        help="⭐ TOP 6 - Duración del contrato del cliente"
-    )
-
-    internet_service = st.selectbox(
-        "🌐 Tipo de Servicio de Internet",
-        ["No", "DSL", "Fiber optic"],
-        format_func=lambda x: {
-            "No": "No",
-            "DSL": "DSL",
-            "Fiber optic": "⭐ Fibra óptica (TOP 7)"
-        }[x],
-        help="⭐ TOP 7 - Tipo de conexión a internet del cliente"
-    )
-
-    payment_method = st.selectbox(
-        "💳 Método de Pago",
-        [
-            "Electronic check",
-            "Mailed check",
-            "Bank transfer (automatic)",
-            "Credit card (automatic)"
-        ],
-        format_func=lambda x: {
-            "Electronic check": "⭐ Cheque electrónico (TOP 9)",
-            "Mailed check": "Cheque por correo",
-            "Bank transfer (automatic)": "Transferencia bancaria (automática)",
-            "Credit card (automatic)": "Tarjeta de crédito (automática)"
-        }[x],
-        help="⭐ TOP 9 - Forma de pago utilizada por el cliente"
-    )
-
-# Sección colapsable con campos adicionales opcionales
-with st.expander("➕ Campos Adicionales (Opcionales - Mejoran la precisión)", expanded=False):
-    st.markdown("*Estos campos no son obligatorios pero pueden mejorar la predicción*")
-
-    col3, col4 = st.columns(2)
-
-    with col3:
+    with st.expander("👤 Información Demográfica", expanded=True):
+        st.markdown("*Datos personales del cliente*")
         gender = st.selectbox(
             "Género",
             ["Male", "Female"],
-            format_func=lambda x: "Masculino" if x == "Male" else "Femenino"
+            format_func=lambda x: "Masculino" if x == "Male" else "Femenino",
+            help="Género del cliente"
         )
         senior_citizen = st.selectbox(
             "¿Es adulto mayor? (65+)",
             ["No", "Yes"],
-            format_func=lambda x: "No" if x == "No" else "Sí"
+            format_func=lambda x: "No" if x == "No" else "Sí",
+            help="Indica si el cliente tiene 65 años o más"
         )
         partner = st.selectbox(
             "¿Tiene pareja?",
             ["No", "Yes"],
-            format_func=lambda x: "No" if x == "No" else "Sí"
+            format_func=lambda x: "No" if x == "No" else "Sí",
+            help="Indica si el cliente vive con una pareja"
         )
         dependents = st.selectbox(
             "¿Tiene dependientes?",
             ["No", "Yes"],
-            format_func=lambda x: "No" if x == "No" else "Sí"
+            format_func=lambda x: "No" if x == "No" else "Sí",
+            help="Indica si el cliente tiene personas a su cargo (hijos, familiares)"
         )
 
-    with col4:
+    with st.expander("📞 Servicios Telefónicos", expanded=True):
+        st.markdown("*Servicios de telefonía contratados*")
         phone_service = st.selectbox(
             "Servicio Telefónico",
             ["No", "Yes"],
-            format_func=lambda x: "No" if x == "No" else "Sí"
+            format_func=lambda x: "No" if x == "No" else "Sí",
+            help="Indica si el cliente tiene servicio telefónico"
         )
         multiple_lines = st.selectbox(
             "Múltiples Líneas Telefónicas",
             ["No", "Yes", "No phone service"],
-            format_func=lambda x: "No" if x == "No" else ("Sí" if x == "Yes" else "Sin servicio telefónico")
+            format_func=lambda x: "No" if x == "No" else ("Sí" if x == "Yes" else "Sin servicio telefónico"),
+            help="Indica si el cliente tiene más de una línea telefónica"
         )
 
+# Columna 2: Servicios de Internet y Cuenta
+with col2:
+    with st.expander("🌐 Servicios de Internet", expanded=True):
+        st.markdown("*Servicios de internet y adicionales*")
+        internet_service = st.selectbox(
+            "Tipo de Servicio de Internet",
+            ["No", "DSL", "Fiber optic"],
+            format_func=lambda x: "No" if x == "No" else ("DSL" if x == "DSL" else "Fibra óptica"),
+            help="Tipo de conexión a internet del cliente"
+        )
         online_security = st.selectbox(
             "Seguridad Online",
             ["No", "Yes", "No internet service"],
-            format_func=lambda x: "No" if x == "No" else ("Sí" if x == "Yes" else "Sin servicio de internet")
+            format_func=lambda x: "No" if x == "No" else ("Sí" if x == "Yes" else "Sin servicio de internet"),
+            help="Servicio de seguridad online (antivirus, firewall)"
         )
         online_backup = st.selectbox(
             "Respaldo Online",
             ["No", "Yes", "No internet service"],
-            format_func=lambda x: "No" if x == "No" else ("Sí" if x == "Yes" else "Sin servicio de internet")
+            format_func=lambda x: "No" if x == "No" else ("Sí" if x == "Yes" else "Sin servicio de internet"),
+            help="Servicio de respaldo de datos en la nube"
         )
         device_protection = st.selectbox(
             "Protección de Dispositivo",
             ["No", "Yes", "No internet service"],
-            format_func=lambda x: "No" if x == "No" else ("Sí" if x == "Yes" else "Sin servicio de internet")
+            format_func=lambda x: "No" if x == "No" else ("Sí" if x == "Yes" else "Sin servicio de internet"),
+            help="Seguro para dispositivos electrónicos"
         )
         tech_support = st.selectbox(
             "Soporte Técnico",
             ["No", "Yes", "No internet service"],
-            format_func=lambda x: "No" if x == "No" else ("Sí" if x == "Yes" else "Sin servicio de internet")
+            format_func=lambda x: "No" if x == "No" else ("Sí" if x == "Yes" else "Sin servicio de internet"),
+            help="Servicio de soporte técnico 24/7"
         )
         streaming_tv = st.selectbox(
             "Streaming TV",
             ["No", "Yes", "No internet service"],
-            format_func=lambda x: "No" if x == "No" else ("Sí" if x == "Yes" else "Sin servicio de internet")
+            format_func=lambda x: "No" if x == "No" else ("Sí" if x == "Yes" else "Sin servicio de internet"),
+            help="Servicio de televisión por streaming"
         )
         streaming_movies = st.selectbox(
             "Streaming de Películas",
             ["No", "Yes", "No internet service"],
-            format_func=lambda x: "No" if x == "No" else ("Sí" if x == "Yes" else "Sin servicio de internet")
+            format_func=lambda x: "No" if x == "No" else ("Sí" if x == "Yes" else "Sin servicio de internet"),
+            help="Servicio de películas por streaming"
+        )
+
+    with st.expander("💳 Información de Cuenta", expanded=True):
+        st.markdown("*Detalles de facturación y contrato*")
+        tenure = st.slider(
+            "Antigüedad (meses)",
+            0, 72, 12,
+            help="Número de meses que el cliente ha estado con la empresa"
+        )
+        contract = st.selectbox(
+            "Tipo de Contrato",
+            ["Month-to-month", "One year", "Two year"],
+            format_func=lambda x: "Mes a mes" if x == "Month-to-month" else ("Un año" if x == "One year" else "Dos años"),
+            help="Duración del contrato del cliente"
         )
         paperless_billing = st.selectbox(
             "Facturación sin Papel",
             ["No", "Yes"],
-            format_func=lambda x: "No" if x == "No" else "Sí"
+            format_func=lambda x: "No" if x == "No" else "Sí",
+            help="Indica si el cliente recibe facturas electrónicas"
         )
+        payment_method = st.selectbox(
+            "Método de Pago",
+            [
+                "Electronic check",
+                "Mailed check",
+                "Bank transfer (automatic)",
+                "Credit card (automatic)"
+            ],
+            format_func=lambda x: {
+                "Electronic check": "Cheque electrónico",
+                "Mailed check": "Cheque por correo",
+                "Bank transfer (automatic)": "Transferencia bancaria (automática)",
+                "Credit card (automatic)": "Tarjeta de crédito (automática)"
+            }[x],
+            help="Forma de pago utilizada por el cliente"
+        )
+        monthly_charges = st.number_input(
+            "Cargos Mensuales ($)",
+            0.0, 200.0, 70.0, 0.01,
+            help="Monto que el cliente paga mensualmente"
+        )
+        total_charges = st.number_input(
+            "Cargos Totales ($)",
+            0.0, 10000.0, 840.0, 0.01,
+            help="Monto total que el cliente ha pagado desde que se unió"
+        )
+
+# Estos se calcularán después de presionar el botón
 
 st.markdown("---")
 
-# Mensaje informativo sobre valores por defecto
-st.info("""
-💡 **Nota:** Los campos no completados se rellenarán automáticamente con valores típicos
-basados en el análisis del dataset. Esto permite una predicción rápida manteniendo la precisión.
-""")
-
 # Botón de predicción
 if st.button("🔮 Predecir Riesgo de Churn", type="primary", use_container_width=True):
-    # Preparar datos con valores por defecto para campos no solicitados
-    # Los campos opcionales usan valores por defecto si no se especifican
-
-    # Valores por defecto basados en la moda/media del dataset
-    default_values = {
-        'gender': 'Male',  # Moda
-        'SeniorCitizen': 0,  # Mayoría no son seniors
-        'Partner': 'No',  # Moda
-        'Dependents': 'No',  # Moda
-        'PhoneService': 'Yes',  # Mayoría tiene servicio
-        'MultipleLines': 'No',  # Moda
-        'OnlineSecurity': 'No',  # Moda
-        'OnlineBackup': 'No',  # Moda
-        'DeviceProtection': 'No',  # Moda
-        'TechSupport': 'No',  # Moda
-        'StreamingTV': 'No',  # Moda
-        'StreamingMovies': 'No',  # Moda
-        'PaperlessBilling': 'Yes'  # Moda
-    }
-
     # Preparar datos (solo características originales - 19 características)
     # La API hace el feature engineering automáticamente
     customer_data = {
-        'gender': gender if 'gender' in locals() else default_values['gender'],
-        'SeniorCitizen': (1 if senior_citizen == "Yes" else 0) if 'senior_citizen' in locals() else default_values['SeniorCitizen'],
-        'Partner': partner if 'partner' in locals() else default_values['Partner'],
-        'Dependents': dependents if 'dependents' in locals() else default_values['Dependents'],
+        'gender': gender,
+        'SeniorCitizen': 1 if senior_citizen == "Yes" else 0,
+        'Partner': partner,
+        'Dependents': dependents,
         'tenure': tenure,
-        'PhoneService': phone_service if 'phone_service' in locals() else default_values['PhoneService'],
-        'MultipleLines': multiple_lines if 'multiple_lines' in locals() else default_values['MultipleLines'],
+        'PhoneService': phone_service,
+        'MultipleLines': multiple_lines,
         'InternetService': internet_service,
-        'OnlineSecurity': online_security if 'online_security' in locals() else default_values['OnlineSecurity'],
-        'OnlineBackup': online_backup if 'online_backup' in locals() else default_values['OnlineBackup'],
-        'DeviceProtection': device_protection if 'device_protection' in locals() else default_values['DeviceProtection'],
-        'TechSupport': tech_support if 'tech_support' in locals() else default_values['TechSupport'],
-        'StreamingTV': streaming_tv if 'streaming_tv' in locals() else default_values['StreamingTV'],
-        'StreamingMovies': streaming_movies if 'streaming_movies' in locals() else default_values['StreamingMovies'],
+        'OnlineSecurity': online_security,
+        'OnlineBackup': online_backup,
+        'DeviceProtection': device_protection,
+        'TechSupport': tech_support,
+        'StreamingTV': streaming_tv,
+        'StreamingMovies': streaming_movies,
         'Contract': contract,
-        'PaperlessBilling': paperless_billing if 'paperless_billing' in locals() else default_values['PaperlessBilling'],
+        'PaperlessBilling': paperless_billing,
         'PaymentMethod': payment_method,
         'MonthlyCharges': monthly_charges,
         'TotalCharges': total_charges
