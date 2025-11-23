@@ -1,0 +1,134 @@
+name: Deploy to Production
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'api/**'
+      - 'dashboard/**'
+      - 'models/**'
+      - '.github/workflows/deploy.yml'
+
+jobs:
+  notify-deployment:
+    name: Notify Deployment
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Get commit info
+      id: commit
+      run: |
+        echo "message=$(git log -1 --pretty=%B)" >> $GITHUB_OUTPUT
+        echo "author=$(git log -1 --pretty=%an)" >> $GITHUB_OUTPUT
+        echo "sha=$(git log -1 --pretty=%h)" >> $GITHUB_OUTPUT
+    
+    - name: Notify deployment start
+      run: |
+        echo "🚀 Deployment iniciado"
+        echo "📝 Commit: ${{ steps.commit.outputs.message }}"
+        echo "👤 Autor: ${{ steps.commit.outputs.author }}"
+        echo "🔖 SHA: ${{ steps.commit.outputs.sha }}"
+        echo ""
+        echo "📦 Servicios que se actualizarán:"
+        echo "   - API (Render): https://telco-churn-api-y9xy.onrender.com"
+        echo "   - Dashboard (Streamlit): https://telco-churn-dashboard-ml.streamlit.app"
+  
+  verify-api:
+    name: Verify API Deployment
+    runs-on: ubuntu-latest
+    needs: notify-deployment
+    
+    steps:
+    - name: Wait for Render deployment
+      run: |
+        echo "⏳ Esperando 60 segundos para que Render detecte el cambio..."
+        sleep 60
+    
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10.13'
+    
+    - name: Install dependencies
+      run: |
+        pip install requests
+    
+    - name: Verify API is responding
+      run: |
+        python scripts/monitor_production.py
+    
+    - name: Notify success
+      if: success()
+      run: |
+        echo "✅ API deployment verificado exitosamente"
+    
+    - name: Notify failure
+      if: failure()
+      run: |
+        echo "❌ API deployment falló la verificación"
+        exit 1
+
+  verify-dashboard:
+    name: Verify Dashboard Deployment
+    runs-on: ubuntu-latest
+    needs: notify-deployment
+    
+    steps:
+    - name: Wait for Streamlit deployment
+      run: |
+        echo "⏳ Esperando 90 segundos para que Streamlit Cloud detecte el cambio..."
+        sleep 90
+    
+    - name: Check Dashboard accessibility
+      run: |
+        response=$(curl -s -o /dev/null -w "%{http_code}" https://telco-churn-dashboard-ml.streamlit.app)
+        if [ $response -eq 200 ]; then
+          echo "✅ Dashboard está accesible (HTTP $response)"
+        else
+          echo "❌ Dashboard no está accesible (HTTP $response)"
+          exit 1
+        fi
+    
+    - name: Notify success
+      if: success()
+      run: |
+        echo "✅ Dashboard deployment verificado exitosamente"
+    
+    - name: Notify failure
+      if: failure()
+      run: |
+        echo "❌ Dashboard deployment falló la verificación"
+        exit 1
+
+  deployment-summary:
+    name: Deployment Summary
+    runs-on: ubuntu-latest
+    needs: [verify-api, verify-dashboard]
+    if: always()
+    
+    steps:
+    - name: Summary
+      run: |
+        echo "📊 RESUMEN DE DEPLOYMENT"
+        echo "========================"
+        echo ""
+        echo "🌐 URLs de Producción:"
+        echo "   - API: https://telco-churn-api-y9xy.onrender.com"
+        echo "   - Dashboard: https://telco-churn-dashboard-ml.streamlit.app"
+        echo ""
+        echo "📅 Fecha: $(date '+%Y-%m-%d %H:%M:%S UTC')"
+        echo ""
+        if [ "${{ needs.verify-api.result }}" == "success" ] && [ "${{ needs.verify-dashboard.result }}" == "success" ]; then
+          echo "✅ Deployment completado exitosamente"
+        else
+          echo "⚠️ Deployment completado con advertencias"
+          echo "   - API: ${{ needs.verify-api.result }}"
+          echo "   - Dashboard: ${{ needs.verify-dashboard.result }}"
+        fi
+

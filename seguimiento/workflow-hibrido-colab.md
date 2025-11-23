@@ -1,10 +1,14 @@
 ---
+title: "Workflow Híbrido: VS Code Insiders + Google Colab"
+author: "Equipo de Data Science"
 date: "`r Sys.Date()`"
 output:
+  html_document: default
   pdf_document:
     latex_engine: xelatex
     keep_tex: false
-  html_document: default
+    toc: true
+    toc_depth: 3
 ---
 
 # 🚀 Workflow Híbrido: VS Code Insiders + Google Colab

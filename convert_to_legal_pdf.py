@@ -41,7 +41,14 @@ def convert_notebook_to_legal_pdf(notebook_path, output_pdf):
     <style>
     @page {
         size: legal; /* 8.5in x 14in */
-        margin: 0.5in 0.5in; /* Márgenes reducidos */
+        margin: 0.5in 0.5in 0.75in 0.5in; /* Top, Right, Bottom (espacio para footer), Left */
+
+        @bottom-center {
+            content: counter(page) " de " counter(pages);
+            font-size: 9pt;
+            color: #666;
+            font-family: Arial, sans-serif;
+        }
     }
 
     @media print {
@@ -235,17 +242,24 @@ def convert_notebook_to_legal_pdf(notebook_path, output_pdf):
             html_file_path = f"file://{os.path.abspath(html_output)}"
             page.goto(html_file_path)
             
-            # Generar PDF con tamaño oficio
+            # Generar PDF con tamaño oficio y numeración de páginas
             page.pdf(
                 path=output_pdf,
                 format='Legal',  # 8.5" x 14"
                 margin={
-                    'top': '0.75in',
-                    'bottom': '0.75in',
+                    'top': '0.5in',
+                    'bottom': '0.75in',  # Espacio para el footer con numeración
                     'left': '0.5in',
                     'right': '0.5in'
                 },
-                print_background=True
+                print_background=True,
+                display_header_footer=True,
+                header_template='<div></div>',  # Header vacío
+                footer_template='''
+                    <div style="font-size: 9pt; color: #666; text-align: center; width: 100%; margin: 0 auto;">
+                        <span class="pageNumber"></span> de <span class="totalPages"></span>
+                    </div>
+                '''
             )
             
             browser.close()
