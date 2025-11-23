@@ -3,10 +3,14 @@ title: "Análisis: Codificación de Features Categóricos antes del Balanceo"
 author: "Análisis del Notebook Telco Customer Churn"
 date: "`r Sys.Date()`"
 output:
+  html_document:
+    toc: true
+    toc_depth: 3
   pdf_document:
     latex_engine: xelatex
     keep_tex: false
-  html_document: default
+    toc: true
+    toc_depth: 3
 ---
 
 # 📊 Análisis: Codificación de Features Categóricos antes del Balanceo
