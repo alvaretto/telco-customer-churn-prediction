@@ -5,10 +5,8 @@
 [![scikit-learn](https://img.shields.io/badge/scikit--learn-1.5.2-yellow.svg)](https://scikit-learn.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
-[![API Status](https://img.shields.io/badge/API-Online-success.svg)](https://telco-churn-api-y9xy.onrender.com)
-[![Dashboard Status](https://img.shields.io/badge/Dashboard-Online-success.svg)](https://telco-churn-dashboard-ml.streamlit.app)
-[![CI/CD](https://img.shields.io/badge/CI%2FCD-GitHub%20Actions-2088FF.svg)](https://github.com/alvaretto/telco-customer-churn-prediction/actions)
-[![Deployment](https://img.shields.io/badge/Deployment-Automated-brightgreen.svg)](https://github.com/alvaretto/telco-customer-churn-prediction/blob/main/.github/workflows/deploy.yml)
+[![Dashboard Status](https://img.shields.io/badge/Dashboard-Online-success.svg)](https://telco-vercel.vercel.app/)
+[![Vercel](https://img.shields.io/badge/Vercel-Deployed-black.svg?logo=vercel)](https://telco-vercel.vercel.app/)
 
 [![Model ROC-AUC](https://img.shields.io/badge/ROC--AUC-0.87-brightgreen.svg)](https://github.com/alvaretto/telco-customer-churn-prediction)
 [![Model Recall](https://img.shields.io/badge/Recall-0.83-green.svg)](https://github.com/alvaretto/telco-customer-churn-prediction)
@@ -19,8 +17,7 @@
 
 ## 🚀 Demo en Vivo
 
-- **🌐 API REST**: [https://telco-churn-api-y9xy.onrender.com](https://telco-churn-api-y9xy.onrender.com)
-- **📊 Dashboard Interactivo**: [https://telco-churn-dashboard-ml.streamlit.app](https://telco-churn-dashboard-ml.streamlit.app)
+- **📊 Dashboard en Producción**: [https://telco-vercel.vercel.app/](https://telco-vercel.vercel.app/) ✨
 - **📂 Repositorio**: [https://github.com/alvaretto/telco-customer-churn-prediction](https://github.com/alvaretto/telco-customer-churn-prediction)
 
 ---
@@ -34,10 +31,10 @@
 - [Requisitos Previos](#-requisitos-previos)
 - [Instalación](#-instalación)
 - [Uso](#-uso)
-- [Testing y CI/CD](#-testing-y-cicd)
 - [Metodología](#-metodología)
 - [Resultados](#-resultados)
 - [Conclusiones](#-conclusiones)
+- [Despliegue en Producción](#-despliegue-en-producción)
 - [Autores](#-autores)
 - [Licencia](#-licencia)
 - [Agradecimientos](#-agradecimientos)
@@ -265,7 +262,7 @@ conda install numpy pandas matplotlib seaborn scikit-learn xgboost imbalanced-le
 #### 1. Dashboard Interactivo (100% en Español 🇪🇸)
 Accede al dashboard en vivo para hacer predicciones y explorar el modelo:
 
-**URL**: [https://telco-churn-dashboard-ml.streamlit.app](https://telco-churn-dashboard-ml.streamlit.app)
+**URL**: [https://telco-vercel.vercel.app/](https://telco-vercel.vercel.app/)
 
 **Páginas disponibles:**
 - 🏠 **Inicio** - Introducción al proyecto y métricas principales
@@ -283,46 +280,7 @@ Accede al dashboard en vivo para hacer predicciones y explorar el modelo:
 - ✅ Análisis de escenarios ROI
 - ✅ Monitoreo de drift de datos
 
-#### 2. API REST
-Integra predicciones en tus aplicaciones:
 
-**URL Base**: `https://telco-churn-api-y9xy.onrender.com`
-
-**Ejemplo de uso:**
-```bash
-# Health check
-curl https://telco-churn-api-y9xy.onrender.com/health
-
-# Información del modelo
-curl https://telco-churn-api-y9xy.onrender.com/model_info
-
-# Predicción
-curl -X POST https://telco-churn-api-y9xy.onrender.com/predict \
-  -H "Content-Type: application/json" \
-  -d '{
-    "gender": "Female",
-    "SeniorCitizen": 0,
-    "Partner": "Yes",
-    "Dependents": "No",
-    "tenure": 1,
-    "PhoneService": "No",
-    "MultipleLines": "No phone service",
-    "InternetService": "DSL",
-    "OnlineSecurity": "No",
-    "OnlineBackup": "Yes",
-    "DeviceProtection": "No",
-    "TechSupport": "No",
-    "StreamingTV": "No",
-    "StreamingMovies": "No",
-    "Contract": "Month-to-month",
-    "PaperlessBilling": "Yes",
-    "PaymentMethod": "Electronic check",
-    "MonthlyCharges": 29.85,
-    "TotalCharges": 29.85
-  }'
-```
-
-**Documentación completa**: [API_USAGE.md](docs/varios/API_USAGE.md)
 
 ---
 
@@ -371,52 +329,6 @@ El archivo `preguntas-sustentacion.md` contiene:
 - **Explicación de decisiones técnicas** del proyecto
 - **Interpretación de métricas** y resultados
 - Organizado por 7 categorías: Comprensión del Problema, EDA, Preprocesamiento, Feature Engineering, Modelado, Evaluación y Métricas, Conclusiones y Recomendaciones
-
----
-
-## 🧪 Testing y CI/CD
-
-### Tests Unitarios
-
-El proyecto incluye una suite completa de tests unitarios:
-
-- **Tests de API** (`tests/test_api.py`): 7 tests que validan todos los endpoints
-- **Tests de Modelo** (`tests/test_model.py`): 10 tests que validan el modelo y preprocessor
-- **Cobertura**: ~87% del código
-
-### Scripts de Monitoreo
-
-- **`scripts/monitor_production.py`**: Verifica el estado de la API y Dashboard en producción
-- **`scripts/validate_deployment.py`**: Valida el deployment end-to-end con casos de prueba
-
-```bash
-# Ejecutar monitoreo de producción
-python scripts/monitor_production.py
-
-# Ejecutar validación completa
-python scripts/validate_deployment.py
-```
-
-### CI/CD con GitHub Actions
-
-El proyecto utiliza GitHub Actions para automatización:
-
-- **CI Pipeline** (`.github/workflows/ci.yml`):
-  - ✅ Ejecuta tests unitarios automáticamente
-  - ✅ Verifica calidad de código (flake8, black, isort)
-  - ✅ Monitorea producción en cada push a main
-  - ✅ Escaneo de seguridad con Trivy
-
-- **Deploy Pipeline** (`.github/workflows/deploy.yml`):
-  - ✅ Verifica deployment de API y Dashboard
-  - ✅ Ejecuta validaciones post-deployment
-  - ✅ Genera reportes de deployment
-
-Ver estado de CI/CD: [GitHub Actions](https://github.com/alvaretto/telco-customer-churn-prediction/actions)
-
-### Documentación de Testing
-
-Para más detalles sobre cómo ejecutar tests, ver: [`docs/varios/TESTING.md`](docs/varios/TESTING.md)
 
 ---
 
@@ -626,30 +538,23 @@ Comparación de 7 algoritmos de Machine Learning:
 
 ---
 
-## 🚀 Deployment
+## 🚀 Despliegue en Producción
 
-El proyecto incluye una implementación completa de deployment con:
+### 🌐 Aplicación Desplegada en Vercel
 
-### 🔧 API REST (Flask)
+La aplicación está desplegada y disponible en producción:
 
-API Flask para predicciones en tiempo real con 4 endpoints:
-- `GET /health` - Health check
-- `GET /model_info` - Información del modelo
-- `POST /predict` - Predicción individual
-- `POST /predict_batch` - Predicciones en lote
+🔗 **URL de Producción**: [https://telco-vercel.vercel.app/](https://telco-vercel.vercel.app/)
 
-**Deployment en Render:**
-```bash
-cd api
-pip install -r requirements.txt
-gunicorn --bind 0.0.0.0:$PORT app:app
-```
+**Acceso:**
+- La aplicación es de acceso público, no requiere autenticación
+- Funciona en cualquier navegador moderno (Chrome, Firefox, Safari, Edge)
+- Responsive: compatible con dispositivos móviles y escritorio
 
-Ver [API Usage Guide](docs/varios/API_USAGE.md) para detalles completos.
-
-### 📊 Dashboard Interactivo (Streamlit) - 100% en Español 🇪🇸
+### 📊 Dashboard Interactivo - 100% en Español 🇪🇸
 
 Dashboard completamente traducido al español con 6 módulos:
+
 - **🏠 Inicio**: Página principal con métricas del modelo y descripción del proyecto
 - **📊 Resumen**: Estadísticas generales, tendencias y análisis por segmento
 - **🎯 Análisis de Riesgo**: Predicción de riesgo individual con formulario interactivo
@@ -658,134 +563,47 @@ Dashboard completamente traducido al español con 6 módulos:
 - **🔍 Monitoreo del Modelo**: Monitoreo de performance y detección de drift en tiempo real
 
 **Características:**
+
 - ✅ Interfaz 100% en español (contenido + navegación)
 - ✅ Formularios con etiquetas en español
 - ✅ Gráficos y visualizaciones traducidos
 - ✅ Mensajes y recomendaciones en español
+- ✅ Desplegado en Vercel con HTTPS y CDN global
 
-**Deployment en Streamlit Cloud:**
-```bash
-cd dashboard
-streamlit run app.py
-```
+Ver [Dashboard Guide](documentacion/docs/varios/DASHBOARD_GUIDE.md) para guía de usuario completa.
 
-Ver [Dashboard Guide](docs/varios/DASHBOARD_GUIDE.md) para guía de usuario completa.
-
-### 📁 Estructura de Deployment
+### 📁 Estructura del Proyecto
 
 ```
-Defensa-Proyecto/
-├── models/                    # Modelos serializados (Git LFS)
-│   ├── churn_model.pkl       # 65 MB - Random Forest
-│   ├── preprocessor.pkl      # Preprocessor
-│   └── metadata.json         # Metadata del modelo
-├── api/                       # API Flask
-│   ├── app.py
-│   ├── requirements.txt
-│   ├── Dockerfile
-│   └── README.md
-├── dashboard/                 # Dashboard Streamlit (100% Español)
-│   ├── app.py                # Página principal
-│   ├── pages/                # 5 páginas multi-página
-│   │   ├── 1_📊_Resumen.py
-│   │   ├── 2_🎯_Análisis_de_Riesgo.py
-│   │   ├── 3_📈_Métricas_del_Modelo.py
-│   │   ├── 4_💰_Simulador_ROI.py
-│   │   └── 5_🔍_Monitoreo_del_Modelo.py
-│   ├── requirements.txt
-│   └── README.md
-├── tests/                     # Tests automatizados
-│   ├── test_api.py
-│   └── test_model.py
-└── docs/                      # Documentación completa
-    ├── guia_completa_analisis_churn/  # Guía paso a paso
-    ├── micro-tutoriales-preguntas/    # 26 tutoriales de ML
-    └── varios/                        # Docs generales
-        ├── API_USAGE.md
-        ├── DASHBOARD_GUIDE.md
-        └── DEPLOYMENT.md
-```
-
-### 🧪 Testing
-
-```bash
-# Tests de la API
-pytest tests/test_api.py -v
-
-# Tests del modelo
-pytest tests/test_model.py -v
+telco-customer-churn-prediction/
+├── Telco_Customer_Churn.ipynb     # Notebook principal de ML
+├── README.md                       # Este archivo
+├── .gitattributes                  # Configuración Git LFS
+└── documentacion/                  # Toda la documentación y recursos
+    ├── models/                     # Modelos serializados (Git LFS)
+    │   ├── churn_model.pkl        # Random Forest optimizado
+    │   ├── preprocessor.pkl       # Pipeline de preprocesamiento
+    │   └── metadata.json          # Metadata del modelo
+    ├── dashboard/                  # Dashboard Streamlit (100% Español)
+    ├── docs/                       # Documentación completa
+    └── ...
 ```
 
 ### 📚 Documentación Completa
 
-- **[API Usage Guide](docs/varios/API_USAGE.md)** - Guía de uso de la API REST
-- **[Dashboard Guide](docs/varios/DASHBOARD_GUIDE.md)** - Guía de usuario del dashboard
-- **[Deployment Guide](docs/varios/DEPLOYMENT.md)** - Guía de deployment en Render/Streamlit Cloud
-- **[Guía Completa del Análisis](docs/guia_completa_analisis_churn/guia_completa_analisis_churn.md)** - Documentación paso a paso del proyecto
-- **[Micro-tutoriales de ML](docs/micro-tutoriales-preguntas/)** - 26 tutoriales sobre conceptos de Machine Learning
+- **[Dashboard Guide](documentacion/docs/varios/DASHBOARD_GUIDE.md)** - Guía de usuario del dashboard
+- **[Guía Completa del Análisis](documentacion/docs/guia_completa_analisis_churn/guia_completa_analisis_churn.md)** - Documentación paso a paso del proyecto
+- **[Micro-tutoriales de ML](documentacion/docs/micro-tutoriales-preguntas/)** - 26 tutoriales sobre conceptos de Machine Learning
 
 ---
 
 ### ✅ Completado
 
-1. ✅ **Implementación en Producción**: API REST deployada en Render
-2. ✅ **Dashboard Ejecutivo**: Dashboard interactivo deployado en Streamlit Cloud (100% en Español 🇪🇸)
-3. ✅ **Feature Engineering Automático**: API acepta datos categóricos originales
-4. ✅ **Documentación Completa**: Guías de uso y deployment
-5. ✅ **Traducción Completa**: Dashboard con interfaz y navegación en español
-6. ✅ **Análisis UX/UI**: Análisis completo de mejores prácticas basado en dashboard de referencia
-7. ✅ **Mejoras UX/UI - Fase 1**: Implementación completada (2025-11-21)
-8. ✅ **CI/CD Completo**: GitHub Actions para tests, linting y monitoreo
-9. ✅ **Scripts de Monitoreo**: Validación automática de deployment
-10. ✅ **Generación de PDF**: Notebook exportado a formato oficio
-
-### 🎨 Mejoras UX/UI Implementadas (Fase 1 - Completada ✅)
-
-Se completó la implementación de mejoras críticas de UX/UI en el dashboard:
-
-#### **Mejoras Implementadas:**
-
-1. ✅ **Paleta de Colores Consistente**
-   - Archivo `dashboard/config/colors.py` con 8 colores definidos
-   - CSS personalizado para todo el dashboard
-   - Estilos para tarjetas, botones, formularios y alertas
-   - Funciones helper para colores de riesgo
-
-2. ✅ **Formulario de Análisis de Riesgo Mejorado**
-   - Layout cambiado de 3 a 2 columnas (mejor legibilidad)
-   - Campos agrupados en expanders por categoría
-   - Tooltips (help) en todos los campos
-   - Labels mejorados con emojis y descripciones
-   - Alertas personalizadas con HTML/CSS
-
-3. ✅ **Página de Inicio Optimizada**
-   - Hero section con gradiente y CTA claro
-   - Sección "Cómo funciona" con 3 pasos visuales
-   - Feature boxes con hover effects
-   - Sidebar simplificado
-
-4. ✅ **Feedback Visual Mejorado**
-   - Spinner con mensajes descriptivos
-   - Alertas HTML personalizadas (success, warning, danger, info)
-   - Mensajes de error detallados con causas y soluciones
-   - Recomendaciones contextuales según riesgo
-
-**📄 Documentación**: Ver [docs/varios/MEJORAS_UX_UI_DASHBOARD.md](docs/varios/MEJORAS_UX_UI_DASHBOARD.md) para análisis completo.
-
-**✅ Estado**: Completado el 2025-11-21
-**📁 Archivos modificados**: `dashboard/app.py`, `dashboard/pages/2_🎯_Análisis_de_Riesgo.py`
-**📁 Archivos creados**: `dashboard/config/colors.py`
-
-### 🔮 Próximos Pasos (Mejoras Futuras - Fase 2)
-
-1. ✅ **Validación de Formularios**: Validación inline y deshabilitar botón hasta completar
-2. 📈 **Mejorar Visualizaciones**: Gráficos más interactivos con paleta consistente
-3. ❓ **Página de Ayuda/FAQ**: Explicar conceptos y cómo interpretar resultados
-4. 🧪 **A/B Testing**: Validar efectividad de estrategias de retención
-5. 🔄 **Reentrenamiento Automático**: Pipeline MLOps para actualización continua
-6. 🤖 **Modelos Avanzados**: Explorar Deep Learning y AutoML
-7. 📊 **Monitoreo Avanzado**: Métricas de uso y performance detalladas
-8. 🔔 **Alertas Automáticas**: Notificaciones de clientes en riesgo crítico
+1. ✅ **Dashboard en Producción**: Desplegado en Vercel ([https://telco-vercel.vercel.app/](https://telco-vercel.vercel.app/))
+2. ✅ **Interfaz 100% en Español**: Dashboard completamente traducido
+3. ✅ **Documentación Completa**: Guías de uso y tutoriales
+4. ✅ **Mejoras UX/UI**: Implementación completada
+5. ✅ **Generación de PDF**: Notebook exportado a formato oficio
 
 ---
 
