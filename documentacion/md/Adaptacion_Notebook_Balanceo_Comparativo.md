@@ -1,12 +1,10 @@
 ---
 title: "Adaptación del Notebook Telco Customer Churn - Comparativa de Técnicas de Balanceo"
-author: "Álvaro Ángel Molina"
-date: "`r Sys.Date()`"
 output:
+  html_document: default
   pdf_document:
     latex_engine: xelatex
     keep_tex: false
-  html_document: default
 ---
 
 # 📊 Adaptación del Notebook para Google Colab con Comparativa de Técnicas de Balanceo
