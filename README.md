@@ -5,8 +5,8 @@
 [![scikit-learn](https://img.shields.io/badge/scikit--learn-1.5.2-yellow.svg)](https://scikit-learn.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
-[![Dashboard Status](https://img.shields.io/badge/Dashboard-Online-success.svg)](https://telco-vercel.vercel.app/)
-[![Vercel](https://img.shields.io/badge/Vercel-Deployed-black.svg?logo=vercel)](https://telco-vercel.vercel.app/)
+[![Dashboard Status](https://img.shields.io/badge/Dashboard-Online-success.svg)](https://clienteinsight-ai.vercel.app/)
+[![Vercel](https://img.shields.io/badge/Vercel-Deployed-black.svg?logo=vercel)](https://clienteinsight-ai.vercel.app/)
 
 [![Model ROC-AUC](https://img.shields.io/badge/ROC--AUC-0.87-brightgreen.svg)](https://github.com/alvaretto/telco-customer-churn-prediction)
 [![Model Recall](https://img.shields.io/badge/Recall-0.83-green.svg)](https://github.com/alvaretto/telco-customer-churn-prediction)
@@ -17,7 +17,7 @@
 
 ## 🚀 Demo en Vivo
 
-- **📊 Dashboard en Producción**: [https://telco-vercel.vercel.app/](https://telco-vercel.vercel.app/) ✨
+- **📊 Dashboard en Producción**: [https://clienteinsight-ai.vercel.app/](https://clienteinsight-ai.vercel.app/) ✨
 - **📂 Repositorio**: [https://github.com/alvaretto/telco-customer-churn-prediction](https://github.com/alvaretto/telco-customer-churn-prediction)
 
 ---
@@ -262,7 +262,7 @@ conda install numpy pandas matplotlib seaborn scikit-learn xgboost imbalanced-le
 #### 1. Dashboard Interactivo (100% en Español 🇪🇸)
 Accede al dashboard en vivo para hacer predicciones y explorar el modelo:
 
-**URL**: [https://telco-vercel.vercel.app/](https://telco-vercel.vercel.app/)
+**URL**: [https://clienteinsight-ai.vercel.app/](https://clienteinsight-ai.vercel.app/)
 
 **Páginas disponibles:**
 - 🏠 **Inicio** - Introducción al proyecto y métricas principales
@@ -544,7 +544,7 @@ Comparación de 7 algoritmos de Machine Learning:
 
 La aplicación está desplegada y disponible en producción:
 
-🔗 **URL de Producción**: [https://telco-vercel.vercel.app/](https://telco-vercel.vercel.app/)
+🔗 **URL de Producción**: [https://clienteinsight-ai.vercel.app/](https://clienteinsight-ai.vercel.app/)
 
 **Acceso:**
 - La aplicación es de acceso público, no requiere autenticación
@@ -599,7 +599,7 @@ telco-customer-churn-prediction/
 
 ### ✅ Completado
 
-1. ✅ **Dashboard en Producción**: Desplegado en Vercel ([https://telco-vercel.vercel.app/](https://telco-vercel.vercel.app/))
+1. ✅ **Dashboard en Producción**: Desplegado en Vercel ([https://clienteinsight-ai.vercel.app/](https://clienteinsight-ai.vercel.app/))
 2. ✅ **Interfaz 100% en Español**: Dashboard completamente traducido
 3. ✅ **Documentación Completa**: Guías de uso y tutoriales
 4. ✅ **Mejoras UX/UI**: Implementación completada
