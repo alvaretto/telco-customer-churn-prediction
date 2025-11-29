@@ -11,32 +11,73 @@ subtitle: Sistema de Machine Learning para Análisis de Fuga de Clientes
 
 <img src="Logo Cliente Insight.png" alt="Cliente Insight Logo" width="200">
 
-[![Python](https://img.shields.io/badge/Python-3.8+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
-[![Scikit-learn](https://img.shields.io/badge/Scikit--learn-Latest-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white)](https://scikit-learn.org)
-[![XGBoost](https://img.shields.io/badge/XGBoost-1.7+-006600?style=for-the-badge)](https://xgboost.readthedocs.io)
+[![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
+[![Scikit-learn](https://img.shields.io/badge/Scikit--learn-1.6.1-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white)](https://scikit-learn.org)
+[![ROC-AUC](https://img.shields.io/badge/ROC--AUC-85.05%25-success?style=for-the-badge)](https://clienteinsight-ai.vercel.app/)
 [![Deployed](https://img.shields.io/badge/Deployed-Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://clienteinsight-ai.vercel.app/)
-[![Status](https://img.shields.io/badge/Status-Production%20Ready-success?style=for-the-badge)](https://clienteinsight-ai.vercel.app/)
 [![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)](LICENSE)
 
 **Sistema inteligente de predicción de fuga de clientes para empresas de telecomunicaciones**
 
-[🚀 Ver Demo en Vivo](https://clienteinsight-ai.vercel.app/) | [📖 Documentación](#-guía-de-uso) | [🐛 Reportar Bug](https://github.com/issues)
+[🚀 Ver Demo en Vivo](https://clienteinsight-ai.vercel.app/) | [💻 Ver Aplicación Web](https://github.com/alvaretto/telco-vercel) | [📖 Documentación](https://clienteinsight-ai.vercel.app/#documentacion)
 
 </div>
 
 ---
 
+## 🏗️ Arquitectura del Proyecto
+
+> **⚠️ IMPORTANTE:** Este proyecto está organizado en **dos repositorios** con propósitos distintos:
+
+<div align="center">
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                        CLIENTE INSIGHT - ARQUITECTURA                        │
+├─────────────────────────────────┬───────────────────────────────────────────┤
+│                                 │                                           │
+│   📊 REPOSITORIO DE ENTRENAMIENTO   │   🌐 REPOSITORIO DE APLICACIÓN WEB       │
+│   (Este repositorio)            │                                           │
+│                                 │                                           │
+│   🔗 telco-customer-churn-prediction │   🔗 telco-vercel                        │
+│                                 │                                           │
+│   • Notebook de Google Colab    │   • Frontend React + Vite                 │
+│   • Análisis Exploratorio (EDA) │   • API Serverless Python                 │
+│   • Entrenamiento del modelo    │   • Documentación interactiva             │
+│   • Optimización (GridSearchCV) │   • Deployment en Vercel                  │
+│   • Modelos exportados (.pkl)   │   • Predicciones en tiempo real           │
+│   • Documentación técnica       │                                           │
+│                                 │                                           │
+└─────────────────────────────────┴───────────────────────────────────────────┘
+                │                                       │
+                ▼                                       ▼
+        Ejecutar en Colab                    https://clienteinsight-ai.vercel.app/
+```
+
+</div>
+
+### 🔗 Links Rápidos a los Repositorios
+
+| Repositorio | Propósito | Link |
+|-------------|-----------|------|
+| 📊 **Entrenamiento del Modelo** | Notebook, EDA, optimización, documentación | [📂 Este repositorio](https://github.com/alvaretto/telco-customer-churn-prediction) |
+| 🌐 **Aplicación Web** | Frontend React, API serverless, deployment | [🚀 telco-vercel](https://github.com/alvaretto/telco-vercel) |
+| 🎯 **Demo en Producción** | Aplicación funcionando en vivo | [🔗 clienteinsight-ai.vercel.app](https://clienteinsight-ai.vercel.app/) |
+
+---
+
 ## 📋 Tabla de Contenidos
 
+- [Arquitectura del Proyecto](#️-arquitectura-del-proyecto)
 - [Descripción](#-descripción)
 - [Características Principales](#-características-principales)
 - [Tech Stack](#-tech-stack)
 - [Dataset](#-dataset)
-- [Instalación](#-instalación)
+- [Ejecutar el Notebook](#-ejecutar-el-notebook-de-entrenamiento)
 - [Guía de Uso](#-guía-de-uso)
-- [Despliegue](#-despliegue)
 - [Métricas del Modelo](#-métricas-del-modelo)
 - [Estructura del Proyecto](#-estructura-del-proyecto)
+- [Aplicación Web (telco-vercel)](#-aplicación-web-telco-vercel)
 - [Documentación](#-documentación)
 - [Contribuir](#-contribuir)
 - [Licencia](#-licencia)
@@ -123,42 +164,64 @@ El proyecto utiliza el dataset **Telco Customer Churn** de IBM:
 
 ---
 
-## ⚡ Instalación
+## 🚀 Ejecutar el Notebook de Entrenamiento
 
-### Prerrequisitos
+### Opción 1: Google Colab (Recomendado) ⭐
 
-- Python 3.8 o superior
+La forma más fácil de ejecutar el notebook es usando **Google Colab**, que proporciona:
+- ✅ GPU/TPU gratuito para entrenamiento
+- ✅ Todas las dependencias preinstaladas
+- ✅ Sin configuración local necesaria
+
+<div align="center">
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/alvaretto/telco-customer-churn-prediction/blob/main/Telco_Customer_Churn.ipynb)
+
+</div>
+
+**Pasos en Google Colab:**
+1. Haz clic en el badge "Open in Colab" arriba
+2. Copia el notebook a tu Drive (Archivo → Guardar una copia en Drive)
+3. Sube el dataset `WA_Fn-UseC_-Telco-Customer-Churn.csv` a tu sesión de Colab
+4. Ejecuta todas las celdas (Runtime → Run all)
+
+### Opción 2: Instalación Local
+
+#### Prerrequisitos
+- Python 3.10 o superior
 - pip o conda
+- Jupyter Notebook/Lab
 
-### Pasos de Instalación
+#### Pasos de Instalación
 
-1. **Clonar el repositorio**
 ```bash
-git clone https://github.com/alvaretto/cliente-insight.git
-cd cliente-insight
-```
+# 1. Clonar el repositorio
+git clone https://github.com/alvaretto/telco-customer-churn-prediction.git
+cd telco-customer-churn-prediction
 
-2. **Crear entorno virtual**
-```bash
+# 2. Crear entorno virtual
 python -m venv venv
 source venv/bin/activate  # En Windows: venv\Scripts\activate
-```
 
-3. **Instalar dependencias**
-```bash
-pip install pandas numpy matplotlib seaborn scikit-learn xgboost imbalanced-learn joblib
-```
+# 3. Instalar dependencias
+pip install pandas numpy matplotlib seaborn scikit-learn==1.6.1 xgboost imbalanced-learn joblib jupyter
 
-4. **Ejecutar el notebook**
-```bash
+# 4. Ejecutar Jupyter
 jupyter notebook Telco_Customer_Churn.ipynb
 ```
 
-### Google Colab (Alternativa)
+### Archivos del Modelo Generados
 
-Puedes ejecutar el notebook directamente en Google Colab:
+Después de ejecutar el notebook, se generan los siguientes archivos en la carpeta `models/`:
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/alvaretto/cliente-insight/blob/main/Telco_Customer_Churn.ipynb)
+| Archivo | Descripción |
+|---------|-------------|
+| `churn_model_*.joblib` | Modelo entrenado serializado |
+| `preprocessor_*.joblib` | Pipeline de preprocesamiento |
+| `model_metadata_*.json` | Métricas y metadata del modelo |
+| `feature_names_*.json` | Nombres de las 39 features |
+
+> **💡 Tip:** Estos archivos son los que se usan en el [repositorio de la aplicación web](https://github.com/alvaretto/telco-vercel) para las predicciones en producción.
 
 ---
 
@@ -237,35 +300,78 @@ print(f"Probabilidad de Churn: {probabilidad_churn:.2%}")
 
 ---
 
-## 🚀 Despliegue
+## 🌐 Aplicación Web (telco-vercel)
 
-### 🌐 Aplicación en Producción
+> **📦 La aplicación web está en un repositorio separado:** [github.com/alvaretto/telco-vercel](https://github.com/alvaretto/telco-vercel)
 
 <div align="center">
 
-### ✅ La aplicación está desplegada y disponible en:
+### ✅ Aplicación en Producción
 
 # 🔗 [https://clienteinsight-ai.vercel.app/](https://clienteinsight-ai.vercel.app/)
 
 [![Ver Aplicación](https://img.shields.io/badge/🚀_Ver_Aplicación_en_Vivo-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://clienteinsight-ai.vercel.app/)
+[![Ver Código](https://img.shields.io/badge/💻_Ver_Código_Fuente-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/alvaretto/telco-vercel)
 
 </div>
 
-### Plataforma de Despliegue
+### Stack de la Aplicación Web
+
+| Componente | Tecnología | Descripción |
+|------------|------------|-------------|
+| **Frontend** | React 18 + Vite + Tailwind CSS | Interfaz interactiva con formulario y dashboard |
+| **API** | Python (Vercel Serverless) | Endpoint de predicción `/api/predict` |
+| **Modelo** | NumPy + JSON | Coeficientes del modelo exportados |
+| **Hosting** | Vercel | Deployment automático desde GitHub |
+
+### Características de la Aplicación
+
+- 🎯 **Predicción en tiempo real** - Formulario interactivo para ingresar datos del cliente
+- 📊 **Dashboard de resultados** - Visualización del score de riesgo (0-100%)
+- 📚 **Documentación integrada** - Sección completa sobre el modelo y features
+- 📱 **Diseño responsive** - Funciona en desktop, tablet y móvil
+- ⚡ **API RESTful** - Integración con sistemas externos
+
+### Cómo Funciona la Integración
+
+```
+┌──────────────────────────────────────────────────────────────────────────┐
+│                         FLUJO DE DATOS                                    │
+├──────────────────────────────────────────────────────────────────────────┤
+│                                                                          │
+│   📊 Este Repositorio              🌐 telco-vercel                       │
+│   (Entrenamiento)                  (Producción)                          │
+│                                                                          │
+│   ┌─────────────────┐              ┌─────────────────┐                   │
+│   │ Notebook Colab  │              │ React Frontend  │                   │
+│   │ ────────────────│              │ ────────────────│                   │
+│   │ • Entrenar      │   exportar   │ • Formulario    │                   │
+│   │ • Optimizar     │ ──────────▶  │ • Dashboard     │                   │
+│   │ • Validar       │   .json      │ • Docs          │                   │
+│   └─────────────────┘              └────────┬────────┘                   │
+│           │                                 │                            │
+│           ▼                                 ▼                            │
+│   ┌─────────────────┐              ┌─────────────────┐                   │
+│   │ models/         │              │ API Serverless  │                   │
+│   │ ────────────────│              │ ────────────────│                   │
+│   │ • model.joblib  │  coef/scale  │ • /api/predict  │                   │
+│   │ • metadata.json │ ──────────▶  │ • NumPy only    │                   │
+│   │ • features.json │              │ • JSON weights  │                   │
+│   └─────────────────┘              └─────────────────┘                   │
+│                                                                          │
+└──────────────────────────────────────────────────────────────────────────┘
+```
+
+### Deployment
 
 | Aspecto | Detalle |
 |---------|---------|
 | 🌐 **Plataforma** | Vercel |
 | 🔗 **URL de Producción** | [clienteinsight-ai.vercel.app](https://clienteinsight-ai.vercel.app/) |
-| ⚡ **Estado** | Production Ready |
-| 🔄 **CI/CD** | Despliegue automático desde GitHub |
-
-### Características del Deployment
-
-- ✅ **Alta Disponibilidad**: Infraestructura serverless de Vercel
-- ✅ **HTTPS Seguro**: Certificado SSL automático
-- ✅ **CDN Global**: Distribución de contenido optimizada
-- ✅ **Despliegue Continuo**: Actualización automática con cada push
+| 📚 **Documentación** | [clienteinsight-ai.vercel.app/#documentacion](https://clienteinsight-ai.vercel.app/#documentacion) |
+| 🔌 **API Endpoint** | [clienteinsight-ai.vercel.app/api/predict](https://clienteinsight-ai.vercel.app/api/predict) |
+| 💻 **Código Fuente** | [github.com/alvaretto/telco-vercel](https://github.com/alvaretto/telco-vercel) |
+| 🔄 **CI/CD** | Despliegue automático con cada push |
 
 ---
 
@@ -515,19 +621,24 @@ Este proyecto fue desarrollado por:
 
 ## 📞 Contacto y Soporte
 
-- 🌐 **Aplicación en Vivo**: [clienteinsight-ai.vercel.app](https://clienteinsight-ai.vercel.app/)
-- 🐛 **Reportar Issues**: [GitHub Issues](https://github.com/alvaretto/cliente-insight/issues)
-- 📧 **Contacto**: [@alvaretto](https://github.com/alvaretto)
+| Recurso | Link |
+|---------|------|
+| 🌐 **Aplicación en Vivo** | [clienteinsight-ai.vercel.app](https://clienteinsight-ai.vercel.app/) |
+| 📊 **Repo de Entrenamiento** | [github.com/alvaretto/telco-customer-churn-prediction](https://github.com/alvaretto/telco-customer-churn-prediction) |
+| 💻 **Repo de Aplicación Web** | [github.com/alvaretto/telco-vercel](https://github.com/alvaretto/telco-vercel) |
+| 🐛 **Reportar Issues (Modelo)** | [Issues - Entrenamiento](https://github.com/alvaretto/telco-customer-churn-prediction/issues) |
+| 🐛 **Reportar Issues (App)** | [Issues - Aplicación](https://github.com/alvaretto/telco-vercel/issues) |
 
 ---
 
 <div align="center">
 
-### ⭐ Si este proyecto te fue útil, ¡dale una estrella!
+### ⭐ Si este proyecto te fue útil, ¡dale una estrella a ambos repositorios!
 
-[![GitHub stars](https://img.shields.io/github/stars/alvaretto/cliente-insight?style=social)](https://github.com/alvaretto/cliente-insight)
+[![GitHub stars - Entrenamiento](https://img.shields.io/github/stars/alvaretto/telco-customer-churn-prediction?style=social&label=Stars%20Entrenamiento)](https://github.com/alvaretto/telco-customer-churn-prediction)
+[![GitHub stars - App](https://img.shields.io/github/stars/alvaretto/telco-vercel?style=social&label=Stars%20App)](https://github.com/alvaretto/telco-vercel)
 
-**[🚀 Ver Demo en Vivo](https://clienteinsight-ai.vercel.app/)**
+**[🚀 Ver Demo en Vivo](https://clienteinsight-ai.vercel.app/)** | **[💻 Ver Código de la App](https://github.com/alvaretto/telco-vercel)**
 
 </div>
 
